@@ -1,0 +1,26 @@
+{
+  "name": "@gengarden/gengarden",
+  "version": "0.0.0",
+  "description": "Procedurally generated gardens",
+  "main": "index.js",
+  "files": [
+    "lib/**/*"
+  ],
+  "author": "Dean Pisani <dean.a.pisani@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json"
+  },
+  "devDependencies": {
+    "prettier": "^1.15.3",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.17.0",
+    "typescript": "^3.2.2"
+  },
+  "dependencies": {
+    "gltf-builder": "^0.3.1"
+  }
+}
