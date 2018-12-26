@@ -14,7 +14,7 @@ interface BranchSpec {
   width: number;
 }
 
-export default (spec: BranchSpec) => {
+export default (spec: BranchSpec): Node => {
   const segments = 10;
   const segmentAngle = (Math.PI * 2) / segments;
   const ring: vec3[] = Array.from({ length: segments }).map((_x, i) => {
