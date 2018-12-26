@@ -15,12 +15,17 @@
     "lint": "tslint -p tsconfig.json"
   },
   "devDependencies": {
+    "@types/gl-matrix": "^2.4.4",
+    "@types/lodash": "^4.14.119",
+    "@types/node": "^10.12.18",
     "prettier": "^1.15.3",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.17.0",
     "typescript": "^3.2.2"
   },
   "dependencies": {
-    "gltf-builder": "^0.3.1"
+    "gl-matrix": "^2.8.1",
+    "gltf-builder": "^0.3.2",
+    "lodash": "^4.17.11"
   }
 }
