@@ -2,12 +2,10 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "baseUrl": "./src",
     "declaration": true,
     "outDir": "./lib",
     "strictNullChecks": true
   },
   "include": ["src"],
-  "exclude": ["node_modules", "**/*test*"],
-  "compileOnSave": true
+  "exclude": ["node_modules", "**/*test*"]
 }

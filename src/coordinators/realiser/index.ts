@@ -29,7 +29,6 @@ const realiseComponent = (spec: Spec): any => {
     }
   });
 
-  console.log(realisedSpec);
   return generator(realisedSpec);
 };
 

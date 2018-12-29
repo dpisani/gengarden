@@ -6,7 +6,6 @@ interface GroupSpec {
 }
 
 export default (spec: GroupSpec): Node => {
-  console.log('GroupSpec', spec);
   const node = new Node();
 
   if (spec.name) {

@@ -2,7 +2,7 @@ import { Asset, Scene } from 'gltf-builder';
 import { vec3 } from 'gl-matrix';
 import * as fs from 'fs';
 
-import generateBranch from 'generators/branch';
+import generateBranch from '../../generators/branch';
 
 const branch = generateBranch({
   begin: vec3.fromValues(0, 0, 0),
