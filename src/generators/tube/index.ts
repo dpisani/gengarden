@@ -10,14 +10,14 @@ import { flatten } from 'lodash';
 
 import { TaggedSpec, GeneratorDefinition } from '../../types';
 
-interface BranchSpec {
+interface TubeSpec {
   begin: { position: vec3; width: number };
   end: { position: vec3; width: number };
 }
 
-interface TaggedBranchSpec extends TaggedSpec {
-  type: 'branch';
-  spec: BranchSpec;
+export interface TaggedTubeSpec extends TaggedSpec {
+  type: 'tube';
+  spec: TubeSpec;
 }
 
 /**
@@ -29,10 +29,10 @@ interface TaggedBranchSpec extends TaggedSpec {
  */
 export const isValidSpec = (
   taggedSpec: TaggedSpec,
-): taggedSpec is TaggedBranchSpec => {
+): taggedSpec is TaggedTubeSpec => {
   const { type, spec } = taggedSpec;
   if (
-    type === 'branch' &&
+    type === 'tube' &&
     spec.begin &&
     spec.begin.position &&
     spec.begin.width &&
@@ -46,7 +46,7 @@ export const isValidSpec = (
   return false;
 };
 
-export const generate = ({ spec }: TaggedBranchSpec): Node => {
+export const generate = ({ spec }: TaggedTubeSpec): Node => {
   const segments = 10;
   const segmentAngle = (Math.PI * 2) / segments;
   const ring: vec3[] = Array.from({ length: segments }).map((_x, i) => {
@@ -101,7 +101,7 @@ export const generate = ({ spec }: TaggedBranchSpec): Node => {
   );
 };
 
-const generatorDefinition: GeneratorDefinition<TaggedBranchSpec> = {
+const generatorDefinition: GeneratorDefinition<TaggedTubeSpec> = {
   isValidSpec,
   generate,
 };

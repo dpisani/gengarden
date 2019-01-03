@@ -7,7 +7,7 @@ interface GroupSpec {
   items: Node[];
 }
 
-interface TaggedGroupSpec extends TaggedSpec {
+export interface TaggedGroupSpec extends TaggedSpec {
   type: 'group';
   spec: GroupSpec;
 }
@@ -17,7 +17,10 @@ export const isValidSpec = (
 ): taggedSpec is TaggedGroupSpec => {
   const { type, spec } = taggedSpec;
   if (type === 'group' && spec.items) {
-    return true;
+    const items = spec.items;
+    if (Array.isArray(items)) {
+      return items.every(i => i instanceof Node);
+    }
   }
 
   return false;

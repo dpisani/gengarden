@@ -1,17 +1,19 @@
-import { Asset, Scene } from 'gltf-builder';
-import { cloneDeepWith } from 'lodash';
+import { Asset, Scene, Node } from 'gltf-builder';
+import { cloneDeepWith, isEqual } from 'lodash';
 
 import groupGenerator from '../../generators/group';
-import branchGenerator from '../../generators/branch';
+import tubeGenerator from '../../generators/tube';
+import tubePathGenerator from '../../generators/tube-path';
 
 import { TaggedSpec, GeneratorDefinition } from '../../types';
 
 const generators: GeneratorDefinition<any>[] = [
-  branchGenerator,
+  tubeGenerator,
   groupGenerator,
+  tubePathGenerator,
 ];
 
-const findGenerator = (spec: TaggedSpec): ((TaggedSpec) => any) => {
+const findGenerator = (spec: TaggedSpec): ((TaggedSpec) => any) | undefined => {
   const foundGenerator = generators.find(({ isValidSpec }) =>
     isValidSpec(spec),
   );
@@ -19,7 +21,7 @@ const findGenerator = (spec: TaggedSpec): ((TaggedSpec) => any) => {
     return foundGenerator.generate;
   }
 
-  throw new Error(`no generator found for type: ${spec.type}`);
+  return undefined;
 };
 
 const realiseComponent = (spec: TaggedSpec): any => {
@@ -33,7 +35,12 @@ const realiseComponent = (spec: TaggedSpec): any => {
   };
 
   const generator = findGenerator(realisedSpec);
-  return generator(realisedSpec);
+
+  if (generator) {
+    return generator(realisedSpec);
+  } else {
+    return realisedSpec;
+  }
 };
 
 /**
@@ -46,7 +53,19 @@ const realiseComponent = (spec: TaggedSpec): any => {
 export default (spec: TaggedSpec): Asset => {
   const asset = new Asset();
 
-  asset.addScene(new Scene().addNode(realiseComponent(spec)));
+  //keep transforming the spec until a gltf node comes out
+  let transformedSpec = spec;
+  while (!(transformedSpec instanceof Node)) {
+    const result = realiseComponent(transformedSpec);
+
+    if (isEqual(result, transformedSpec)) {
+      throw new Error('Spec cannot be realised');
+    }
+
+    transformedSpec = result;
+  }
+
+  asset.addScene(new Scene().addNode(transformedSpec));
 
   return asset;
 };
