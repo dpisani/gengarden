@@ -4,31 +4,35 @@ import { cloneDeepWith } from 'lodash';
 import groupGenerator from '../../generators/group';
 import branchGenerator from '../../generators/branch';
 
-interface Spec {
-  type: string;
-  spec: object;
-}
+import { TaggedSpec, GeneratorDefinition } from '../../types';
 
-const findGenerator = (spec: Spec): ((any) => any) => {
-  switch (spec.type) {
-    case 'group':
-      return groupGenerator;
-    case 'branch':
-      return branchGenerator;
-    default:
-      throw new Error(`no generator found for type: ${spec.type}`);
+const generators: GeneratorDefinition<any>[] = [
+  branchGenerator,
+  groupGenerator,
+];
+
+const findGenerator = (spec: TaggedSpec): ((TaggedSpec) => any) => {
+  const foundGenerator = generators.find(({ isValidSpec }) =>
+    isValidSpec(spec),
+  );
+  if (foundGenerator) {
+    return foundGenerator.generate;
   }
+
+  throw new Error(`no generator found for type: ${spec.type}`);
 };
 
-const realiseComponent = (spec: Spec): any => {
-  const generator = findGenerator(spec);
+const realiseComponent = (spec: TaggedSpec): any => {
+  const realisedSpec: TaggedSpec = {
+    type: spec.type,
+    spec: cloneDeepWith(spec.spec, prop => {
+      if (prop instanceof Object && prop.type && prop.spec) {
+        return realiseComponent(prop);
+      }
+    }),
+  };
 
-  const realisedSpec = cloneDeepWith(spec.spec, prop => {
-    if (prop instanceof Object && prop.type && prop.spec) {
-      return realiseComponent(prop);
-    }
-  });
-
+  const generator = findGenerator(realisedSpec);
   return generator(realisedSpec);
 };
 
@@ -39,7 +43,7 @@ const realiseComponent = (spec: Spec): any => {
  *
  * @returns {Asset} a gltf-builder Asset
  */
-export default (spec: Spec): Asset => {
+export default (spec: TaggedSpec): Asset => {
   const asset = new Asset();
 
   asset.addScene(new Scene().addNode(realiseComponent(spec)));
