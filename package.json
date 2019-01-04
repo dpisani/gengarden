@@ -13,7 +13,8 @@
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
-    "generate": "node lib/scripts/generate.js"
+    "generate": "node lib/scripts/generate.js",
+    "generate:examples": "node lib/scripts/generate-all-examples.js"
   },
   "devDependencies": {
     "@types/gl-matrix": "^2.4.4",

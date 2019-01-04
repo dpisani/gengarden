@@ -52,7 +52,14 @@ export function generate({ spec }: TaggedTubePathSpec): TaggedSpec {
       }
       const transform = mat4.create();
 
-      mat4.targetTo(transform, vec3.create(), n, vec3.fromValues(0, 0, 1));
+      const up = vec3.equals(
+        vec3.normalize(vec3.create(), n),
+        vec3.fromValues(0, 0, 1),
+      )
+        ? vec3.fromValues(0, 1, 0)
+        : vec3.fromValues(0, 0.1, 0.9);
+
+      mat4.targetTo(transform, vec3.create(), n, up);
 
       return ringProto.map(v =>
         vec3.add(
