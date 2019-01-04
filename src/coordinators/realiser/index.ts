@@ -7,7 +7,7 @@ import tubePathGenerator from '../../generators/tube-path';
 
 import { TaggedSpec, GeneratorDefinition } from '../../types';
 
-const generators: GeneratorDefinition<any>[] = [
+const generators: GeneratorDefinition<TaggedSpec, any>[] = [
   tubeGenerator,
   groupGenerator,
   tubePathGenerator,

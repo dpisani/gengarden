@@ -9,15 +9,44 @@ import { vec3 } from 'gl-matrix';
 import { flatten } from 'lodash';
 
 import { TaggedSpec, GeneratorDefinition } from '../../types';
+import createRing from '../../util/create-ring';
 
-interface TubeSpec {
+type RingSpec = vec3[];
+
+interface TubeSpecPoints {
   begin: { position: vec3; width: number };
   end: { position: vec3; width: number };
 }
 
+interface TubeSpecRings {
+  begin: RingSpec;
+  end: RingSpec;
+}
+
 export interface TaggedTubeSpec extends TaggedSpec {
   type: 'tube';
-  spec: TubeSpec;
+  spec: TubeSpecPoints | TubeSpecRings;
+}
+
+function isTubeSpecPoints(spec): spec is TubeSpecPoints {
+  return (
+    spec.begin &&
+    spec.begin.position &&
+    spec.begin.width &&
+    spec.end &&
+    spec.end.position &&
+    spec.end.width
+  );
+}
+
+function isTubeSpecRings(spec): spec is TubeSpecRings {
+  return (
+    spec.begin &&
+    Array.isArray(spec.begin) &&
+    spec.end &&
+    Array.isArray(spec.end) &&
+    spec.end.length === spec.begin.length
+  );
 }
 
 /**
@@ -31,15 +60,7 @@ export const isValidSpec = (
   taggedSpec: TaggedSpec,
 ): taggedSpec is TaggedTubeSpec => {
   const { type, spec } = taggedSpec;
-  if (
-    type === 'tube' &&
-    spec.begin &&
-    spec.begin.position &&
-    spec.begin.width &&
-    spec.end &&
-    spec.end.position &&
-    spec.end.width
-  ) {
+  if (type === 'tube' && (isTubeSpecPoints(spec) || isTubeSpecRings(spec))) {
     return true;
   }
 
@@ -47,27 +68,31 @@ export const isValidSpec = (
 };
 
 export const generate = ({ spec }: TaggedTubeSpec): Node => {
-  const segments = 10;
-  const segmentAngle = (Math.PI * 2) / segments;
-  const ring: vec3[] = Array.from({ length: segments }).map((_x, i) => {
-    const a = segmentAngle * i;
-    return vec3.fromValues(Math.cos(a), 0, Math.sin(a));
-  });
+  let segments: number, topRing: vec3[], bottomRing: vec3[];
 
-  const topRing = ring.map(p =>
-    vec3.add(
-      vec3.create(),
-      vec3.scale(vec3.create(), p, spec.begin.width),
-      spec.begin.position,
-    ),
-  );
-  const bottomRing = ring.map(p =>
-    vec3.add(
-      vec3.create(),
-      vec3.scale(vec3.create(), p, spec.end.width),
-      spec.end.position,
-    ),
-  );
+  if (isTubeSpecPoints(spec)) {
+    const ring = createRing();
+    segments = ring.length;
+
+    topRing = ring.map(p =>
+      vec3.add(
+        vec3.create(),
+        vec3.scale(vec3.create(), p, spec.begin.width),
+        spec.begin.position,
+      ),
+    );
+    bottomRing = ring.map(p =>
+      vec3.add(
+        vec3.create(),
+        vec3.scale(vec3.create(), p, spec.end.width),
+        spec.end.position,
+      ),
+    );
+  } else {
+    segments = spec.begin.length;
+    topRing = spec.begin;
+    bottomRing = spec.end;
+  }
 
   // add an extra element for wrap around
   const topRingIndexes: number[] = [
@@ -101,7 +126,7 @@ export const generate = ({ spec }: TaggedTubeSpec): Node => {
   );
 };
 
-const generatorDefinition: GeneratorDefinition<TaggedTubeSpec> = {
+const generatorDefinition: GeneratorDefinition<TaggedTubeSpec, Node> = {
   isValidSpec,
   generate,
 };

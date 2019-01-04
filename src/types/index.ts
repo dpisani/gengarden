@@ -3,7 +3,7 @@ export interface TaggedSpec {
   spec: any;
 }
 
-export interface GeneratorDefinition<T extends TaggedSpec> {
+export interface GeneratorDefinition<T extends TaggedSpec, R> {
   isValidSpec: (TaggedSpec) => TaggedSpec is T;
-  generate: (T) => any;
+  generate: (T) => R;
 }
