@@ -1,14 +1,8 @@
-import {
-  Node,
-  Mesh,
-  Primitive,
-  buildIndices,
-  buildPosition,
-} from 'gltf-builder';
 import { vec3 } from 'gl-matrix';
 import { flatten } from 'lodash';
 
-import { TaggedSpec, GeneratorDefinition } from '../../types';
+import { TaggedSpec, GeneratorDefinition, PartialSpec } from '../../types';
+import { TaggedMeshSpec } from '../mesh';
 import createRing from '../../util/create-ring';
 
 type RingSpec = vec3[];
@@ -67,7 +61,9 @@ export const isValidSpec = (
   return false;
 };
 
-export const generate = ({ spec }: TaggedTubeSpec): Node => {
+export const generate = ({
+  spec,
+}: TaggedTubeSpec): PartialSpec<TaggedMeshSpec> => {
   let segments: number, topRing: vec3[], bottomRing: vec3[];
 
   if (isTubeSpecPoints(spec)) {
@@ -116,17 +112,21 @@ export const generate = ({ spec }: TaggedTubeSpec): Node => {
     ];
   });
 
-  const positions = buildPosition([...topRing, ...bottomRing]);
-  const indices = buildIndices(flatten(quads));
-
-  return new Node().mesh(
-    new Mesh().addPrimitive(
-      new Primitive().indices(indices).position(positions),
-    ),
-  );
+  return {
+    type: 'mesh',
+    spec: {
+      geometry: {
+        vertices: [...topRing, ...bottomRing],
+        indices: flatten(quads),
+      },
+    },
+  };
 };
 
-const generatorDefinition: GeneratorDefinition<TaggedTubeSpec, Node> = {
+const generatorDefinition: GeneratorDefinition<
+  TaggedTubeSpec,
+  PartialSpec<TaggedMeshSpec>
+> = {
   isValidSpec,
   generate,
 };

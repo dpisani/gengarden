@@ -4,6 +4,7 @@ import { cloneDeepWith, isEqual } from 'lodash';
 import groupGenerator from '../../generators/group';
 import tubeGenerator from '../../generators/tube';
 import tubePathGenerator from '../../generators/tube-path';
+import meshGenerator from '../../generators/mesh';
 
 import { TaggedSpec, GeneratorDefinition } from '../../types';
 
@@ -11,6 +12,8 @@ const generators: GeneratorDefinition<TaggedSpec, any>[] = [
   tubeGenerator,
   groupGenerator,
   tubePathGenerator,
+  // gltf object generators
+  meshGenerator,
 ];
 
 const findGenerator = (spec: TaggedSpec): ((TaggedSpec) => any) | undefined => {

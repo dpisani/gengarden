@@ -1,8 +1,9 @@
 import { vec3, mat4 } from 'gl-matrix';
 
-import { TaggedSpec, GeneratorDefinition } from '../../types';
+import { TaggedSpec, GeneratorDefinition, PartialSpec } from '../../types';
 
 import { TaggedTubeSpec } from '../tube';
+import { TaggedGroupSpec } from '../group';
 import createRing from '../../util/create-ring';
 import { zip } from 'lodash';
 
@@ -26,7 +27,9 @@ export function isValidSpec(
   return type === 'tubePath';
 }
 
-export function generate({ spec }: TaggedTubePathSpec): TaggedSpec {
+export function generate({
+  spec,
+}: TaggedTubePathSpec): PartialSpec<TaggedGroupSpec> {
   const items: TaggedTubeSpec[] = [];
 
   const ringNormals: vec3[] = [];
@@ -97,7 +100,7 @@ export function generate({ spec }: TaggedTubePathSpec): TaggedSpec {
 
 const generatorDefinition: GeneratorDefinition<
   TaggedTubePathSpec,
-  TaggedSpec
+  PartialSpec<TaggedGroupSpec>
 > = {
   isValidSpec,
   generate,
