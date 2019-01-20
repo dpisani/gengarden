@@ -1,3 +1,7 @@
+/**
+ * A specification for an object,
+ * tagged with a 'type' property to remove ambiguity
+ */
 export interface TaggedSpec {
   type: string;
   spec: any;

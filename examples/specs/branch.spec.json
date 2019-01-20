@@ -1,0 +1,11 @@
+{
+  "type": "branch",
+  "spec": {
+    "keyPoints": [
+      { "position": [0, 0, 0], "width": 1 },
+      { "position": [5, 2, 1], "width": 1.2 },
+      { "position": [6.5, 3, 3], "width": 0.8 },
+      { "position": [8, 5, 5], "width": 0 }
+    ]
+  }
+}

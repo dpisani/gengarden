@@ -5,18 +5,25 @@ import groupGenerator from '../../generators/group';
 import tubeGenerator from '../../generators/tube';
 import tubePathGenerator from '../../generators/tube-path';
 import meshGenerator from '../../generators/mesh';
+import branchGenerator from '../../generators/branch';
 
-import { TaggedSpec, GeneratorDefinition } from '../../types';
+import { TaggedSpec, GeneratorDefinition, PartialSpec } from '../../types';
 
-const generators: GeneratorDefinition<TaggedSpec, any>[] = [
+type GeneratedTypes = TaggedSpec | PartialSpec<TaggedSpec> | Node;
+
+const generators: GeneratorDefinition<TaggedSpec, GeneratedTypes>[] = [
+  branchGenerator,
+  // primitive generators
   tubeGenerator,
-  groupGenerator,
   tubePathGenerator,
   // gltf object generators
   meshGenerator,
+  groupGenerator,
 ];
 
-const findGenerator = (spec: TaggedSpec): ((TaggedSpec) => any) | undefined => {
+const findGenerator = (
+  spec: TaggedSpec,
+): ((ts: TaggedSpec) => GeneratedTypes) | undefined => {
   const foundGenerator = generators.find(({ isValidSpec }) =>
     isValidSpec(spec),
   );
@@ -27,7 +34,13 @@ const findGenerator = (spec: TaggedSpec): ((TaggedSpec) => any) | undefined => {
   return undefined;
 };
 
-const realiseComponent = (spec: TaggedSpec): any => {
+const realiseComponent = (
+  spec: TaggedSpec | PartialSpec<TaggedSpec>,
+): GeneratedTypes => {
+  if (typeof spec.type !== 'string') {
+    throw new Error('spec type must always be a string');
+  }
+
   const realisedSpec: TaggedSpec = {
     type: spec.type,
     spec: cloneDeepWith(spec.spec, prop => {
@@ -57,7 +70,7 @@ export default (spec: TaggedSpec): Asset => {
   const asset = new Asset();
 
   //keep transforming the spec until a gltf node comes out
-  let transformedSpec = spec;
+  let transformedSpec: GeneratedTypes = spec;
   while (!(transformedSpec instanceof Node)) {
     const result = realiseComponent(transformedSpec);
 

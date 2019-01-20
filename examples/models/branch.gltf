@@ -1,0 +1,206 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "gltf-builder"
+  },
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ]
+    },
+    {
+      "children": [
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "mesh": 0
+    },
+    {
+      "mesh": 1
+    },
+    {
+      "mesh": 2
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "indices": 1,
+          "attributes": {
+            "POSITION": 0
+          }
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "indices": 3,
+          "attributes": {
+            "POSITION": 2
+          }
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "indices": 5,
+          "attributes": {
+            "POSITION": 4
+          }
+        }
+      ]
+    }
+  ],
+  "accessors": [
+    {
+      "componentType": 5126,
+      "type": "VEC3",
+      "min": [
+        -0.40641599893569946,
+        -0.9304593205451965,
+        -0.9618349075317383
+      ],
+      "max": [
+        5.487699031829834,
+        3.116551160812378,
+        2.1542019844055176
+      ],
+      "count": 20,
+      "bufferView": 0
+    },
+    {
+      "componentType": 5123,
+      "type": "SCALAR",
+      "min": [
+        0
+      ],
+      "max": [
+        19
+      ],
+      "count": 60,
+      "bufferView": 1
+    },
+    {
+      "componentType": 5126,
+      "type": "VEC3",
+      "min": [
+        4.512300968170166,
+        0.8834488391876221,
+        -0.15420186519622803
+      ],
+      "max": [
+        7.1402692794799805,
+        3.7067737579345703,
+        3.5281741619110107
+      ],
+      "count": 20,
+      "bufferView": 2
+    },
+    {
+      "componentType": 5123,
+      "type": "SCALAR",
+      "min": [
+        0
+      ],
+      "max": [
+        19
+      ],
+      "count": 60,
+      "bufferView": 3
+    },
+    {
+      "componentType": 5126,
+      "type": "VEC3",
+      "min": [
+        5.8597307205200195,
+        2.2932262420654297,
+        2.4718258380889893
+      ],
+      "max": [
+        8,
+        5,
+        5
+      ],
+      "count": 20,
+      "bufferView": 4
+    },
+    {
+      "componentType": 5123,
+      "type": "SCALAR",
+      "min": [
+        0
+      ],
+      "max": [
+        19
+      ],
+      "count": 60,
+      "bufferView": 5
+    }
+  ],
+  "bufferViews": [
+    {
+      "byteLength": 240,
+      "buffer": 0
+    },
+    {
+      "byteLength": 120,
+      "buffer": 1
+    },
+    {
+      "byteLength": 240,
+      "buffer": 2
+    },
+    {
+      "byteLength": 120,
+      "buffer": 3
+    },
+    {
+      "byteLength": 240,
+      "buffer": 4
+    },
+    {
+      "byteLength": 120,
+      "buffer": 5
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "data:application/octet-stream;base64,tfizPpUybr8wu9M95zomPlopPL8ViSg/SPS1vSOChL7QOnY/krecvorroT5j32U/whXQvhFART+DbPs+tfizvpUybj8wu9O95zomvlopPD8ViSi/SPS1PSOChD7QOna/krecPorrob5j32W/whXQPhFARb+DbPu+dH+tQLQpYj894Y8/zzumQGQajz8MH+U/n5acQFw/2D9y3glACD+UQLtJGEA49gRAxWSQQNIsO0Babcs/jICSQJN1R0CGPWA/McSZQM5yOECcB1c+YWmjQFLgE0AY5x2++MCrQIpszz/wxp69O5uvQFymiT+WStI+",
+      "byteLength": 240
+    },
+    {
+      "uri": "data:application/octet-stream;base64,CgABAAAACgALAAEACwACAAEACwAMAAIADAADAAIADAANAAMADQAEAAMADQAOAAQADgAFAAQADgAPAAUADwAGAAUADwAQAAYAEAAHAAYAEAARAAcAEQAIAAcAEQASAAgAEgAJAAgAEgATAAkAEwAAAAkAEwAKAAAA",
+      "byteLength": 120
+    },
+    {
+      "uri": "data:application/octet-stream;base64,dH+tQLQpYj894Y8/zzumQGQajz8MH+U/n5acQFw/2D9y3glACD+UQLtJGEA49gRAxWSQQNIsO0Babcs/jICSQJN1R0CGPWA/McSZQM5yOECcB1c+YWmjQFLgE0AY5x2++MCrQIpszz/wxp69O5uvQFymiT+WStI+KrrbQDjEEkCkBkVAhhDPQJrPEkBp/1dAW8LCQLgdJECbzWFA6oK7QGsSQEBrsl5A7Ba8QBQAXECV3U9A1kXEQMg7bUBc+TpAeu/QQGYwbUCXAChApT3dQEjiW0BlMh5AFn3kQJXtP0CVTSFAFOnjQOz/I0BrIjBA",
+      "byteLength": 240
+    },
+    {
+      "uri": "data:application/octet-stream;base64,CgABAAAACgALAAEACwACAAEACwAMAAIADAADAAIADAANAAMADQAEAAMADQAOAAQADgAFAAQADgAPAAUADwAGAAUADwAQAAYAEAAHAAYAEAARAAcAEQAIAAcAEQASAAgAEgAJAAgAEgATAAkAEwAAAAkAEwAKAAAA",
+      "byteLength": 120
+    },
+    {
+      "uri": "data:application/octet-stream;base64,KrrbQDjEEkCkBkVAhhDPQJrPEkBp/1dAW8LCQLgdJECbzWFA6oK7QGsSQEBrsl5A7Ba8QBQAXECV3U9A1kXEQMg7bUBc+TpAeu/QQGYwbUCXAChApT3dQEjiW0BlMh5AFn3kQJXtP0CVTSFAFOnjQOz/I0BrIjBAAAAAQQAAoEAAAKBAAAAAQQAAoEAAAKBAAAAAQQAAoEAAAKBAAAAAQQAAoEAAAKBAAAAAQQAAoEAAAKBAAAAAQQAAoEAAAKBAAAAAQQAAoEAAAKBAAAAAQQAAoEAAAKBAAAAAQQAAoEAAAKBAAAAAQQAAoEAAAKBA",
+      "byteLength": 240
+    },
+    {
+      "uri": "data:application/octet-stream;base64,CgABAAAACgALAAEACwACAAEACwAMAAIADAADAAIADAANAAMADQAEAAMADQAOAAQADgAFAAQADgAPAAUADwAGAAUADwAQAAYAEAAHAAYAEAARAAcAEQAIAAcAEQASAAgAEgAJAAgAEgATAAkAEwAAAAkAEwAKAAAA",
+      "byteLength": 120
+    }
+  ]
+}
