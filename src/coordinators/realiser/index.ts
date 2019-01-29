@@ -10,9 +10,9 @@ import treeGenerator from '../../generators/tree';
 
 import { TaggedSpec, GeneratorDefinition, PartialSpec } from '../../types';
 
-type GeneratedTypes = TaggedSpec | PartialSpec<TaggedSpec> | Node;
+type GeneratedTypes = TaggedSpec<any> | PartialSpec<TaggedSpec<any>> | Node;
 
-const generators: GeneratorDefinition<TaggedSpec, GeneratedTypes>[] = [
+const generators: GeneratorDefinition<any, GeneratedTypes>[] = [
   treeGenerator,
   branchGenerator,
   // primitive generators
@@ -24,8 +24,8 @@ const generators: GeneratorDefinition<TaggedSpec, GeneratedTypes>[] = [
 ];
 
 const findGenerator = (
-  spec: TaggedSpec,
-): ((ts: TaggedSpec) => GeneratedTypes) | undefined => {
+  spec: TaggedSpec<any>,
+): ((ts: TaggedSpec<any>) => GeneratedTypes) | undefined => {
   const foundGenerator = generators.find(({ isValidSpec }) =>
     isValidSpec(spec),
   );
@@ -37,13 +37,13 @@ const findGenerator = (
 };
 
 const realiseComponent = (
-  spec: TaggedSpec | PartialSpec<TaggedSpec>,
+  spec: TaggedSpec<any> | PartialSpec<TaggedSpec<any>>,
 ): GeneratedTypes => {
   if (typeof spec.type !== 'string') {
     throw new Error('spec type must always be a string');
   }
 
-  const realisedSpec: TaggedSpec = {
+  const realisedSpec: TaggedSpec<any> = {
     type: spec.type,
     spec: cloneDeepWith(spec.spec, prop => {
       if (prop instanceof Object && prop.type && prop.spec) {
@@ -68,7 +68,7 @@ const realiseComponent = (
  *
  * @returns {Asset} a gltf-builder Asset
  */
-export default (spec: TaggedSpec): Asset => {
+export default (spec: TaggedSpec<any>): Asset => {
   const asset = new Asset();
 
   //keep transforming the spec until a gltf node comes out

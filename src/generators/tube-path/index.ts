@@ -12,15 +12,16 @@ interface PathSegment {
   width: number;
 }
 
-export interface TaggedTubePathSpec extends TaggedSpec {
+interface TubePathSpec {
+  segments: PathSegment[];
+}
+
+export interface TaggedTubePathSpec extends TaggedSpec<TubePathSpec> {
   type: 'tubePath';
-  spec: {
-    segments: PathSegment[];
-  };
 }
 
 export function isValidSpec(
-  taggedSpec: TaggedSpec,
+  taggedSpec: TaggedSpec<any>,
 ): taggedSpec is TaggedTubePathSpec {
   const { type } = taggedSpec;
 
@@ -99,7 +100,7 @@ export function generate({
 }
 
 const generatorDefinition: GeneratorDefinition<
-  TaggedTubePathSpec,
+  TubePathSpec,
   PartialSpec<TaggedGroupSpec>
 > = {
   isValidSpec,

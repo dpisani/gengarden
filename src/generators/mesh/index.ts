@@ -9,17 +9,20 @@ import { vec3 } from 'gl-matrix';
 
 import { TaggedSpec, GeneratorDefinition } from '../../types';
 
-export interface TaggedMeshSpec extends TaggedSpec {
-  type: 'mesh';
-  spec: {
-    geometry: {
-      vertices: vec3[];
-      indices?: number[];
-    };
+export interface MeshSpec {
+  geometry: {
+    vertices: vec3[];
+    indices?: number[];
   };
 }
 
-const isValidSpec = (taggedSpec: TaggedSpec): taggedSpec is TaggedMeshSpec => {
+export interface TaggedMeshSpec extends TaggedSpec<MeshSpec> {
+  type: 'mesh';
+}
+
+const isValidSpec = (
+  taggedSpec: TaggedSpec<any>,
+): taggedSpec is TaggedMeshSpec => {
   const { spec, type } = taggedSpec;
   return type === 'mesh' && spec.geometry !== undefined;
 };
@@ -38,7 +41,7 @@ const generate = ({ spec }: TaggedMeshSpec): Node => {
   return new Node().mesh(new Mesh().addPrimitive(primitive));
 };
 
-const generatorDefinition: GeneratorDefinition<TaggedMeshSpec, Node> = {
+const generatorDefinition: GeneratorDefinition<MeshSpec, Node> = {
   isValidSpec,
   generate,
 };

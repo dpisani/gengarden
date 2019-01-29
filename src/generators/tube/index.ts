@@ -17,9 +17,10 @@ interface TubeSpecRings {
   end: RingSpec;
 }
 
-export interface TaggedTubeSpec extends TaggedSpec {
+export type TubeSpec = TubeSpecPoints | TubeSpecRings;
+
+export interface TaggedTubeSpec extends TaggedSpec<TubeSpec> {
   type: 'tube';
-  spec: TubeSpecPoints | TubeSpecRings;
 }
 
 function isTubeSpecPoints(spec): spec is TubeSpecPoints {
@@ -51,7 +52,7 @@ function isTubeSpecRings(spec): spec is TubeSpecRings {
  * @returns {boolean} Whether the spec is valid
  */
 export const isValidSpec = (
-  taggedSpec: TaggedSpec,
+  taggedSpec: TaggedSpec<any>,
 ): taggedSpec is TaggedTubeSpec => {
   const { type, spec } = taggedSpec;
   if (type === 'tube' && (isTubeSpecPoints(spec) || isTubeSpecRings(spec))) {
@@ -124,7 +125,7 @@ export const generate = ({
 };
 
 const generatorDefinition: GeneratorDefinition<
-  TaggedTubeSpec,
+  TubeSpec,
   PartialSpec<TaggedMeshSpec>
 > = {
   isValidSpec,

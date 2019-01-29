@@ -2,16 +2,16 @@
  * A specification for an object,
  * tagged with a 'type' property to remove ambiguity
  */
-export interface TaggedSpec {
+export interface TaggedSpec<S> {
   type: string;
-  spec: any;
+  spec: S;
 }
 
-export interface GeneratorDefinition<T extends TaggedSpec, R> {
-  isValidSpec: (TaggedSpec) => TaggedSpec is T;
-  generate: (T) => R;
+export interface GeneratorDefinition<S, R> {
+  isValidSpec: (ts: TaggedSpec<any>) => ts is TaggedSpec<S>;
+  generate: (S) => R;
 }
 
 export type PartialSpec<T> = {
-  [P in keyof T]: PartialSpec<T[P]> | TaggedSpec | T[P]
+  [P in keyof T]: PartialSpec<T[P]> | TaggedSpec<any> | T[P]
 };

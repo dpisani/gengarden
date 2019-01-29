@@ -7,13 +7,12 @@ interface GroupSpec {
   items: Node[];
 }
 
-export interface TaggedGroupSpec extends TaggedSpec {
+export interface TaggedGroupSpec extends TaggedSpec<GroupSpec> {
   type: 'group';
-  spec: GroupSpec;
 }
 
 export const isValidSpec = (
-  taggedSpec: TaggedSpec,
+  taggedSpec: TaggedSpec<any>,
 ): taggedSpec is TaggedGroupSpec => {
   const { type, spec } = taggedSpec;
   if (type === 'group' && spec.items) {
@@ -38,7 +37,7 @@ export const generate = ({ spec }: TaggedGroupSpec): Node => {
   return node;
 };
 
-const generatorDefinition: GeneratorDefinition<TaggedGroupSpec, Node> = {
+const generatorDefinition: GeneratorDefinition<GroupSpec, Node> = {
   isValidSpec,
   generate,
 };

@@ -9,14 +9,17 @@ import { TaggedBranchSpec } from '../branch';
 
 import getRandomGenerator from '../util/get-random-generator';
 
-interface TaggedTreeSpec {
-  type: 'tree';
-  spec: {
-    randomSeed?: string;
-  };
+interface TreeSpec {
+  randomSeed?: string;
 }
 
-const isValidSpec = (taggedSpec: TaggedSpec): taggedSpec is TaggedTreeSpec => {
+interface TaggedTreeSpec extends TaggedSpec<TreeSpec> {
+  type: 'tree';
+}
+
+const isValidSpec = (
+  taggedSpec: TaggedSpec<any>,
+): taggedSpec is TaggedTreeSpec => {
   const { type } = taggedSpec;
 
   return type === 'tree';
@@ -110,7 +113,7 @@ const generate = ({ spec }: TaggedTreeSpec): PartialSpec<TaggedGroupSpec> => {
 };
 
 const generatorDefinition: GeneratorDefinition<
-  TaggedTreeSpec,
+  TreeSpec,
   PartialSpec<TaggedGroupSpec>
 > = {
   isValidSpec,
