@@ -51,7 +51,7 @@ export function generate({
   const rings: vec3[][] = zip(ringNormals, spec.segments).map(
     ([n, segment]) => {
       if (!n || !segment) {
-        throw new Error();
+        throw new Error('Missing segment data');
       }
       const transform = mat4.create();
 

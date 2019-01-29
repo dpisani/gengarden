@@ -6,12 +6,14 @@ import tubeGenerator from '../../generators/tube';
 import tubePathGenerator from '../../generators/tube-path';
 import meshGenerator from '../../generators/mesh';
 import branchGenerator from '../../generators/branch';
+import treeGenerator from '../../generators/tree';
 
 import { TaggedSpec, GeneratorDefinition, PartialSpec } from '../../types';
 
 type GeneratedTypes = TaggedSpec | PartialSpec<TaggedSpec> | Node;
 
 const generators: GeneratorDefinition<TaggedSpec, GeneratedTypes>[] = [
+  treeGenerator,
   branchGenerator,
   // primitive generators
   tubeGenerator,
