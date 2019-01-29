@@ -62,9 +62,7 @@ export const isValidSpec = (
   return false;
 };
 
-export const generate = ({
-  spec,
-}: TaggedTubeSpec): PartialSpec<TaggedMeshSpec> => {
+export const generate = (spec: TubeSpec): PartialSpec<TaggedMeshSpec> => {
   let segments: number, topRing: vec3[], bottomRing: vec3[];
 
   if (isTubeSpecPoints(spec)) {

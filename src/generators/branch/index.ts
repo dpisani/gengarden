@@ -10,22 +10,23 @@ interface KeyPoint {
   width: number;
 }
 
-export interface TaggedBranchSpec extends TaggedSpec {
+export interface BranchSpec {
+  keyPoints: KeyPoint[];
+}
+
+export interface TaggedBranchSpec extends TaggedSpec<BranchSpec> {
   type: 'branch';
-  spec: {
-    keyPoints: KeyPoint[];
-  };
 }
 
 const isValidSpec = (
-  taggedSpec: TaggedSpec,
+  taggedSpec: TaggedSpec<any>,
 ): taggedSpec is TaggedBranchSpec => {
   const { type, spec } = taggedSpec;
 
   return type === 'branch' && spec.keyPoints.length;
 };
 
-const generate = ({ spec }: TaggedBranchSpec): PartialSpec<TaggedGroupSpec> => {
+const generate = (spec: BranchSpec): PartialSpec<TaggedGroupSpec> => {
   const tubePath: TaggedTubePathSpec = {
     type: 'tubePath',
     spec: { segments: spec.keyPoints },
@@ -38,7 +39,7 @@ const generate = ({ spec }: TaggedBranchSpec): PartialSpec<TaggedGroupSpec> => {
 };
 
 const generatorDefinition: GeneratorDefinition<
-  TaggedBranchSpec,
+  BranchSpec,
   PartialSpec<TaggedGroupSpec>
 > = {
   isValidSpec,

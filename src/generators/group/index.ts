@@ -25,7 +25,7 @@ export const isValidSpec = (
   return false;
 };
 
-export const generate = ({ spec }: TaggedGroupSpec): Node => {
+export const generate = (spec: GroupSpec): Node => {
   const node = new Node();
 
   if (spec.name) {

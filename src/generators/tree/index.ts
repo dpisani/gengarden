@@ -95,7 +95,7 @@ const generateBranches = (
   return branches;
 };
 
-const generate = ({ spec }: TaggedTreeSpec): PartialSpec<TaggedGroupSpec> => {
+const generate = (spec: TreeSpec): PartialSpec<TaggedGroupSpec> => {
   const rng = getRandomGenerator(spec.randomSeed);
 
   return {

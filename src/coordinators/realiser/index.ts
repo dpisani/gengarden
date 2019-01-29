@@ -25,7 +25,7 @@ const generators: GeneratorDefinition<any, GeneratedTypes>[] = [
 
 const findGenerator = (
   spec: TaggedSpec<any>,
-): ((ts: TaggedSpec<any>) => GeneratedTypes) | undefined => {
+): ((ts: any) => GeneratedTypes) | undefined => {
   const foundGenerator = generators.find(({ isValidSpec }) =>
     isValidSpec(spec),
   );
@@ -55,7 +55,7 @@ const realiseComponent = (
   const generator = findGenerator(realisedSpec);
 
   if (generator) {
-    return generator(realisedSpec);
+    return generator(realisedSpec.spec);
   } else {
     return realisedSpec;
   }

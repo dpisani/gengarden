@@ -28,9 +28,7 @@ export function isValidSpec(
   return type === 'tubePath';
 }
 
-export function generate({
-  spec,
-}: TaggedTubePathSpec): PartialSpec<TaggedGroupSpec> {
+export function generate(spec: TubePathSpec): PartialSpec<TaggedGroupSpec> {
   const items: TaggedTubeSpec[] = [];
 
   const ringNormals: vec3[] = [];

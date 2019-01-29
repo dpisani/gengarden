@@ -27,7 +27,7 @@ const isValidSpec = (
   return type === 'mesh' && spec.geometry !== undefined;
 };
 
-const generate = ({ spec }: TaggedMeshSpec): Node => {
+const generate = (spec: MeshSpec): Node => {
   const { vertices, indices } = spec.geometry;
 
   const positionsAccessor = buildPosition(vertices);

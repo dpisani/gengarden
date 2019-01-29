@@ -9,7 +9,7 @@ export interface TaggedSpec<S> {
 
 export interface GeneratorDefinition<S, R> {
   isValidSpec: (ts: TaggedSpec<any>) => ts is TaggedSpec<S>;
-  generate: (S) => R;
+  generate: (s: S) => R;
 }
 
 export type PartialSpec<T> = {
