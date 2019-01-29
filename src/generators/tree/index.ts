@@ -1,11 +1,12 @@
 import { vec3, mat4 } from 'gl-matrix';
 import { prng } from 'seedrandom';
 import { flatMap } from 'lodash';
+import { Node } from 'gltf-builder';
 
-import { TaggedSpec, GeneratorDefinition, PartialSpec } from '../../types';
+import { TaggedSpec, GeneratorDefinition } from '../../types';
 
-import { TaggedGroupSpec } from '../group';
-import { TaggedBranchSpec } from '../branch';
+import groupGenerator from '../group';
+import branchGenerator from '../branch';
 
 import getRandomGenerator from '../util/get-random-generator';
 
@@ -31,7 +32,7 @@ const generateBranches = (
   maxDepth: number,
   startWidth: number,
   rng: prng,
-): TaggedBranchSpec[] => {
+): Node[] => {
   const points = [{ position: vec3.clone(startPos), width: startWidth }];
 
   // the points at which a new branch should stem from
@@ -73,12 +74,9 @@ const generateBranches = (
 
   points.push({ position: vec3.clone(currentPos), width: 0 });
 
-  const trunk: TaggedBranchSpec = {
-    type: 'branch',
-    spec: {
-      keyPoints: points,
-    },
-  };
+  const trunk: Node = branchGenerator.generate({
+    keyPoints: points,
+  });
 
   const childBranches = flatMap(forks, fork =>
     generateBranches(
@@ -90,32 +88,26 @@ const generateBranches = (
     ),
   );
 
-  const branches: TaggedBranchSpec[] = [trunk, ...childBranches];
+  const branches: Node[] = [trunk, ...childBranches];
 
   return branches;
 };
 
-const generate = (spec: TreeSpec): PartialSpec<TaggedGroupSpec> => {
+const generate = (spec: TreeSpec): Node => {
   const rng = getRandomGenerator(spec.randomSeed);
 
-  return {
-    type: 'group',
-    spec: {
-      items: generateBranches(
-        vec3.create(),
-        vec3.fromValues(0, 1, 0),
-        10,
-        1,
-        rng,
-      ),
-    },
-  };
+  return groupGenerator.generate({
+    items: generateBranches(
+      vec3.create(),
+      vec3.fromValues(0, 1, 0),
+      10,
+      1,
+      rng,
+    ),
+  });
 };
 
-const generatorDefinition: GeneratorDefinition<
-  TreeSpec,
-  PartialSpec<TaggedGroupSpec>
-> = {
+const generatorDefinition: GeneratorDefinition<TreeSpec, Node> = {
   isValidSpec,
   generate,
 };

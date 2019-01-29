@@ -1,5 +1,5 @@
 import { Asset, Scene, Node } from 'gltf-builder';
-import { cloneDeepWith, isEqual } from 'lodash';
+import { cloneDeepWith } from 'lodash';
 
 import groupGenerator from '../../generators/group';
 import tubeGenerator from '../../generators/tube';
@@ -8,9 +8,9 @@ import meshGenerator from '../../generators/mesh';
 import branchGenerator from '../../generators/branch';
 import treeGenerator from '../../generators/tree';
 
-import { TaggedSpec, GeneratorDefinition, PartialSpec } from '../../types';
+import { TaggedSpec, GeneratorDefinition } from '../../types';
 
-type GeneratedTypes = TaggedSpec<any> | PartialSpec<TaggedSpec<any>> | Node;
+type GeneratedTypes = Node;
 
 const generators: GeneratorDefinition<any, GeneratedTypes>[] = [
   treeGenerator,
@@ -36,9 +36,7 @@ const findGenerator = (
   return undefined;
 };
 
-const realiseComponent = (
-  spec: TaggedSpec<any> | PartialSpec<TaggedSpec<any>>,
-): GeneratedTypes => {
+const realiseComponent = (spec: TaggedSpec<any>): GeneratedTypes => {
   if (typeof spec.type !== 'string') {
     throw new Error('spec type must always be a string');
   }
@@ -57,7 +55,7 @@ const realiseComponent = (
   if (generator) {
     return generator(realisedSpec.spec);
   } else {
-    return realisedSpec;
+    throw new Error(`missing generator for type ${spec.type}`);
   }
 };
 
@@ -71,16 +69,10 @@ const realiseComponent = (
 export default (spec: TaggedSpec<any>): Asset => {
   const asset = new Asset();
 
-  //keep transforming the spec until a gltf node comes out
-  let transformedSpec: GeneratedTypes = spec;
-  while (!(transformedSpec instanceof Node)) {
-    const result = realiseComponent(transformedSpec);
+  const transformedSpec = realiseComponent(spec);
 
-    if (isEqual(result, transformedSpec)) {
-      throw new Error('Spec cannot be realised');
-    }
-
-    transformedSpec = result;
+  if (!(transformedSpec instanceof Node)) {
+    throw new Error('Could not transform spec');
   }
 
   asset.addScene(new Scene().addNode(transformedSpec));

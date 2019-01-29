@@ -1,9 +1,10 @@
 import { vec3 } from 'gl-matrix';
+import { Node } from 'gltf-builder';
 
-import { TaggedSpec, GeneratorDefinition, PartialSpec } from '../../types';
+import { TaggedSpec, GeneratorDefinition } from '../../types';
 
-import { TaggedTubePathSpec } from '../tube-path';
-import { TaggedGroupSpec } from '../group';
+import tubePathGenerator from '../tube-path';
+import groupGenerator from '../group';
 
 interface KeyPoint {
   position: vec3;
@@ -26,22 +27,17 @@ const isValidSpec = (
   return type === 'branch' && spec.keyPoints.length;
 };
 
-const generate = (spec: BranchSpec): PartialSpec<TaggedGroupSpec> => {
-  const tubePath: TaggedTubePathSpec = {
-    type: 'tubePath',
-    spec: { segments: spec.keyPoints },
-  };
+const generate = (spec: BranchSpec): Node => {
+  const tubePath = tubePathGenerator.generate({
+    segments: spec.keyPoints,
+  });
 
-  return {
-    type: 'group',
-    spec: { items: [tubePath] },
-  };
+  return groupGenerator.generate({
+    items: [tubePath],
+  });
 };
 
-const generatorDefinition: GeneratorDefinition<
-  BranchSpec,
-  PartialSpec<TaggedGroupSpec>
-> = {
+const generatorDefinition: GeneratorDefinition<BranchSpec, Node> = {
   isValidSpec,
   generate,
 };

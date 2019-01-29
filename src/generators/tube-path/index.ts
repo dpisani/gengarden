@@ -1,9 +1,10 @@
 import { vec3, mat4 } from 'gl-matrix';
+import { Node } from 'gltf-builder';
 
-import { TaggedSpec, GeneratorDefinition, PartialSpec } from '../../types';
+import { TaggedSpec, GeneratorDefinition } from '../../types';
 
-import { TaggedTubeSpec } from '../tube';
-import { TaggedGroupSpec } from '../group';
+import tubeGenerator from '../tube';
+import groupGenerator from '../group';
 import createRing from '../../util/create-ring';
 import { zip } from 'lodash';
 
@@ -28,8 +29,8 @@ export function isValidSpec(
   return type === 'tubePath';
 }
 
-export function generate(spec: TubePathSpec): PartialSpec<TaggedGroupSpec> {
-  const items: TaggedTubeSpec[] = [];
+export function generate(spec: TubePathSpec): Node {
+  const items: Node[] = [];
 
   const ringNormals: vec3[] = [];
   for (let i = 1; i < spec.segments.length; i++) {
@@ -80,27 +81,20 @@ export function generate(spec: TubePathSpec): PartialSpec<TaggedGroupSpec> {
   for (let i = 0; i < spec.segments.length - 1; i++) {
     const r1 = rings[i];
     const r2 = rings[i + 1];
-    items.push({
-      type: 'tube',
-      spec: {
+    items.push(
+      tubeGenerator.generate({
         begin: r1,
         end: r2,
-      },
-    });
+      }),
+    );
   }
 
-  return {
-    type: 'group',
-    spec: {
-      items,
-    },
-  };
+  return groupGenerator.generate({
+    items,
+  });
 }
 
-const generatorDefinition: GeneratorDefinition<
-  TubePathSpec,
-  PartialSpec<TaggedGroupSpec>
-> = {
+const generatorDefinition: GeneratorDefinition<TubePathSpec, Node> = {
   isValidSpec,
   generate,
 };
