@@ -1,19 +1,20 @@
+import { vec3 } from 'gl-matrix';
 import {
-  Node,
-  Mesh,
-  Primitive,
   buildIndices,
   buildPosition,
+  Material,
+  Mesh,
+  Primitive,
 } from 'gltf-builder';
-import { vec3 } from 'gl-matrix';
 
-import { TaggedSpec, GeneratorDefinition } from '../../types';
+import { GeneratorDefinition, TaggedSpec } from '../../types';
 
 export interface MeshSpec {
   geometry: {
     vertices: vec3[];
     indices?: number[];
   };
+  material?: Material;
 }
 
 export interface TaggedMeshSpec extends TaggedSpec<MeshSpec> {
@@ -27,23 +28,27 @@ const isValidSpec = (
   return type === 'mesh' && spec.geometry !== undefined;
 };
 
-const generate = (spec: MeshSpec): Node => {
+const generate = (spec: MeshSpec): Mesh => {
   const { vertices, indices } = spec.geometry;
 
   const positionsAccessor = buildPosition(vertices);
   const primitive = new Primitive().position(positionsAccessor);
+
+  if (spec.material) {
+    primitive.material(spec.material);
+  }
 
   if (indices) {
     const indicesAccessor = buildIndices(indices);
     primitive.indices(indicesAccessor);
   }
 
-  return new Node().mesh(new Mesh().addPrimitive(primitive));
+  return new Mesh().addPrimitive(primitive);
 };
 
-const generatorDefinition: GeneratorDefinition<MeshSpec, Node> = {
-  isValidSpec,
+const generatorDefinition: GeneratorDefinition<MeshSpec, Mesh> = {
   generate,
+  isValidSpec,
 };
 
 export default generatorDefinition;

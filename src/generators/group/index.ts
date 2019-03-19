@@ -1,6 +1,6 @@
 import { Node } from 'gltf-builder';
 
-import { TaggedSpec, GeneratorDefinition } from '../../types';
+import { GeneratorDefinition, TaggedSpec } from '../../types';
 
 interface GroupSpec {
   name?: string;
@@ -38,8 +38,8 @@ export const generate = (spec: GroupSpec): Node => {
 };
 
 const generatorDefinition: GeneratorDefinition<GroupSpec, Node> = {
-  isValidSpec,
   generate,
+  isValidSpec,
 };
 
 export default generatorDefinition;

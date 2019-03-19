@@ -1,20 +1,22 @@
-import { Asset, Scene, Node } from 'gltf-builder';
+import { Asset, Node, Scene } from 'gltf-builder';
 import { cloneDeepWith } from 'lodash';
 
+import branchGenerator from '../../generators/branch';
 import groupGenerator from '../../generators/group';
+import leafGenerator from '../../generators/leaf';
+import meshGenerator from '../../generators/mesh';
+import treeGenerator from '../../generators/tree';
 import tubeGenerator from '../../generators/tube';
 import tubePathGenerator from '../../generators/tube-path';
-import meshGenerator from '../../generators/mesh';
-import branchGenerator from '../../generators/branch';
-import treeGenerator from '../../generators/tree';
 
-import { TaggedSpec, GeneratorDefinition } from '../../types';
+import { GeneratorDefinition, TaggedSpec } from '../../types';
 
 type GeneratedTypes = Node;
 
-const generators: GeneratorDefinition<any, GeneratedTypes>[] = [
+const generators: Array<GeneratorDefinition<any, GeneratedTypes>> = [
   treeGenerator,
   branchGenerator,
+  leafGenerator,
   // primitive generators
   tubeGenerator,
   tubePathGenerator,
@@ -42,12 +44,12 @@ const realiseComponent = (spec: TaggedSpec<any>): GeneratedTypes => {
   }
 
   const realisedSpec: TaggedSpec<any> = {
-    type: spec.type,
     spec: cloneDeepWith(spec.spec, prop => {
       if (prop instanceof Object && prop.type && prop.spec) {
         return realiseComponent(prop);
       }
     }),
+    type: spec.type,
   };
 
   const generator = findGenerator(realisedSpec);

@@ -1,10 +1,10 @@
 import { vec3 } from 'gl-matrix';
-import { flatten } from 'lodash';
 import { Node } from 'gltf-builder';
+import { flatten } from 'lodash';
 
-import { TaggedSpec, GeneratorDefinition } from '../../types';
-import meshGenerator from '../mesh';
+import { GeneratorDefinition, TaggedSpec } from '../../types';
 import createRing from '../../util/create-ring';
+import meshGenerator from '../mesh';
 
 type RingSpec = vec3[];
 
@@ -64,7 +64,9 @@ export const isValidSpec = (
 };
 
 export const generate = (spec: TubeSpec): Node => {
-  let segments: number, topRing: vec3[], bottomRing: vec3[];
+  let segments: number;
+  let topRing: vec3[];
+  let bottomRing: vec3[];
 
   if (isTubeSpecPoints(spec)) {
     const ring = createRing();
@@ -92,15 +94,15 @@ export const generate = (spec: TubeSpec): Node => {
 
   // add an extra element for wrap around
   const topRingIndexes: number[] = [
-    ...Array.from({ length: segments }).map((_x, i) => i),
+    ...Array.from({ length: segments }).map((x, i) => i),
     0,
   ];
   const bottomRingIndexes: number[] = [
-    ...Array.from({ length: segments }).map((_x, i) => i + segments),
+    ...Array.from({ length: segments }).map((x, i) => i + segments),
     segments,
   ];
 
-  const quads = Array.from({ length: segments }).map((_x, i) => {
+  const quads = Array.from({ length: segments }).map((x, i) => {
     return [
       bottomRingIndexes[i],
       topRingIndexes[i + 1],
@@ -112,17 +114,19 @@ export const generate = (spec: TubeSpec): Node => {
     ];
   });
 
-  return meshGenerator.generate({
-    geometry: {
-      vertices: [...topRing, ...bottomRing],
-      indices: flatten(quads),
-    },
-  });
+  return new Node().mesh(
+    meshGenerator.generate({
+      geometry: {
+        indices: flatten(quads),
+        vertices: [...topRing, ...bottomRing],
+      },
+    }),
+  );
 };
 
 const generatorDefinition: GeneratorDefinition<TubeSpec, Node> = {
-  isValidSpec,
   generate,
+  isValidSpec,
 };
 
 export default generatorDefinition;
