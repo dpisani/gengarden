@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>Gen Garden Viewer</title>
+    <script src="https://aframe.io/releases/0.9.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-orbit-controls@1.0.0/dist/aframe-orbit-controls.min.js"></script>
+    <script src="/viewer.js"></script>
+  </head>
+  <body>
+    <div style="display: flex; align-items: stretch; height: 100%">
+      <div id="list">
+        <h3>Models</h3>
+        <ul id="model-list"></ul>
+      </div>
+      <div id="container" style="flex-grow: 1"></div>
+    </div>
+  </body>
+</html>
+
+<template id="model-list-item">
+  <a id="link"><li id="text"></li></a>
+</template>
+
+<template id="scene"
+  ><a-scene
+    id="main"
+    renderer="colorManagement: true;"
+    embedded
+    style="height: 100%"
+  >
+    <a-assets> <a-asset-item id="model"></a-asset-item> </a-assets>
+    <a-entity
+      camera
+      look-controls
+      orbit-controls="autoRotate: true; autoRotateSpeed: 1; target: 0 0 0; minDistance: 0.5; maxDistance: 180; initialPosition: 0 5 15"
+    ></a-entity>
+    <a-entity light="type: ambient; color: #444"></a-entity>
+    <a-entity
+      light="type: directional; color: #FFF; intensity: 0.6"
+      position="-0.5 1 1"
+    ></a-entity>
+    <a-entity
+      light="type: directional; color: #FFF; intensity: 0.3"
+      position="0.5 0 -1"
+    ></a-entity>
+    <a-entity
+      light="type: directional; color: #FFF; intensity: 0.2"
+      position="0 -1 0"
+    ></a-entity>
+
+    <a-entity id="model" gltf-model="#model" hot-reload></a-entity>
+    <a-plane
+      position="0 0 0"
+      rotation="-90 0 0"
+      width="4"
+      color="#7BC8A4"
+      height="4"
+    ></a-plane>
+    <a-sky color="#ECECEC"></a-sky> </a-scene
+></template>

@@ -14,13 +14,16 @@
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
     "generate": "node lib/scripts/generate.js",
-    "generate:examples": "node lib/scripts/generate-all-examples.js"
+    "generate:examples": "node lib/scripts/generate-all-examples.js",
+    "viewer": "node src/viewer/server.js"
   },
   "devDependencies": {
     "@types/gl-matrix": "^2.4.4",
     "@types/lodash": "^4.14.119",
     "@types/node": "^10.12.18",
     "@types/seedrandom": "^2.4.27",
+    "express": "^4.16.4",
+    "meow": "^5.0.0",
     "prettier": "^1.15.3",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.17.0",
