@@ -1,30 +1,49 @@
 AFRAME.registerComponent('hot-reload', {
   init: function() {
     const el = this.el;
+    const stats = { lastModified: null };
 
     window.setInterval(() => {
       const gltfModelComponent = el.components['gltf-model'];
+      const modelId = gltfModelComponent.data;
 
-      THREE.Cache.remove(gltfModelComponent.data);
-      gltfModelComponent.loader.load(
-        gltfModelComponent.data,
-        function gltfLoaded(gltfModel) {
-          gltfModelComponent.model = gltfModel.scene || gltfModel.scenes[0];
-          gltfModelComponent.model.animations = gltfModel.animations;
+      fetch(`/info${modelId}`)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(({ lastModified }) => {
+          if (!stats.lastModified || lastModified > stats.lastModified) {
+            stats.lastModified = lastModified;
 
-          gltfModelComponent.remove();
+            THREE.Cache.remove(gltfModelComponent.data);
+            gltfModelComponent.loader.load(
+              modelId,
+              function gltfLoaded(gltfModel) {
+                const nextModel = gltfModel.scene || gltfModel.scenes[0];
+                nextModel.animations = gltfModel.animations;
 
-          el.setObject3D('mesh', gltfModelComponent.model);
-          el.emit('model-loaded', {
-            format: 'gltf',
-            model: gltfModelComponent.model,
-          });
-        },
-        undefined /* onProgress */,
-        function gltfFailed(error) {
-          console.log(error);
-        },
-      );
+                if (
+                  JSON.stringify(nextModel) !==
+                  JSON.stringify(gltfModelComponent.model)
+                ) {
+                  gltfModelComponent.model = nextModel;
+
+                  gltfModelComponent.remove();
+
+                  el.setObject3D('mesh', nextModel);
+                  el.emit('model-loaded', {
+                    format: 'gltf',
+                    model: nextModel,
+                  });
+                }
+              },
+              undefined /* onProgress */,
+              function gltfFailed(error) {
+                console.log(error);
+              },
+            );
+          }
+        });
     }, 1000);
   },
 });
@@ -69,4 +88,10 @@ window.onload = () => {
     // add scene to page
     setScene(searchParams.get('selectedItem'));
   }
+};
+
+setAutoRotate = value => {
+  document
+    .querySelector('a-entity[camera]')
+    .setAttribute('orbit-controls', 'autoRotate', value);
 };

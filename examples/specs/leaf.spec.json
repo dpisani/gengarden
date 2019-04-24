@@ -3,6 +3,6 @@
   "spec": {
     "randomSeed": "seed",
     "width": 0.3,
-    "height": 1
+    "length": 1
   }
 }

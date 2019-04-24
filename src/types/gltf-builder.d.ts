@@ -23,7 +23,11 @@ declare module 'gltf-builder' {
 
     public translation: (x: number, y: number, z: number) => this;
 
+    public rotation: (x: number, y: number, z: number, w: number) => this;
+
     public scale: (x: number, y: number, z: number) => this;
+
+    // public matrix: (matrix: number[] | Float32Array) => this;
   }
 
   export class Mesh extends ComponentBuilder {

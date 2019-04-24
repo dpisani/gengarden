@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const meow = require('meow');
 
 const cli = meow();
@@ -25,6 +26,25 @@ app.get('/models/:modelId', (req, res) => {
   const [modelId, modelPath] = model;
 
   res.sendFile(modelPath);
+});
+
+app.get('/info/models/:modelId', (req, res) => {
+  const model = models.find(([modelId]) => modelId === req.params.modelId);
+
+  if (!model) {
+    res.status(404).send('Model not found');
+    return;
+  }
+
+  const [modelId, modelPath] = model;
+
+  fs.stat(modelPath, (err, stats) => {
+    if (err) {
+      res.status(500).send();
+    } else {
+      res.send({ lastModified: stats.mtimeMs });
+    }
+  });
 });
 
 app.get('/models', (req, res) => {

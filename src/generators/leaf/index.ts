@@ -97,22 +97,22 @@ const generateBlade = (width: number, height: number, rng: prng): Node => {
   return new Node().addChild(leftHalf).addChild(rightHalf);
 };
 
-const generate = spec => {
+const generate = (spec: LeafSpec) => {
   const rng = getRandomGenerator(spec.randomSeed);
 
-  const { width, height } = spec;
+  const { width, length } = spec;
 
   const stem = tubePathGenerator({
     segments: [
       { position: vec3.fromValues(0, 0, 0), width: 0.01 },
-      { position: vec3.fromValues(0, height, 0), width: 0 },
+      { position: vec3.fromValues(0, length, 0), width: 0 },
     ],
   });
 
   // the length before the blade starts
-  const baseLength = height * 0.1;
+  const baseLength = length * 0.1;
 
-  const blade = generateBlade(width, height - baseLength, rng).translation(
+  const blade = generateBlade(width, length - baseLength, rng).translation(
     0,
     baseLength,
     0,
@@ -121,9 +121,9 @@ const generate = spec => {
   return groupGenerator({ items: [stem, blade] });
 };
 
-const generatorDefinition: GeneratorDefinition<LeafSpec, Node> = {
+export const leafGeneratorDefinition: GeneratorDefinition<LeafSpec, Node> = {
   generate,
   isValidSpec,
 };
 
-export default generatorDefinition;
+export default generate;

@@ -1,14 +1,15 @@
-import { vec3 } from 'gl-matrix';
+import { mat4, quat, vec3 } from 'gl-matrix';
 import { Node } from 'gltf-builder';
 
 import { GeneratorDefinition, TaggedSpec } from '../../types';
 
 import generateBranch, { BranchSite } from '../branch';
 import generateGroup from '../group';
+import generateLeaf from '../leaf';
 
 import getRandomGenerator from '../util/get-random-generator';
 
-const SEGMENTS_PER_LENGTH = 1.5;
+const SEGMENTS_PER_LENGTH = 3;
 const MAIN_BRANCH_LENGTH = 10;
 
 interface PlantSpec {
@@ -53,27 +54,65 @@ const generate = (spec: PlantSpec): Node => {
     const randomNo = rng();
 
     // Discard candidate with a probability
-    if (
-      randomNo < 0.5 ||
-      !candidateBranch ||
-      candidateBranch.remainingParentLength <= 1
-    ) {
+    if (randomNo < 0.2 || !candidateBranch || candidateBranch.position[1] < 0) {
       continue;
     }
 
     // Create a new branch
-    const newBranchLength = candidateBranch.remainingParentLength * 0.7;
-    const branch = generateBranch({
-      direction: candidateBranch.normal,
-      length: newBranchLength,
-      rng,
-      segments: getNoSegments(newBranchLength),
-      start: candidateBranch.position,
-      width: candidateBranch.width,
-    });
+    if (randomNo < 0.6 && candidateBranch.remainingParentLength > 1) {
+      const newBranchLength = candidateBranch.remainingParentLength * 0.7;
 
-    generatedModels.push(branch.model);
-    potentialBranchSites.push(...branch.branchSites);
+      const branch = generateBranch({
+        direction: candidateBranch.normal,
+        length: newBranchLength,
+        rng,
+        segments: getNoSegments(newBranchLength),
+        start: candidateBranch.position,
+        width: candidateBranch.width,
+      });
+
+      generatedModels.push(branch.model);
+      potentialBranchSites.push(...branch.branchSites);
+    }
+
+    // Create a leaf
+    const leafTransform = mat4.fromTranslation(
+      mat4.create(),
+      candidateBranch.position,
+    );
+
+    const rotationMat = mat4.rotateX(
+      mat4.create(),
+      mat4.create(),
+      -Math.PI * 0.5,
+    );
+    const lookatMat = mat4.targetTo(
+      mat4.create(),
+      vec3.create(),
+      candidateBranch.normal,
+      vec3.fromValues(0, 1, 0),
+    );
+    mat4.mul(rotationMat, lookatMat, rotationMat);
+
+    mat4.mul(leafTransform, leafTransform, rotationMat);
+
+    const leafTranslate = mat4.getTranslation(vec3.create(), leafTransform);
+    const leafRotation = mat4.getRotation(quat.create(), leafTransform);
+
+    generatedModels.push(
+      generateLeaf({
+        length: 0.6,
+        randomSeed: rng().toString(),
+        width: 0.2,
+      })
+        .translation(leafTranslate[0], leafTranslate[1], leafTranslate[2])
+        .rotation(
+          leafRotation[0],
+          leafRotation[1],
+          leafRotation[2],
+          leafRotation[3],
+        ),
+    );
   }
 
   return generateGroup({ items: generatedModels });
