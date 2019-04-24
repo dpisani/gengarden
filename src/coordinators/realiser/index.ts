@@ -1,28 +1,28 @@
-import { Asset, Node, Scene } from 'gltf-builder';
+import { Asset, Mesh, Node, Scene } from 'gltf-builder';
 import { cloneDeepWith } from 'lodash';
 
-import branchGenerator from '../../generators/branch';
-import groupGenerator from '../../generators/group';
+import { groupGeneratorDefinition } from '../../generators/group';
 import leafGenerator from '../../generators/leaf';
 import meshGenerator from '../../generators/mesh';
-import treeGenerator from '../../generators/tree';
+import { plantGeneratorDefinition } from '../../generators/plant';
+import { treeGeneratorDefinition } from '../../generators/tree';
 import tubeGenerator from '../../generators/tube';
-import tubePathGenerator from '../../generators/tube-path';
+import { tubePathGeneratorDefinition } from '../../generators/tube-path';
 
 import { GeneratorDefinition, TaggedSpec } from '../../types';
 
-type GeneratedTypes = Node;
+type GeneratedTypes = Node | Mesh;
 
 const generators: Array<GeneratorDefinition<any, GeneratedTypes>> = [
-  treeGenerator,
-  branchGenerator,
+  treeGeneratorDefinition,
   leafGenerator,
+  plantGeneratorDefinition,
   // primitive generators
   tubeGenerator,
-  tubePathGenerator,
+  tubePathGeneratorDefinition,
   // gltf object generators
   meshGenerator,
-  groupGenerator,
+  groupGeneratorDefinition,
 ];
 
 const findGenerator = (

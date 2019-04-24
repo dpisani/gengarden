@@ -3,8 +3,8 @@ import { Node } from 'gltf-builder';
 import { flatten } from 'lodash';
 
 import { GeneratorDefinition, TaggedSpec } from '../../types';
-import createRing from '../../util/create-ring';
 import meshGenerator from '../mesh';
+import createRing from '../util/create-ring';
 
 type RingSpec = vec3[];
 

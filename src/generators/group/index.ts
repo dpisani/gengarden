@@ -37,9 +37,9 @@ export const generate = (spec: GroupSpec): Node => {
   return node;
 };
 
-const generatorDefinition: GeneratorDefinition<GroupSpec, Node> = {
+export const groupGeneratorDefinition: GeneratorDefinition<GroupSpec, Node> = {
   generate,
   isValidSpec,
 };
 
-export default generatorDefinition;
+export default generate;

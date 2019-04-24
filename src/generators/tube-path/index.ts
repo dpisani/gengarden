@@ -1,12 +1,12 @@
-import { vec3, mat4 } from 'gl-matrix';
+import { mat4, vec3 } from 'gl-matrix';
 import { Node } from 'gltf-builder';
 
-import { TaggedSpec, GeneratorDefinition } from '../../types';
+import { GeneratorDefinition, TaggedSpec } from '../../types';
 
-import tubeGenerator from '../tube';
-import groupGenerator from '../group';
-import createRing from '../../util/create-ring';
 import { zip } from 'lodash';
+import groupGenerator from '../group';
+import tubeGenerator from '../tube';
+import createRing from '../util/create-ring';
 
 interface PathSegment {
   position: vec3;
@@ -89,14 +89,17 @@ export function generate(spec: TubePathSpec): Node {
     );
   }
 
-  return groupGenerator.generate({
+  return groupGenerator({
     items,
   });
 }
 
-const generatorDefinition: GeneratorDefinition<TubePathSpec, Node> = {
-  isValidSpec,
+export const tubePathGeneratorDefinition: GeneratorDefinition<
+  TubePathSpec,
+  Node
+> = {
   generate,
+  isValidSpec,
 };
 
-export default generatorDefinition;
+export default generate;

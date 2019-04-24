@@ -102,7 +102,7 @@ const generate = spec => {
 
   const { width, height } = spec;
 
-  const stem = tubePathGenerator.generate({
+  const stem = tubePathGenerator({
     segments: [
       { position: vec3.fromValues(0, 0, 0), width: 0.01 },
       { position: vec3.fromValues(0, height, 0), width: 0 },
@@ -118,7 +118,7 @@ const generate = spec => {
     0,
   );
 
-  return groupGenerator.generate({ items: [stem, blade] });
+  return groupGenerator({ items: [stem, blade] });
 };
 
 const generatorDefinition: GeneratorDefinition<LeafSpec, Node> = {

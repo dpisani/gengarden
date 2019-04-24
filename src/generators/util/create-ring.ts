@@ -14,7 +14,7 @@ export default function(
 ): vec3[] {
   const segments = 10;
   const segmentAngle = (Math.PI * 2) / segments;
-  return Array.from({ length: segments }).map((_x, i) => {
+  return Array.from({ length: segments }).map((x, i) => {
     const a = segmentAngle * i;
 
     switch (plane) {
