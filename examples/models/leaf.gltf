@@ -23,14 +23,14 @@
       ]
     },
     {
-      "children": [
-        4,
-        5
-      ],
       "translation": [
         0,
         0.1,
         0
+      ],
+      "children": [
+        4,
+        5
       ]
     },
     {

@@ -13,4 +13,4 @@ const spec = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
 
 const gltf = JSON.stringify(realiseSpec(spec).build(), null, 2);
 
-fs.writeFileSync(outPath || 'generated/realised-spec.gltf', gltf);
+fs.writeFileSync(outPath || 'realised-spec.gltf', gltf);

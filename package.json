@@ -32,7 +32,7 @@
   "dependencies": {
     "bezier-spline": "^2.0.0",
     "gl-matrix": "^2.8.1",
-    "gltf-builder": "^0.3.2",
+    "gltf-builder": "^0.4.4",
     "lodash": "^4.17.11",
     "seedrandom": "^2.4.4"
   }
