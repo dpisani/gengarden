@@ -23,6 +23,8 @@ interface TaggedLeafSpec extends TaggedSpec<LeafSpec> {
 const isValidSpec = (spec: TaggedSpec<any>): spec is TaggedLeafSpec =>
   spec.type === 'leaf';
 
+const twoSidedMaterial = new Material().doubleSided(true);
+
 const generateBlade = (width: number, height: number, rng: prng): Node => {
   const segments = 10;
 
@@ -79,8 +81,6 @@ const generateBlade = (width: number, height: number, rng: prng): Node => {
   ]);
 
   const indices = flatten([bottomSegment, ...middleSegments, topSegment]);
-
-  const twoSidedMaterial = new Material().doubleSided(true);
 
   const halfMesh = meshGenerator.generate({
     geometry: {

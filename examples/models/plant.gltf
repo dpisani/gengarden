@@ -13318,7 +13318,7 @@
       "primitives": [
         {
           "indices": 531,
-          "material": 1,
+          "material": 0,
           "attributes": {
             "POSITION": 530
           }
@@ -13339,7 +13339,7 @@
       "primitives": [
         {
           "indices": 535,
-          "material": 2,
+          "material": 0,
           "attributes": {
             "POSITION": 534
           }
@@ -13360,7 +13360,7 @@
       "primitives": [
         {
           "indices": 539,
-          "material": 3,
+          "material": 0,
           "attributes": {
             "POSITION": 538
           }
@@ -13381,7 +13381,7 @@
       "primitives": [
         {
           "indices": 543,
-          "material": 4,
+          "material": 0,
           "attributes": {
             "POSITION": 542
           }
@@ -13402,7 +13402,7 @@
       "primitives": [
         {
           "indices": 547,
-          "material": 5,
+          "material": 0,
           "attributes": {
             "POSITION": 546
           }
@@ -13423,7 +13423,7 @@
       "primitives": [
         {
           "indices": 551,
-          "material": 6,
+          "material": 0,
           "attributes": {
             "POSITION": 550
           }
@@ -13444,7 +13444,7 @@
       "primitives": [
         {
           "indices": 555,
-          "material": 7,
+          "material": 0,
           "attributes": {
             "POSITION": 554
           }
@@ -13465,7 +13465,7 @@
       "primitives": [
         {
           "indices": 559,
-          "material": 8,
+          "material": 0,
           "attributes": {
             "POSITION": 558
           }
@@ -13486,7 +13486,7 @@
       "primitives": [
         {
           "indices": 563,
-          "material": 9,
+          "material": 0,
           "attributes": {
             "POSITION": 562
           }
@@ -13507,7 +13507,7 @@
       "primitives": [
         {
           "indices": 567,
-          "material": 10,
+          "material": 0,
           "attributes": {
             "POSITION": 566
           }
@@ -13528,7 +13528,7 @@
       "primitives": [
         {
           "indices": 571,
-          "material": 11,
+          "material": 0,
           "attributes": {
             "POSITION": 570
           }
@@ -13549,7 +13549,7 @@
       "primitives": [
         {
           "indices": 575,
-          "material": 12,
+          "material": 0,
           "attributes": {
             "POSITION": 574
           }
@@ -13570,7 +13570,7 @@
       "primitives": [
         {
           "indices": 579,
-          "material": 13,
+          "material": 0,
           "attributes": {
             "POSITION": 578
           }
@@ -13591,7 +13591,7 @@
       "primitives": [
         {
           "indices": 583,
-          "material": 14,
+          "material": 0,
           "attributes": {
             "POSITION": 582
           }
@@ -13612,7 +13612,7 @@
       "primitives": [
         {
           "indices": 587,
-          "material": 15,
+          "material": 0,
           "attributes": {
             "POSITION": 586
           }
@@ -13633,7 +13633,7 @@
       "primitives": [
         {
           "indices": 591,
-          "material": 16,
+          "material": 0,
           "attributes": {
             "POSITION": 590
           }
@@ -13654,7 +13654,7 @@
       "primitives": [
         {
           "indices": 595,
-          "material": 17,
+          "material": 0,
           "attributes": {
             "POSITION": 594
           }
@@ -13675,7 +13675,7 @@
       "primitives": [
         {
           "indices": 599,
-          "material": 18,
+          "material": 0,
           "attributes": {
             "POSITION": 598
           }
@@ -13696,7 +13696,7 @@
       "primitives": [
         {
           "indices": 603,
-          "material": 19,
+          "material": 0,
           "attributes": {
             "POSITION": 602
           }
@@ -13717,7 +13717,7 @@
       "primitives": [
         {
           "indices": 607,
-          "material": 20,
+          "material": 0,
           "attributes": {
             "POSITION": 606
           }
@@ -13738,7 +13738,7 @@
       "primitives": [
         {
           "indices": 611,
-          "material": 21,
+          "material": 0,
           "attributes": {
             "POSITION": 610
           }
@@ -13759,7 +13759,7 @@
       "primitives": [
         {
           "indices": 615,
-          "material": 22,
+          "material": 0,
           "attributes": {
             "POSITION": 614
           }
@@ -13780,7 +13780,7 @@
       "primitives": [
         {
           "indices": 619,
-          "material": 23,
+          "material": 0,
           "attributes": {
             "POSITION": 618
           }
@@ -13801,7 +13801,7 @@
       "primitives": [
         {
           "indices": 623,
-          "material": 24,
+          "material": 0,
           "attributes": {
             "POSITION": 622
           }
@@ -13822,7 +13822,7 @@
       "primitives": [
         {
           "indices": 627,
-          "material": 25,
+          "material": 0,
           "attributes": {
             "POSITION": 626
           }
@@ -13843,7 +13843,7 @@
       "primitives": [
         {
           "indices": 631,
-          "material": 26,
+          "material": 0,
           "attributes": {
             "POSITION": 630
           }
@@ -13864,7 +13864,7 @@
       "primitives": [
         {
           "indices": 635,
-          "material": 27,
+          "material": 0,
           "attributes": {
             "POSITION": 634
           }
@@ -13885,7 +13885,7 @@
       "primitives": [
         {
           "indices": 639,
-          "material": 28,
+          "material": 0,
           "attributes": {
             "POSITION": 638
           }
@@ -13906,7 +13906,7 @@
       "primitives": [
         {
           "indices": 643,
-          "material": 29,
+          "material": 0,
           "attributes": {
             "POSITION": 642
           }
@@ -13927,7 +13927,7 @@
       "primitives": [
         {
           "indices": 647,
-          "material": 30,
+          "material": 0,
           "attributes": {
             "POSITION": 646
           }
@@ -13948,7 +13948,7 @@
       "primitives": [
         {
           "indices": 651,
-          "material": 31,
+          "material": 0,
           "attributes": {
             "POSITION": 650
           }
@@ -13969,7 +13969,7 @@
       "primitives": [
         {
           "indices": 655,
-          "material": 32,
+          "material": 0,
           "attributes": {
             "POSITION": 654
           }
@@ -13990,7 +13990,7 @@
       "primitives": [
         {
           "indices": 659,
-          "material": 33,
+          "material": 0,
           "attributes": {
             "POSITION": 658
           }
@@ -14011,7 +14011,7 @@
       "primitives": [
         {
           "indices": 663,
-          "material": 34,
+          "material": 0,
           "attributes": {
             "POSITION": 662
           }
@@ -14032,7 +14032,7 @@
       "primitives": [
         {
           "indices": 667,
-          "material": 35,
+          "material": 0,
           "attributes": {
             "POSITION": 666
           }
@@ -14053,7 +14053,7 @@
       "primitives": [
         {
           "indices": 671,
-          "material": 36,
+          "material": 0,
           "attributes": {
             "POSITION": 670
           }
@@ -14074,7 +14074,7 @@
       "primitives": [
         {
           "indices": 675,
-          "material": 37,
+          "material": 0,
           "attributes": {
             "POSITION": 674
           }
@@ -14095,7 +14095,7 @@
       "primitives": [
         {
           "indices": 679,
-          "material": 38,
+          "material": 0,
           "attributes": {
             "POSITION": 678
           }
@@ -14116,7 +14116,7 @@
       "primitives": [
         {
           "indices": 683,
-          "material": 39,
+          "material": 0,
           "attributes": {
             "POSITION": 682
           }
@@ -14137,7 +14137,7 @@
       "primitives": [
         {
           "indices": 687,
-          "material": 40,
+          "material": 0,
           "attributes": {
             "POSITION": 686
           }
@@ -14158,7 +14158,7 @@
       "primitives": [
         {
           "indices": 691,
-          "material": 41,
+          "material": 0,
           "attributes": {
             "POSITION": 690
           }
@@ -14179,7 +14179,7 @@
       "primitives": [
         {
           "indices": 695,
-          "material": 42,
+          "material": 0,
           "attributes": {
             "POSITION": 694
           }
@@ -14200,7 +14200,7 @@
       "primitives": [
         {
           "indices": 699,
-          "material": 43,
+          "material": 0,
           "attributes": {
             "POSITION": 698
           }
@@ -14221,7 +14221,7 @@
       "primitives": [
         {
           "indices": 703,
-          "material": 44,
+          "material": 0,
           "attributes": {
             "POSITION": 702
           }
@@ -14242,7 +14242,7 @@
       "primitives": [
         {
           "indices": 707,
-          "material": 45,
+          "material": 0,
           "attributes": {
             "POSITION": 706
           }
@@ -14263,7 +14263,7 @@
       "primitives": [
         {
           "indices": 711,
-          "material": 46,
+          "material": 0,
           "attributes": {
             "POSITION": 710
           }
@@ -14284,7 +14284,7 @@
       "primitives": [
         {
           "indices": 715,
-          "material": 47,
+          "material": 0,
           "attributes": {
             "POSITION": 714
           }
@@ -14305,7 +14305,7 @@
       "primitives": [
         {
           "indices": 719,
-          "material": 48,
+          "material": 0,
           "attributes": {
             "POSITION": 718
           }
@@ -14326,7 +14326,7 @@
       "primitives": [
         {
           "indices": 723,
-          "material": 49,
+          "material": 0,
           "attributes": {
             "POSITION": 722
           }
@@ -14347,7 +14347,7 @@
       "primitives": [
         {
           "indices": 727,
-          "material": 50,
+          "material": 0,
           "attributes": {
             "POSITION": 726
           }
@@ -14368,7 +14368,7 @@
       "primitives": [
         {
           "indices": 731,
-          "material": 51,
+          "material": 0,
           "attributes": {
             "POSITION": 730
           }
@@ -14389,7 +14389,7 @@
       "primitives": [
         {
           "indices": 735,
-          "material": 52,
+          "material": 0,
           "attributes": {
             "POSITION": 734
           }
@@ -14410,7 +14410,7 @@
       "primitives": [
         {
           "indices": 739,
-          "material": 53,
+          "material": 0,
           "attributes": {
             "POSITION": 738
           }
@@ -14431,7 +14431,7 @@
       "primitives": [
         {
           "indices": 743,
-          "material": 54,
+          "material": 0,
           "attributes": {
             "POSITION": 742
           }
@@ -14452,7 +14452,7 @@
       "primitives": [
         {
           "indices": 747,
-          "material": 55,
+          "material": 0,
           "attributes": {
             "POSITION": 746
           }
@@ -14473,7 +14473,7 @@
       "primitives": [
         {
           "indices": 751,
-          "material": 56,
+          "material": 0,
           "attributes": {
             "POSITION": 750
           }
@@ -14494,7 +14494,7 @@
       "primitives": [
         {
           "indices": 755,
-          "material": 57,
+          "material": 0,
           "attributes": {
             "POSITION": 754
           }
@@ -14515,7 +14515,7 @@
       "primitives": [
         {
           "indices": 759,
-          "material": 58,
+          "material": 0,
           "attributes": {
             "POSITION": 758
           }
@@ -14536,7 +14536,7 @@
       "primitives": [
         {
           "indices": 763,
-          "material": 59,
+          "material": 0,
           "attributes": {
             "POSITION": 762
           }
@@ -14557,7 +14557,7 @@
       "primitives": [
         {
           "indices": 767,
-          "material": 60,
+          "material": 0,
           "attributes": {
             "POSITION": 766
           }
@@ -14578,7 +14578,7 @@
       "primitives": [
         {
           "indices": 771,
-          "material": 61,
+          "material": 0,
           "attributes": {
             "POSITION": 770
           }
@@ -14599,7 +14599,7 @@
       "primitives": [
         {
           "indices": 775,
-          "material": 62,
+          "material": 0,
           "attributes": {
             "POSITION": 774
           }
@@ -14620,7 +14620,7 @@
       "primitives": [
         {
           "indices": 779,
-          "material": 63,
+          "material": 0,
           "attributes": {
             "POSITION": 778
           }
@@ -14641,7 +14641,7 @@
       "primitives": [
         {
           "indices": 783,
-          "material": 64,
+          "material": 0,
           "attributes": {
             "POSITION": 782
           }
@@ -14662,7 +14662,7 @@
       "primitives": [
         {
           "indices": 787,
-          "material": 65,
+          "material": 0,
           "attributes": {
             "POSITION": 786
           }
@@ -14683,7 +14683,7 @@
       "primitives": [
         {
           "indices": 791,
-          "material": 66,
+          "material": 0,
           "attributes": {
             "POSITION": 790
           }
@@ -14704,7 +14704,7 @@
       "primitives": [
         {
           "indices": 795,
-          "material": 67,
+          "material": 0,
           "attributes": {
             "POSITION": 794
           }
@@ -14725,7 +14725,7 @@
       "primitives": [
         {
           "indices": 799,
-          "material": 68,
+          "material": 0,
           "attributes": {
             "POSITION": 798
           }
@@ -14746,7 +14746,7 @@
       "primitives": [
         {
           "indices": 803,
-          "material": 69,
+          "material": 0,
           "attributes": {
             "POSITION": 802
           }
@@ -14767,7 +14767,7 @@
       "primitives": [
         {
           "indices": 807,
-          "material": 70,
+          "material": 0,
           "attributes": {
             "POSITION": 806
           }
@@ -14788,7 +14788,7 @@
       "primitives": [
         {
           "indices": 811,
-          "material": 71,
+          "material": 0,
           "attributes": {
             "POSITION": 810
           }
@@ -14809,7 +14809,7 @@
       "primitives": [
         {
           "indices": 815,
-          "material": 72,
+          "material": 0,
           "attributes": {
             "POSITION": 814
           }
@@ -14830,7 +14830,7 @@
       "primitives": [
         {
           "indices": 819,
-          "material": 73,
+          "material": 0,
           "attributes": {
             "POSITION": 818
           }
@@ -14851,7 +14851,7 @@
       "primitives": [
         {
           "indices": 823,
-          "material": 74,
+          "material": 0,
           "attributes": {
             "POSITION": 822
           }
@@ -14872,7 +14872,7 @@
       "primitives": [
         {
           "indices": 827,
-          "material": 75,
+          "material": 0,
           "attributes": {
             "POSITION": 826
           }
@@ -14893,7 +14893,7 @@
       "primitives": [
         {
           "indices": 831,
-          "material": 76,
+          "material": 0,
           "attributes": {
             "POSITION": 830
           }
@@ -14914,7 +14914,7 @@
       "primitives": [
         {
           "indices": 835,
-          "material": 77,
+          "material": 0,
           "attributes": {
             "POSITION": 834
           }
@@ -14935,7 +14935,7 @@
       "primitives": [
         {
           "indices": 839,
-          "material": 78,
+          "material": 0,
           "attributes": {
             "POSITION": 838
           }
@@ -14956,7 +14956,7 @@
       "primitives": [
         {
           "indices": 843,
-          "material": 79,
+          "material": 0,
           "attributes": {
             "POSITION": 842
           }
@@ -14977,7 +14977,7 @@
       "primitives": [
         {
           "indices": 847,
-          "material": 80,
+          "material": 0,
           "attributes": {
             "POSITION": 846
           }
@@ -14998,7 +14998,7 @@
       "primitives": [
         {
           "indices": 851,
-          "material": 81,
+          "material": 0,
           "attributes": {
             "POSITION": 850
           }
@@ -15019,7 +15019,7 @@
       "primitives": [
         {
           "indices": 855,
-          "material": 82,
+          "material": 0,
           "attributes": {
             "POSITION": 854
           }
@@ -15040,7 +15040,7 @@
       "primitives": [
         {
           "indices": 859,
-          "material": 83,
+          "material": 0,
           "attributes": {
             "POSITION": 858
           }
@@ -15061,7 +15061,7 @@
       "primitives": [
         {
           "indices": 863,
-          "material": 84,
+          "material": 0,
           "attributes": {
             "POSITION": 862
           }
@@ -15082,7 +15082,7 @@
       "primitives": [
         {
           "indices": 867,
-          "material": 85,
+          "material": 0,
           "attributes": {
             "POSITION": 866
           }
@@ -15103,7 +15103,7 @@
       "primitives": [
         {
           "indices": 871,
-          "material": 86,
+          "material": 0,
           "attributes": {
             "POSITION": 870
           }
@@ -15124,7 +15124,7 @@
       "primitives": [
         {
           "indices": 875,
-          "material": 87,
+          "material": 0,
           "attributes": {
             "POSITION": 874
           }
@@ -15145,7 +15145,7 @@
       "primitives": [
         {
           "indices": 879,
-          "material": 88,
+          "material": 0,
           "attributes": {
             "POSITION": 878
           }
@@ -15166,7 +15166,7 @@
       "primitives": [
         {
           "indices": 883,
-          "material": 89,
+          "material": 0,
           "attributes": {
             "POSITION": 882
           }
@@ -15187,7 +15187,7 @@
       "primitives": [
         {
           "indices": 887,
-          "material": 90,
+          "material": 0,
           "attributes": {
             "POSITION": 886
           }
@@ -15208,7 +15208,7 @@
       "primitives": [
         {
           "indices": 891,
-          "material": 91,
+          "material": 0,
           "attributes": {
             "POSITION": 890
           }
@@ -15229,7 +15229,7 @@
       "primitives": [
         {
           "indices": 895,
-          "material": 92,
+          "material": 0,
           "attributes": {
             "POSITION": 894
           }
@@ -15250,7 +15250,7 @@
       "primitives": [
         {
           "indices": 899,
-          "material": 93,
+          "material": 0,
           "attributes": {
             "POSITION": 898
           }
@@ -15271,7 +15271,7 @@
       "primitives": [
         {
           "indices": 903,
-          "material": 94,
+          "material": 0,
           "attributes": {
             "POSITION": 902
           }
@@ -15292,7 +15292,7 @@
       "primitives": [
         {
           "indices": 907,
-          "material": 95,
+          "material": 0,
           "attributes": {
             "POSITION": 906
           }
@@ -15313,7 +15313,7 @@
       "primitives": [
         {
           "indices": 911,
-          "material": 96,
+          "material": 0,
           "attributes": {
             "POSITION": 910
           }
@@ -15334,7 +15334,7 @@
       "primitives": [
         {
           "indices": 915,
-          "material": 97,
+          "material": 0,
           "attributes": {
             "POSITION": 914
           }
@@ -15355,7 +15355,7 @@
       "primitives": [
         {
           "indices": 919,
-          "material": 98,
+          "material": 0,
           "attributes": {
             "POSITION": 918
           }
@@ -15376,7 +15376,7 @@
       "primitives": [
         {
           "indices": 923,
-          "material": 99,
+          "material": 0,
           "attributes": {
             "POSITION": 922
           }
@@ -15397,7 +15397,7 @@
       "primitives": [
         {
           "indices": 927,
-          "material": 100,
+          "material": 0,
           "attributes": {
             "POSITION": 926
           }
@@ -15418,7 +15418,7 @@
       "primitives": [
         {
           "indices": 931,
-          "material": 101,
+          "material": 0,
           "attributes": {
             "POSITION": 930
           }
@@ -15439,7 +15439,7 @@
       "primitives": [
         {
           "indices": 935,
-          "material": 102,
+          "material": 0,
           "attributes": {
             "POSITION": 934
           }
@@ -15460,7 +15460,7 @@
       "primitives": [
         {
           "indices": 939,
-          "material": 103,
+          "material": 0,
           "attributes": {
             "POSITION": 938
           }
@@ -15481,7 +15481,7 @@
       "primitives": [
         {
           "indices": 943,
-          "material": 104,
+          "material": 0,
           "attributes": {
             "POSITION": 942
           }
@@ -15502,7 +15502,7 @@
       "primitives": [
         {
           "indices": 947,
-          "material": 105,
+          "material": 0,
           "attributes": {
             "POSITION": 946
           }
@@ -15523,7 +15523,7 @@
       "primitives": [
         {
           "indices": 951,
-          "material": 106,
+          "material": 0,
           "attributes": {
             "POSITION": 950
           }
@@ -15544,7 +15544,7 @@
       "primitives": [
         {
           "indices": 955,
-          "material": 107,
+          "material": 0,
           "attributes": {
             "POSITION": 954
           }
@@ -15565,7 +15565,7 @@
       "primitives": [
         {
           "indices": 959,
-          "material": 108,
+          "material": 0,
           "attributes": {
             "POSITION": 958
           }
@@ -15586,7 +15586,7 @@
       "primitives": [
         {
           "indices": 963,
-          "material": 109,
+          "material": 0,
           "attributes": {
             "POSITION": 962
           }
@@ -15607,7 +15607,7 @@
       "primitives": [
         {
           "indices": 967,
-          "material": 110,
+          "material": 0,
           "attributes": {
             "POSITION": 966
           }
@@ -15628,7 +15628,7 @@
       "primitives": [
         {
           "indices": 971,
-          "material": 111,
+          "material": 0,
           "attributes": {
             "POSITION": 970
           }
@@ -15649,7 +15649,7 @@
       "primitives": [
         {
           "indices": 975,
-          "material": 112,
+          "material": 0,
           "attributes": {
             "POSITION": 974
           }
@@ -15670,7 +15670,7 @@
       "primitives": [
         {
           "indices": 979,
-          "material": 113,
+          "material": 0,
           "attributes": {
             "POSITION": 978
           }
@@ -15691,7 +15691,7 @@
       "primitives": [
         {
           "indices": 983,
-          "material": 114,
+          "material": 0,
           "attributes": {
             "POSITION": 982
           }
@@ -15712,7 +15712,7 @@
       "primitives": [
         {
           "indices": 987,
-          "material": 115,
+          "material": 0,
           "attributes": {
             "POSITION": 986
           }
@@ -15733,7 +15733,7 @@
       "primitives": [
         {
           "indices": 991,
-          "material": 116,
+          "material": 0,
           "attributes": {
             "POSITION": 990
           }
@@ -15754,7 +15754,7 @@
       "primitives": [
         {
           "indices": 995,
-          "material": 117,
+          "material": 0,
           "attributes": {
             "POSITION": 994
           }
@@ -15775,7 +15775,7 @@
       "primitives": [
         {
           "indices": 999,
-          "material": 118,
+          "material": 0,
           "attributes": {
             "POSITION": 998
           }
@@ -15796,7 +15796,7 @@
       "primitives": [
         {
           "indices": 1003,
-          "material": 119,
+          "material": 0,
           "attributes": {
             "POSITION": 1002
           }
@@ -15817,7 +15817,7 @@
       "primitives": [
         {
           "indices": 1007,
-          "material": 120,
+          "material": 0,
           "attributes": {
             "POSITION": 1006
           }
@@ -15838,7 +15838,7 @@
       "primitives": [
         {
           "indices": 1011,
-          "material": 121,
+          "material": 0,
           "attributes": {
             "POSITION": 1010
           }
@@ -15859,7 +15859,7 @@
       "primitives": [
         {
           "indices": 1015,
-          "material": 122,
+          "material": 0,
           "attributes": {
             "POSITION": 1014
           }
@@ -15880,7 +15880,7 @@
       "primitives": [
         {
           "indices": 1019,
-          "material": 123,
+          "material": 0,
           "attributes": {
             "POSITION": 1018
           }
@@ -15901,7 +15901,7 @@
       "primitives": [
         {
           "indices": 1023,
-          "material": 124,
+          "material": 0,
           "attributes": {
             "POSITION": 1022
           }
@@ -15922,7 +15922,7 @@
       "primitives": [
         {
           "indices": 1027,
-          "material": 125,
+          "material": 0,
           "attributes": {
             "POSITION": 1026
           }
@@ -15943,7 +15943,7 @@
       "primitives": [
         {
           "indices": 1031,
-          "material": 126,
+          "material": 0,
           "attributes": {
             "POSITION": 1030
           }
@@ -15964,7 +15964,7 @@
       "primitives": [
         {
           "indices": 1035,
-          "material": 127,
+          "material": 0,
           "attributes": {
             "POSITION": 1034
           }
@@ -15985,7 +15985,7 @@
       "primitives": [
         {
           "indices": 1039,
-          "material": 128,
+          "material": 0,
           "attributes": {
             "POSITION": 1038
           }
@@ -16006,7 +16006,7 @@
       "primitives": [
         {
           "indices": 1043,
-          "material": 129,
+          "material": 0,
           "attributes": {
             "POSITION": 1042
           }
@@ -16027,7 +16027,7 @@
       "primitives": [
         {
           "indices": 1047,
-          "material": 130,
+          "material": 0,
           "attributes": {
             "POSITION": 1046
           }
@@ -16048,7 +16048,7 @@
       "primitives": [
         {
           "indices": 1051,
-          "material": 131,
+          "material": 0,
           "attributes": {
             "POSITION": 1050
           }
@@ -16069,7 +16069,7 @@
       "primitives": [
         {
           "indices": 1055,
-          "material": 132,
+          "material": 0,
           "attributes": {
             "POSITION": 1054
           }
@@ -16090,7 +16090,7 @@
       "primitives": [
         {
           "indices": 1059,
-          "material": 133,
+          "material": 0,
           "attributes": {
             "POSITION": 1058
           }
@@ -16111,7 +16111,7 @@
       "primitives": [
         {
           "indices": 1063,
-          "material": 134,
+          "material": 0,
           "attributes": {
             "POSITION": 1062
           }
@@ -16132,7 +16132,7 @@
       "primitives": [
         {
           "indices": 1067,
-          "material": 135,
+          "material": 0,
           "attributes": {
             "POSITION": 1066
           }
@@ -16153,7 +16153,7 @@
       "primitives": [
         {
           "indices": 1071,
-          "material": 136,
+          "material": 0,
           "attributes": {
             "POSITION": 1070
           }
@@ -16174,7 +16174,7 @@
       "primitives": [
         {
           "indices": 1075,
-          "material": 137,
+          "material": 0,
           "attributes": {
             "POSITION": 1074
           }
@@ -16195,7 +16195,7 @@
       "primitives": [
         {
           "indices": 1079,
-          "material": 138,
+          "material": 0,
           "attributes": {
             "POSITION": 1078
           }
@@ -16216,7 +16216,7 @@
       "primitives": [
         {
           "indices": 1083,
-          "material": 139,
+          "material": 0,
           "attributes": {
             "POSITION": 1082
           }
@@ -16237,7 +16237,7 @@
       "primitives": [
         {
           "indices": 1087,
-          "material": 140,
+          "material": 0,
           "attributes": {
             "POSITION": 1086
           }
@@ -16258,7 +16258,7 @@
       "primitives": [
         {
           "indices": 1091,
-          "material": 141,
+          "material": 0,
           "attributes": {
             "POSITION": 1090
           }
@@ -16279,7 +16279,7 @@
       "primitives": [
         {
           "indices": 1095,
-          "material": 142,
+          "material": 0,
           "attributes": {
             "POSITION": 1094
           }
@@ -16300,7 +16300,7 @@
       "primitives": [
         {
           "indices": 1099,
-          "material": 143,
+          "material": 0,
           "attributes": {
             "POSITION": 1098
           }
@@ -16321,7 +16321,7 @@
       "primitives": [
         {
           "indices": 1103,
-          "material": 144,
+          "material": 0,
           "attributes": {
             "POSITION": 1102
           }
@@ -16342,7 +16342,7 @@
       "primitives": [
         {
           "indices": 1107,
-          "material": 145,
+          "material": 0,
           "attributes": {
             "POSITION": 1106
           }
@@ -16363,7 +16363,7 @@
       "primitives": [
         {
           "indices": 1111,
-          "material": 146,
+          "material": 0,
           "attributes": {
             "POSITION": 1110
           }
@@ -16384,7 +16384,7 @@
       "primitives": [
         {
           "indices": 1115,
-          "material": 147,
+          "material": 0,
           "attributes": {
             "POSITION": 1114
           }
@@ -16405,7 +16405,7 @@
       "primitives": [
         {
           "indices": 1119,
-          "material": 148,
+          "material": 0,
           "attributes": {
             "POSITION": 1118
           }
@@ -16426,7 +16426,7 @@
       "primitives": [
         {
           "indices": 1123,
-          "material": 149,
+          "material": 0,
           "attributes": {
             "POSITION": 1122
           }
@@ -16447,7 +16447,7 @@
       "primitives": [
         {
           "indices": 1127,
-          "material": 150,
+          "material": 0,
           "attributes": {
             "POSITION": 1126
           }
@@ -16468,7 +16468,7 @@
       "primitives": [
         {
           "indices": 1131,
-          "material": 151,
+          "material": 0,
           "attributes": {
             "POSITION": 1130
           }
@@ -16489,7 +16489,7 @@
       "primitives": [
         {
           "indices": 1135,
-          "material": 152,
+          "material": 0,
           "attributes": {
             "POSITION": 1134
           }
@@ -16510,7 +16510,7 @@
       "primitives": [
         {
           "indices": 1139,
-          "material": 153,
+          "material": 0,
           "attributes": {
             "POSITION": 1138
           }
@@ -16531,7 +16531,7 @@
       "primitives": [
         {
           "indices": 1143,
-          "material": 154,
+          "material": 0,
           "attributes": {
             "POSITION": 1142
           }
@@ -16552,7 +16552,7 @@
       "primitives": [
         {
           "indices": 1147,
-          "material": 155,
+          "material": 0,
           "attributes": {
             "POSITION": 1146
           }
@@ -16573,7 +16573,7 @@
       "primitives": [
         {
           "indices": 1151,
-          "material": 156,
+          "material": 0,
           "attributes": {
             "POSITION": 1150
           }
@@ -16594,7 +16594,7 @@
       "primitives": [
         {
           "indices": 1155,
-          "material": 157,
+          "material": 0,
           "attributes": {
             "POSITION": 1154
           }
@@ -16615,7 +16615,7 @@
       "primitives": [
         {
           "indices": 1159,
-          "material": 158,
+          "material": 0,
           "attributes": {
             "POSITION": 1158
           }
@@ -16636,7 +16636,7 @@
       "primitives": [
         {
           "indices": 1163,
-          "material": 159,
+          "material": 0,
           "attributes": {
             "POSITION": 1162
           }
@@ -16657,7 +16657,7 @@
       "primitives": [
         {
           "indices": 1167,
-          "material": 160,
+          "material": 0,
           "attributes": {
             "POSITION": 1166
           }
@@ -16678,7 +16678,7 @@
       "primitives": [
         {
           "indices": 1171,
-          "material": 161,
+          "material": 0,
           "attributes": {
             "POSITION": 1170
           }
@@ -16699,7 +16699,7 @@
       "primitives": [
         {
           "indices": 1175,
-          "material": 162,
+          "material": 0,
           "attributes": {
             "POSITION": 1174
           }
@@ -16720,7 +16720,7 @@
       "primitives": [
         {
           "indices": 1179,
-          "material": 163,
+          "material": 0,
           "attributes": {
             "POSITION": 1178
           }
@@ -16741,7 +16741,7 @@
       "primitives": [
         {
           "indices": 1183,
-          "material": 164,
+          "material": 0,
           "attributes": {
             "POSITION": 1182
           }
@@ -16762,7 +16762,7 @@
       "primitives": [
         {
           "indices": 1187,
-          "material": 165,
+          "material": 0,
           "attributes": {
             "POSITION": 1186
           }
@@ -16783,7 +16783,7 @@
       "primitives": [
         {
           "indices": 1191,
-          "material": 166,
+          "material": 0,
           "attributes": {
             "POSITION": 1190
           }
@@ -16804,7 +16804,7 @@
       "primitives": [
         {
           "indices": 1195,
-          "material": 167,
+          "material": 0,
           "attributes": {
             "POSITION": 1194
           }
@@ -16825,7 +16825,7 @@
       "primitives": [
         {
           "indices": 1199,
-          "material": 168,
+          "material": 0,
           "attributes": {
             "POSITION": 1198
           }
@@ -16846,7 +16846,7 @@
       "primitives": [
         {
           "indices": 1203,
-          "material": 169,
+          "material": 0,
           "attributes": {
             "POSITION": 1202
           }
@@ -16867,7 +16867,7 @@
       "primitives": [
         {
           "indices": 1207,
-          "material": 170,
+          "material": 0,
           "attributes": {
             "POSITION": 1206
           }
@@ -16888,7 +16888,7 @@
       "primitives": [
         {
           "indices": 1211,
-          "material": 171,
+          "material": 0,
           "attributes": {
             "POSITION": 1210
           }
@@ -16909,7 +16909,7 @@
       "primitives": [
         {
           "indices": 1215,
-          "material": 172,
+          "material": 0,
           "attributes": {
             "POSITION": 1214
           }
@@ -16930,7 +16930,7 @@
       "primitives": [
         {
           "indices": 1219,
-          "material": 173,
+          "material": 0,
           "attributes": {
             "POSITION": 1218
           }
@@ -16951,7 +16951,7 @@
       "primitives": [
         {
           "indices": 1223,
-          "material": 174,
+          "material": 0,
           "attributes": {
             "POSITION": 1222
           }
@@ -16972,7 +16972,7 @@
       "primitives": [
         {
           "indices": 1227,
-          "material": 175,
+          "material": 0,
           "attributes": {
             "POSITION": 1226
           }
@@ -16993,7 +16993,7 @@
       "primitives": [
         {
           "indices": 1231,
-          "material": 176,
+          "material": 0,
           "attributes": {
             "POSITION": 1230
           }
@@ -17014,7 +17014,7 @@
       "primitives": [
         {
           "indices": 1235,
-          "material": 177,
+          "material": 0,
           "attributes": {
             "POSITION": 1234
           }
@@ -17035,7 +17035,7 @@
       "primitives": [
         {
           "indices": 1239,
-          "material": 178,
+          "material": 0,
           "attributes": {
             "POSITION": 1238
           }
@@ -17056,7 +17056,7 @@
       "primitives": [
         {
           "indices": 1243,
-          "material": 179,
+          "material": 0,
           "attributes": {
             "POSITION": 1242
           }
@@ -17077,7 +17077,7 @@
       "primitives": [
         {
           "indices": 1247,
-          "material": 180,
+          "material": 0,
           "attributes": {
             "POSITION": 1246
           }
@@ -17098,7 +17098,7 @@
       "primitives": [
         {
           "indices": 1251,
-          "material": 181,
+          "material": 0,
           "attributes": {
             "POSITION": 1250
           }
@@ -17119,7 +17119,7 @@
       "primitives": [
         {
           "indices": 1255,
-          "material": 182,
+          "material": 0,
           "attributes": {
             "POSITION": 1254
           }
@@ -17140,7 +17140,7 @@
       "primitives": [
         {
           "indices": 1259,
-          "material": 183,
+          "material": 0,
           "attributes": {
             "POSITION": 1258
           }
@@ -17161,7 +17161,7 @@
       "primitives": [
         {
           "indices": 1263,
-          "material": 184,
+          "material": 0,
           "attributes": {
             "POSITION": 1262
           }
@@ -17182,7 +17182,7 @@
       "primitives": [
         {
           "indices": 1267,
-          "material": 185,
+          "material": 0,
           "attributes": {
             "POSITION": 1266
           }
@@ -17203,7 +17203,7 @@
       "primitives": [
         {
           "indices": 1271,
-          "material": 186,
+          "material": 0,
           "attributes": {
             "POSITION": 1270
           }
@@ -17224,7 +17224,7 @@
       "primitives": [
         {
           "indices": 1275,
-          "material": 187,
+          "material": 0,
           "attributes": {
             "POSITION": 1274
           }
@@ -17245,7 +17245,7 @@
       "primitives": [
         {
           "indices": 1279,
-          "material": 188,
+          "material": 0,
           "attributes": {
             "POSITION": 1278
           }
@@ -17266,7 +17266,7 @@
       "primitives": [
         {
           "indices": 1283,
-          "material": 189,
+          "material": 0,
           "attributes": {
             "POSITION": 1282
           }
@@ -17287,7 +17287,7 @@
       "primitives": [
         {
           "indices": 1287,
-          "material": 190,
+          "material": 0,
           "attributes": {
             "POSITION": 1286
           }
@@ -17308,7 +17308,7 @@
       "primitives": [
         {
           "indices": 1291,
-          "material": 191,
+          "material": 0,
           "attributes": {
             "POSITION": 1290
           }
@@ -17329,7 +17329,7 @@
       "primitives": [
         {
           "indices": 1295,
-          "material": 192,
+          "material": 0,
           "attributes": {
             "POSITION": 1294
           }
@@ -17350,7 +17350,7 @@
       "primitives": [
         {
           "indices": 1299,
-          "material": 193,
+          "material": 0,
           "attributes": {
             "POSITION": 1298
           }
@@ -17371,7 +17371,7 @@
       "primitives": [
         {
           "indices": 1303,
-          "material": 194,
+          "material": 0,
           "attributes": {
             "POSITION": 1302
           }
@@ -17392,7 +17392,7 @@
       "primitives": [
         {
           "indices": 1307,
-          "material": 195,
+          "material": 0,
           "attributes": {
             "POSITION": 1306
           }
@@ -40949,591 +40949,6 @@
     }
   ],
   "materials": [
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
-    {
-      "doubleSided": true
-    },
     {
       "doubleSided": true
     }
