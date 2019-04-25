@@ -72,36 +72,43 @@ const generate = (spec: BranchSpec): GeneratedType => {
       width: nextWidth,
     };
 
-    // create some potential branch sites
-    const mainDeviation = createDeviation(
-      currentDir,
-      Math.PI * 0.15,
-      Math.PI * 0.2,
-      spec.rng,
-    );
+    // make only one site if at the end
+    if (i === spec.segments) {
+      branchSites.push({
+        normal: currentDir,
+        position: nextPoint.position,
+        remainingParentLength: 0,
+        width: nextWidth,
+      });
+    } else {
+      // create some potential branch sites
+      const mainDeviation = createDeviation(
+        currentDir,
+        Math.PI * 0.11,
+        Math.PI * 0.16,
+        spec.rng,
+      );
 
-    const rotateQuat = quat.setAxisAngle(
-      quat.create(),
-      currentDir,
-      Math.PI * 2,
-    );
-    const candidateBranches: BranchSite[] = [
-      mainDeviation,
-      vec3.transformQuat(vec3.create(), mainDeviation, rotateQuat),
-    ].map(normal => ({
-      normal,
-      position: nextPoint.position,
-      remainingParentLength: spec.length - segmentLength * i,
-      width: nextWidth,
-    }));
+      const rotateQuat = quat.setAxisAngle(quat.create(), currentDir, Math.PI);
+      const candidateBranches: BranchSite[] = [
+        mainDeviation,
+        vec3.transformQuat(vec3.create(), mainDeviation, rotateQuat),
+      ].map(normal => ({
+        normal,
+        position: nextPoint.position,
+        remainingParentLength: spec.length - segmentLength * i,
+        width: nextWidth,
+      }));
+
+      // use one of the branch sites for the next iteration
+      const branchSite = candidateBranches.pop();
+      currentDir = branchSite ? branchSite.normal : currentDir;
+
+      branchSites.push(...candidateBranches);
+    }
 
     currentPos = nextPoint.position;
-    // use one of the branch sites for the next iteration
-    const branchSite = candidateBranches.pop();
-    currentDir = branchSite ? branchSite.normal : currentDir;
-
     segments.push(nextPoint);
-    branchSites.push(...candidateBranches);
   }
 
   const tubePath = generateTubePath({

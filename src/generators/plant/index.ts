@@ -9,8 +9,9 @@ import generateLeaf from '../leaf';
 
 import getRandomGenerator from '../util/get-random-generator';
 
-const SEGMENTS_PER_LENGTH = 3;
-const MAIN_BRANCH_LENGTH = 10;
+const SEGMENTS_PER_LENGTH = 5.5;
+const MAIN_BRANCH_LENGTH = 4.5;
+const MAIN_BRANCH_WIDTH = 0.05;
 
 interface PlantSpec {
   randomSeed?: string;
@@ -42,7 +43,7 @@ const generate = (spec: PlantSpec): Node => {
     rng,
     segments: getNoSegments(MAIN_BRANCH_LENGTH),
     start: vec3.fromValues(0, 0, 0),
-    width: 0.05,
+    width: MAIN_BRANCH_WIDTH,
   });
 
   generatedModels.push(startBranch.model);
@@ -54,7 +55,7 @@ const generate = (spec: PlantSpec): Node => {
     const randomNo = rng();
 
     // Discard candidate with a probability
-    if (randomNo < 0.2 || !candidateBranch || candidateBranch.position[1] < 0) {
+    if (randomNo < 0.1 || !candidateBranch || candidateBranch.position[1] < 0) {
       continue;
     }
 
@@ -73,6 +74,8 @@ const generate = (spec: PlantSpec): Node => {
 
       generatedModels.push(branch.model);
       potentialBranchSites.push(...branch.branchSites);
+
+      continue;
     }
 
     // Create a leaf
@@ -99,11 +102,12 @@ const generate = (spec: PlantSpec): Node => {
     const leafTranslate = mat4.getTranslation(vec3.create(), leafTransform);
     const leafRotation = mat4.getRotation(quat.create(), leafTransform);
 
+    const leafSize = candidateBranch.width / MAIN_BRANCH_WIDTH;
     generatedModels.push(
       generateLeaf({
-        length: 0.6,
+        length: 0.6 * leafSize + 0.1,
         randomSeed: rng().toString(),
-        width: 0.2,
+        width: 0.2 * leafSize + 0.05,
       })
         .translation(leafTranslate[0], leafTranslate[1], leafTranslate[2])
         .rotation(
