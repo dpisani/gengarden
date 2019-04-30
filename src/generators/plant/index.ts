@@ -9,7 +9,7 @@ import generateLeaf from '../leaf';
 
 import getRandomGenerator from '../util/get-random-generator';
 
-const SEGMENTS_PER_LENGTH = 5.5;
+const SEGMENTS_PER_LENGTH = 8;
 const MAIN_BRANCH_LENGTH = 4.5;
 const MAIN_BRANCH_WIDTH = 0.05;
 
@@ -55,7 +55,7 @@ const generate = (spec: PlantSpec): Node => {
     const randomNo = rng();
 
     // Discard candidate with a probability
-    if (randomNo < 0.1 || !candidateBranch || candidateBranch.position[1] < 0) {
+    if (randomNo < 0.3 || !candidateBranch || candidateBranch.position[1] < 0) {
       continue;
     }
 

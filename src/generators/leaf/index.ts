@@ -29,8 +29,8 @@ const generateBlade = (width: number, height: number, rng: prng): Node => {
   const segments = 10;
 
   const b1 = vec3.fromValues(0, 0, 0);
-  const b2 = vec3.fromValues(1 + rng() * 0.5, 0.3, 0);
-  const b3 = vec3.fromValues(1 - rng() * 0.5, 0.8, 0);
+  const b2 = vec3.fromValues(1 + rng() * 0.6, 0.3, 0);
+  const b3 = vec3.fromValues(1 - rng() * 0.3, 0.8, 0);
   const b4 = vec3.fromValues(0, 1, 0);
 
   // generate vertices and indices for segments that are not the ends
@@ -104,7 +104,7 @@ const generate = (spec: LeafSpec) => {
 
   const stem = tubePathGenerator({
     segments: [
-      { position: vec3.fromValues(0, 0, 0), width: 0.01 },
+      { position: vec3.fromValues(0, 0, 0), width: 0.05 * spec.width },
       { position: vec3.fromValues(0, length, 0), width: 0 },
     ],
   });
