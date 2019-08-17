@@ -1,19 +1,22 @@
 import * as BezierSpline from 'bezier-spline';
 import { quat, vec3 } from 'gl-matrix';
 import { Node } from 'gltf-builder';
+import { flatten } from 'lodash';
 import { prng } from 'seedrandom';
 
+import { BoundingVolume } from '../../bounding-volumes/types';
 import generateTubePath from '../tube-path';
-
 import createDeviation from '../util/create-devitaion';
 
 export interface BranchSpec {
   start: vec3;
+  deviationRange?: [number, number]; // Range for how much the branch can turn per segment, in radians
   direction: vec3; // initial direction to grow the branch
   length: number;
   rng: prng;
   segments: number; // number of segments within the branch
   width: number; // initial width of the branch
+  boundingVolume?: BoundingVolume; // BV determining the space this branch must fit within
 }
 
 export interface BranchSite {
@@ -27,6 +30,15 @@ interface GeneratedType {
   model: Node;
   // Potential sites for offshoots
   branchSites: BranchSite[];
+}
+
+interface BranchNode {
+  keyPoint: vec3;
+  branchSites: Array<{
+    position: vec3;
+    normal: vec3;
+    remainingParentLength: number;
+  }>;
 }
 
 const getSplineValue = (spline: BezierSpline, x: number): number => {
@@ -44,11 +56,24 @@ const getSplineValue = (spline: BezierSpline, x: number): number => {
   return matchingPoints[0][1];
 };
 
+const checkInvariants = (spec: BranchSpec) => {
+  if (spec.segments < 1) {
+    throw new Error('Branch must have at least 1 segment.');
+  }
+};
+
 const generate = (spec: BranchSpec): GeneratedType => {
-  const segments: Array<{ position: vec3; width: number }> = [
-    { position: spec.start, width: spec.width },
+  checkInvariants(spec);
+  // const keyPoints: vec3[] = [spec.start];
+
+  // const branchSites: BranchSite[] = [];
+
+  const branchNodes: BranchNode[] = [
+    {
+      branchSites: [],
+      keyPoint: spec.start,
+    },
   ];
-  const branchSites: BranchSite[] = [];
 
   let currentPos = spec.start;
   let currentDir = spec.direction;
@@ -57,65 +82,100 @@ const generate = (spec: BranchSpec): GeneratedType => {
 
   const segmentLength = spec.length / spec.segments;
 
-  for (let i = 1; i <= spec.segments; i++) {
-    const nextWidth =
-      spec.width * getSplineValue(widthCurve, i / spec.segments);
+  const deviationRange = spec.deviationRange || [
+    Math.PI * 0.11,
+    Math.PI * 0.16,
+  ];
 
+  const noNodes = spec.segments + 1;
+
+  const widthAtIndex = i =>
+    spec.width * getSplineValue(widthCurve, i / noNodes);
+
+  for (let i = 1; i < noNodes; i++) {
     const growth = vec3.scale(
       vec3.create(),
       vec3.normalize(vec3.create(), currentDir),
       segmentLength,
     );
 
-    const nextPoint = {
-      position: vec3.add(vec3.create(), currentPos, growth),
-      width: nextWidth,
-    };
+    const nextPoint = vec3.add(vec3.create(), currentPos, growth);
+
+    let nextBranchSites;
 
     // make only one site if at the end
     if (i === spec.segments) {
-      branchSites.push({
-        normal: currentDir,
-        position: nextPoint.position,
-        remainingParentLength: 0,
-        width: nextWidth,
-      });
+      nextBranchSites = [
+        {
+          normal: currentDir,
+          position: nextPoint,
+          remainingParentLength: 0,
+        },
+      ];
     } else {
       // create some potential branch sites
       const mainDeviation = createDeviation(
         currentDir,
-        Math.PI * 0.11,
-        Math.PI * 0.16,
+        deviationRange[0],
+        deviationRange[1],
         spec.rng,
       );
 
       const rotateQuat = quat.setAxisAngle(quat.create(), currentDir, Math.PI);
-      const candidateBranches: BranchSite[] = [
+      const candidateBranches = [
         mainDeviation,
         vec3.transformQuat(vec3.create(), mainDeviation, rotateQuat),
       ].map(normal => ({
         normal,
-        position: nextPoint.position,
+        position: nextPoint,
         remainingParentLength: spec.length - segmentLength * i,
-        width: nextWidth,
       }));
 
       // use one of the branch sites for the next iteration
-      const branchSite = candidateBranches.pop();
+      const branchSite = candidateBranches.find(candidate => {
+        if (!spec.boundingVolume) {
+          return true;
+        }
+
+        return spec.boundingVolume.containsPoint(candidate.position);
+      });
+
       currentDir = branchSite ? branchSite.normal : currentDir;
 
-      branchSites.push(...candidateBranches);
+      nextBranchSites = candidateBranches.filter(
+        c =>
+          c !== branchSite &&
+          (!spec.boundingVolume ||
+            spec.boundingVolume.containsPoint(c.position)),
+      );
     }
 
-    currentPos = nextPoint.position;
-    segments.push(nextPoint);
+    currentPos = nextPoint;
+
+    branchNodes.push({
+      branchSites: nextBranchSites,
+      keyPoint: nextPoint,
+    });
   }
+
+  const segments: Array<{ position: vec3; width: number }> = branchNodes.map(
+    (n, i) => ({
+      position: n.keyPoint,
+      width: widthAtIndex(i),
+    }),
+  );
+
+  const branchSites = branchNodes
+    .map(n => n.branchSites)
+    .map((sites, i) => {
+      return sites.map(site => ({ ...site, width: widthAtIndex(i) }));
+    });
 
   const tubePath = generateTubePath({
     segments,
   });
 
-  return { model: tubePath, branchSites };
+  return { model: tubePath, branchSites: flatten(branchSites) };
 };
 
 export default generate;

@@ -7,6 +7,8 @@ import generateBranch, { BranchSite } from '../branch';
 import generateGroup from '../group';
 import generateLeaf from '../leaf';
 
+import BoundingBox from '../../bounding-volumes/box';
+
 import getRandomGenerator from '../util/get-random-generator';
 
 const SEGMENTS_PER_LENGTH = 8;

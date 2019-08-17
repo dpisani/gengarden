@@ -5,6 +5,7 @@ import { groupGeneratorDefinition } from '../../generators/group';
 import { leafGeneratorDefinition } from '../../generators/leaf';
 import meshGenerator from '../../generators/mesh';
 import { plantGeneratorDefinition } from '../../generators/plant';
+import { snowBushGeneratorDefinition } from '../../generators/plants/snow-bush';
 import { treeGeneratorDefinition } from '../../generators/tree';
 import tubeGenerator from '../../generators/tube';
 import { tubePathGeneratorDefinition } from '../../generators/tube-path';
@@ -18,6 +19,7 @@ const generators: Array<GeneratorDefinition<any, GeneratedTypes>> = [
   leafGeneratorDefinition,
   plantGeneratorDefinition,
   // primitive generators
+  snowBushGeneratorDefinition,
   tubeGenerator,
   tubePathGeneratorDefinition,
   // gltf object generators
