@@ -66,7 +66,7 @@ const generate = (spec: PlantSpec): Node => {
       const newBranchLength = candidateBranch.remainingParentLength * 0.7;
 
       const branch = generateBranch({
-        direction: candidateBranch.normal,
+        direction: candidateBranch.direction,
         length: newBranchLength,
         rng,
         segments: getNoSegments(newBranchLength),
@@ -94,7 +94,7 @@ const generate = (spec: PlantSpec): Node => {
     const lookatMat = mat4.targetTo(
       mat4.create(),
       vec3.create(),
-      candidateBranch.normal,
+      candidateBranch.direction,
       vec3.fromValues(0, 1, 0),
     );
     mat4.mul(rotationMat, lookatMat, rotationMat);

@@ -49,7 +49,7 @@ const generate = (spec: SnowBushSpec): Node => {
 
   const secondBranch = generateBranch({
     deviationRange: [Math.PI * 0.03, Math.PI * 0.05],
-    direction: startBranch.branchSites[1].normal,
+    direction: startBranch.branchSites[1].direction,
     length: startBranch.branchSites[1].remainingParentLength * 0.7,
     rng,
     segments: getNoSegments(MAIN_BRANCH_LENGTH * 0.7),
@@ -59,7 +59,7 @@ const generate = (spec: SnowBushSpec): Node => {
 
   const thirdBranch = generateBranch({
     deviationRange: [Math.PI * 0.03, Math.PI * 0.05],
-    direction: startBranch.branchSites[2].normal,
+    direction: startBranch.branchSites[2].direction,
     length: startBranch.branchSites[2].remainingParentLength * 0.8,
     rng,
     segments: getNoSegments(MAIN_BRANCH_LENGTH * 0.6),
