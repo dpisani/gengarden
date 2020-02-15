@@ -60,6 +60,14 @@ const checkInvariants = (spec: BranchSpec) => {
   }
 };
 
+export const generateModel = (blueprint: BranchBlueprint): Node => {
+  const tubePath = generateTubePath({
+    segments: blueprint.keyPoints,
+  });
+
+  return tubePath;
+};
+
 const generate = (spec: BranchSpec): GeneratedType => {
   checkInvariants(spec);
 
@@ -85,7 +93,7 @@ const generate = (spec: BranchSpec): GeneratedType => {
     segments: branchModel.keyPoints,
   });
 
-  return { model: tubePath, branchSites };
+  return { model: generateModel(branchModel), branchSites };
 };
 
 export default generate;

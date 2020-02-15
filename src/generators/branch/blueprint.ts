@@ -30,7 +30,15 @@ export default class BranchBlueprint {
     { x: 1, y: 0 },
   );
 
+  checkInvariants = (spec: BranchSpec) => {
+    if (spec.segments < 1) {
+      throw new Error('Branch must have at least 1 segment.');
+    }
+  };
+
   constructor(spec: BranchSpec) {
+    this.checkInvariants(spec);
+
     this.keyPoints = this.generateKeypoints(spec);
     this.length = spec.length;
     this.width = spec.width;

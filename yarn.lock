@@ -23,6 +23,11 @@
   resolved "https://registry.yarnpkg.com/@types/bezier-js/-/bezier-js-0.0.8.tgz#e9dcdafa72ed4fe0decc72e35f8422fd402c269d"
   integrity sha512-X+sQeRVDMwlQYZEqQcVOVqCKrZa7nKVuYirlJCJQRBpucQSzPGxjv7VAncCGe0cr1v1hFuLAzK11XzjOPqQ0kA==
 
+"@types/gaussian@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@types/gaussian/-/gaussian-1.1.1.tgz#ce670c1d41d33d5a8601235da1cc5395783f6d7f"
+  integrity sha1-zmcMHUHTPVqGASNdocxTlXg/bX8=
+
 "@types/gl-matrix@^2.4.4":
   version "2.4.4"
   resolved "https://registry.yarnpkg.com/@types/gl-matrix/-/gl-matrix-2.4.4.tgz#e9d06dc5552102eb6ced7beb78ceb3290b229959"
@@ -843,6 +848,11 @@ gauge@~2.7.3:
     string-width "^1.0.1"
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
+
+gaussian@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/gaussian/-/gaussian-1.1.0.tgz#6d137a097d4dbfc20b52fb1cb5d61c4700edd771"
+  integrity sha1-bRN6CX1Nv8ILUvsctdYcRwDt13E=
 
 get-stdin@^4.0.1:
   version "4.0.1"
