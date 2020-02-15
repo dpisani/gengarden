@@ -4,6 +4,7 @@ import { Node } from 'gltf-builder';
 import { GeneratorDefinition, TaggedSpec } from '../../../types';
 
 import { generateStemBlueprints, generateStemModel } from './stems';
+import { generateCompoundLeaves } from './compound-leaves';
 
 import getRandomGenerator from '../../util/get-random-generator';
 
@@ -34,7 +35,13 @@ const generate = (spec: SnowBushSpec): Node => {
 
   const stems = generateStemBlueprints({ rng });
 
-  return generateStemModel({ blueprints: stems });
+  const stemModel = generateStemModel({ blueprints: stems });
+
+  const leaves = generateCompoundLeaves({ stemBlueprints: stems, rng });
+  // TODO: Replace this with stalk model generator
+  const stalkModel = generateStemModel({ blueprints: leaves.stalkBlueprints });
+
+  return new Node().addChild(stemModel).addChild(stalkModel);
 };
 
 export const snowBushGeneratorDefinition: GeneratorDefinition<
