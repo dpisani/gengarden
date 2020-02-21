@@ -49,6 +49,29 @@ export default class BranchBlueprint {
     deviationRange: [number, number],
     rng: prng,
   ) {
+    const branchPoint = this.getAxisInfoAt(length);
+
+    return {
+      position: branchPoint.position,
+      direction: createDeviation(
+        branchPoint.axisDirection,
+        deviationRange[0],
+        deviationRange[1],
+        rng,
+      ),
+      width: branchPoint.width,
+    };
+  }
+
+  // Get info about point along branch at point defined by the length up from the base
+  public getAxisInfoAt = (
+    length: number,
+  ): {
+    position: vec3;
+    width: number;
+    // the forward direction along the axis from this point
+    axisDirection: vec3;
+  } => {
     if (length < 0 || length > this.length) {
       throw new Error('Invalid length');
     }
@@ -98,7 +121,8 @@ export default class BranchBlueprint {
               this.keyPoints[prevKeypoint.lastIdx].position,
             ),
           );
-    const branchPoint = vec3.add(
+
+    const position = vec3.add(
       vec3.create(),
       this.keyPoints[prevKeypoint.lastIdx].position,
       vec3.scale(vec3.create(), segmentDir, remainingLength),
@@ -106,17 +130,8 @@ export default class BranchBlueprint {
     const width =
       this.width * getSplineValue(this.widthCurve, length / this.length);
 
-    return {
-      position: branchPoint,
-      direction: createDeviation(
-        segmentDir,
-        deviationRange[0],
-        deviationRange[1],
-        rng,
-      ),
-      width,
-    };
-  }
+    return { position, width, axisDirection: segmentDir };
+  };
 
   private generateKeypoints = (
     spec: BranchSpec,
