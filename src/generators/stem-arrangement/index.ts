@@ -6,6 +6,8 @@ export interface StemNode {
   // Direction that the offshoot from this node should face
   direction: vec3;
   size: number;
+  // Number in the range [0,1] that designates how far up the branch the node lies
+  branchPosition: number;
 }
 
 export interface StemArrangementBlueprint {

@@ -2,9 +2,9 @@ import { vec3 } from 'gl-matrix';
 
 export interface StemAxisBlueprint {
   length: number;
-  // Get info about point along branch at point defined by the length up from the base
+  // Get info about point along branch at point defined by the position from the base in the range [0,1]
   getAxisInfoAt: (
-    length: number,
+    position: number,
   ) => {
     position: vec3;
     width: number;

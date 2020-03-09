@@ -3,6 +3,7 @@ import { StemAxisBlueprint } from '../../stem-axis';
 import { vec3 } from 'gl-matrix';
 import { prng } from 'seedrandom';
 import assert from 'assert';
+import 'should';
 
 const createMockRng = (): prng => {
   const rng = () => 0.5;
@@ -16,6 +17,12 @@ const createMockRng = (): prng => {
   };
 
   return (rng as unknown) as prng;
+};
+
+const assertIsClose = (a: vec3, b: vec3) => {
+  a[0].should.be.approximately(b[0], 0.01);
+  a[1].should.be.approximately(b[1], 0.01);
+  a[2].should.be.approximately(b[2], 0.01);
 };
 
 describe('opposite stem arrangement generator', () => {
@@ -35,7 +42,7 @@ describe('opposite stem arrangement generator', () => {
       axis: mockAxis,
       rng: createMockRng(),
       nodePlacementRotation: 0,
-      nodeDivergenceRange: [0, 0],
+      nodeDivergenceLookup: () => 0,
       nodePositions: [0.5, 1],
     });
 
@@ -49,7 +56,7 @@ describe('opposite stem arrangement generator', () => {
       axis: mockAxis,
       rng: createMockRng(),
       nodePlacementRotation: 0,
-      nodeDivergenceRange: [0, 0],
+      nodeDivergenceLookup: () => 0,
       nodePositions: [0.5, 1],
     });
 
@@ -67,20 +74,33 @@ describe('opposite stem arrangement generator', () => {
       axis: mockAxis,
       rng: createMockRng(),
       nodePlacementRotation: 0,
-      nodeDivergenceRange: [Math.PI / 2, Math.PI / 2],
+      nodeDivergenceLookup: () => Math.PI / 2,
       nodePositions: [0.5, 1],
     });
 
     const [node1, node2, node3, node4] = arrangement.nodes;
 
-    assert.deepStrictEqual(node1.direction, vec3.fromValues(0, 0, 1));
-    assert.deepStrictEqual(node2.direction, vec3.fromValues(-0, -0, -1)); // because -0 !== 0 for some reason
+    assertIsClose(node1.direction, vec3.fromValues(0, 0, 1));
+    assertIsClose(node2.direction, vec3.fromValues(0, 0, -1));
 
-    assert.deepStrictEqual(node3.direction, vec3.fromValues(0, 0, 1));
-    assert.deepStrictEqual(node4.direction, vec3.fromValues(-0, -0, -1));
+    assertIsClose(node3.direction, vec3.fromValues(0, 0, 1));
+    assertIsClose(node4.direction, vec3.fromValues(0, 0, -1));
   });
 
-  it.skip('faces nodes at an angle away from the axis defined by a given divergence range', () => {});
+  it('faces nodes at an angle away from the axis defined by a given divergence function', () => {
+    const arrangement = generateOppositeStemArrangement({
+      axis: mockAxis,
+      rng: createMockRng(),
+      nodePlacementRotation: 0,
+      nodeDivergenceLookup: () => Math.PI / 4,
+      nodePositions: [0.5],
+    });
+
+    const [node1, node2] = arrangement.nodes;
+
+    assertIsClose(node1.direction, vec3.fromValues(0.707, 0, 0.707));
+    assertIsClose(node2.direction, vec3.fromValues(0.707, 0, -0.707));
+  });
 
   it.skip('rotates node placements around the stem axis as defined by a given placement rotation', () => {});
 });

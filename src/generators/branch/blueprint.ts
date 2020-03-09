@@ -73,7 +73,7 @@ export default class BranchBlueprint {
     axisDirection: vec3;
   } => {
     if (length < 0 || length > this.length) {
-      throw new Error('Invalid length');
+      throw new Error(`Invalid length: ${length}`);
     }
 
     // get last keypoint before branching point

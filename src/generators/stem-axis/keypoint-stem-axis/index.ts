@@ -33,16 +33,20 @@ export class KeypointStemAxisBlueprint implements StemAxisBlueprint {
   }
 
   public getAxisInfoAt = (
-    length: number,
+    position: number,
   ): {
     position: vec3;
     width: number;
     // the forward direction along the axis from this point
     axisDirection: vec3;
   } => {
-    if (length < 0 || length > this.length) {
-      throw new Error('Invalid length');
+    if (position < 0 || position > 1) {
+      throw new Error(
+        `Position must be in the range [0,1]. Instead got ${position}`,
+      );
     }
+
+    const length = this.length * position;
 
     // get last keypoint before branching point
     let prevKeypoint = {
@@ -95,7 +99,7 @@ export class KeypointStemAxisBlueprint implements StemAxisBlueprint {
 
     const segmentDir = vec3.normalize(vec3.create(), segmentVec);
 
-    const position = vec3.add(
+    const infoPosition = vec3.add(
       vec3.create(),
       this.keyPoints[prevKeypoint.lastIdx].position,
       vec3.scale(vec3.create(), segmentVec, t),
@@ -103,6 +107,6 @@ export class KeypointStemAxisBlueprint implements StemAxisBlueprint {
 
     const width = lerp(segment[0].width, segment[1].width, t);
 
-    return { position, width, axisDirection: segmentDir };
+    return { position: infoPosition, width, axisDirection: segmentDir };
   };
 }
