@@ -7,6 +7,7 @@ import { BoundingVolume } from '../../bounding-volumes/types';
 import generateTubePath from '../tube-path';
 
 import BranchBlueprint from './blueprint';
+import { KeypointStemAxisBlueprint } from '../stem-axis/keypoint-stem-axis';
 
 export interface BranchSpec {
   start: vec3;
@@ -60,7 +61,7 @@ const checkInvariants = (spec: BranchSpec) => {
   }
 };
 
-export const generateModel = (blueprint: BranchBlueprint): Node => {
+export const generateModel = (blueprint: KeypointStemAxisBlueprint): Node => {
   const tubePath = generateTubePath({
     segments: blueprint.keyPoints,
   });

@@ -12,3 +12,29 @@ export const getRandomInt = (min: number, max: number, rng: prng) => {
 
 export const lerp = (a: number, b: number, t: number): number =>
   a + t * (b - a);
+
+// Divides a range into a set of points spaced across the interval [a, b].
+// A custom point lookup function can be provided which should be a mapping from [0,1] => [0,1]. Defaults to the identity function
+export const subdivideInterval = (
+  a: number,
+  b: number,
+  steps: number,
+  lookupFn?: (t: number) => number,
+): number[] => {
+  const lookup = lookupFn || (x => x);
+
+  const range = b - a;
+
+  if (steps < 2) {
+    return [a + lookup(0) * range];
+  }
+
+  const stepSize = 1 / (steps - 1);
+  const points: number[] = [];
+
+  for (let i = 0; i < steps; i++) {
+    points[i] = a + lookup(i * stepSize) * range;
+  }
+
+  return points;
+};

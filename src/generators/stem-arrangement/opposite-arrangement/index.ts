@@ -4,13 +4,7 @@ import { prng } from 'seedrandom';
 import { StemAxisBlueprint } from '../../stem-axis';
 import { quat } from 'gl-matrix';
 
-// Nodes of this arrangement are generated in pairs along the axis
-export function generateOppositeStemArrangement({
-  axis,
-  nodePositions,
-  upDirection,
-  nodeDivergenceLookup,
-}: {
+export interface GeneratorProps {
   axis: StemAxisBlueprint;
   // positions along the axis (a porportion in the range [0,1]) to place nodes
   nodePositions: number[];
@@ -20,13 +14,31 @@ export function generateOppositeStemArrangement({
   nodeDivergenceLookup: (position: number) => number;
   // global up direction to use when orienting node placements. defaults to the positive Y axis
   upDirection?: vec3;
+  // pattern for which nodes are placed
+  placementScheme: PlacementScheme;
   rng: prng;
-}): StemArrangementBlueprint {
+}
+
+export enum PlacementScheme {
+  PAIRS, // Nodes are generated in pairs facing opposite directions
+  ALTERNATING, // Nodes are generated in opposite directions alternating along the axis
+}
+
+// Nodes of this arrangement are generated along a single plane along the axis
+export function generateOppositeStemArrangement({
+  axis,
+  nodePositions,
+  upDirection,
+  nodeDivergenceLookup,
+  placementScheme,
+}: GeneratorProps): StemArrangementBlueprint {
   const upDir = upDirection || vec3.fromValues(0, 1, 0);
   const nodes: StemNode[] = [];
 
+  let alternatingLeft = true;
+
   for (let nodePosition of nodePositions) {
-    const nodePoint = axis.getAxisInfoAt(nodePosition * axis.length);
+    const nodePoint = axis.getAxisInfoAt(nodePosition);
 
     const leftDir = vec3.cross(vec3.create(), nodePoint.axisDirection, upDir);
 
@@ -40,45 +52,62 @@ export function generateOppositeStemArrangement({
 
     const divergence = nodeDivergenceLookup(nodePosition);
 
-    const rightRotator = quat.setAxisAngle(
-      quat.create(),
-      localUpDir,
-      divergence,
-    );
-    const leftRotator = quat.setAxisAngle(
-      quat.create(),
-      localUpDir,
-      -divergence,
-    );
+    if (alternatingLeft || placementScheme === PlacementScheme.PAIRS) {
+      const nodeLeft: StemNode = createNode({
+        axisInfo: nodePoint,
+        divergence: -divergence,
+        localUpDir,
+        branchPosition: nodePosition,
+      });
 
-    const leftNodeDir = vec3.transformQuat(
-      vec3.create(),
-      nodePoint.axisDirection,
-      leftRotator,
-    );
+      nodes.push(nodeLeft);
+    }
 
-    const rightNodeDir = vec3.transformQuat(
-      vec3.create(),
-      nodePoint.axisDirection,
-      rightRotator,
-    );
+    if (!alternatingLeft || placementScheme === PlacementScheme.PAIRS) {
+      const nodeRight: StemNode = createNode({
+        axisInfo: nodePoint,
+        divergence: divergence,
+        localUpDir,
+        branchPosition: nodePosition,
+      });
 
-    const nodeLeft: StemNode = {
-      position: nodePoint.position,
-      size: nodePoint.width,
-      direction: leftNodeDir,
-      branchPosition: nodePosition,
-    };
+      nodes.push(nodeRight);
+    }
 
-    const nodeRight: StemNode = {
-      position: nodePoint.position,
-      size: nodePoint.width,
-      direction: rightNodeDir,
-      branchPosition: nodePosition,
-    };
-
-    nodes.push(nodeLeft, nodeRight);
+    alternatingLeft = !alternatingLeft;
   }
 
   return { axis, nodes };
 }
+
+const createNode = ({
+  axisInfo,
+  localUpDir,
+  divergence,
+  branchPosition,
+}: {
+  axisInfo: {
+    position: vec3;
+    width: number;
+    axisDirection: vec3;
+  };
+  branchPosition: number;
+
+  localUpDir: vec3;
+  divergence: number;
+}): StemNode => {
+  const rotator = quat.setAxisAngle(quat.create(), localUpDir, divergence);
+
+  const nodeDir = vec3.transformQuat(
+    vec3.create(),
+    axisInfo.axisDirection,
+    rotator,
+  );
+
+  return {
+    position: axisInfo.position,
+    size: axisInfo.width,
+    direction: nodeDir,
+    branchPosition: branchPosition,
+  };
+};

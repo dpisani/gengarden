@@ -10,6 +10,7 @@ import { generateCompoundLeaves, LeafBlueprint } from './compound-leaves';
 import getRandomGenerator from '../../util/get-random-generator';
 import { prng } from 'seedrandom';
 import { flatMap } from 'lodash';
+import { KeypointStemAxisBlueprint } from '../../stem-axis/keypoint-stem-axis';
 
 const TYPE_LABEL = 'snow-bush';
 
@@ -42,7 +43,10 @@ const generate = (spec: SnowBushSpec): Node => {
 
   const stemModel = generateStemModel({ blueprints: stems });
 
-  const leafBps = generateCompoundLeaves({ stemBlueprints: stems, rng });
+  const leafBps = generateCompoundLeaves({
+    stemBlueprints: stems.map(s => new KeypointStemAxisBlueprint(s.keyPoints)),
+    rng,
+  });
   // TODO: Replace this with stalk model generator
   const stalkModel = generateStemModel({ blueprints: leafBps.stalkBlueprints });
 

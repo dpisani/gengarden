@@ -102,7 +102,7 @@ export class KeypointStemAxisBlueprint implements StemAxisBlueprint {
     const infoPosition = vec3.add(
       vec3.create(),
       this.keyPoints[prevKeypoint.lastIdx].position,
-      vec3.scale(vec3.create(), segmentVec, t),
+      vec3.scale(vec3.create(), segmentDir, t),
     );
 
     const width = lerp(segment[0].width, segment[1].width, t);

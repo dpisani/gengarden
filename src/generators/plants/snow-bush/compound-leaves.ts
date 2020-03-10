@@ -1,75 +1,94 @@
-import BranchBlueprint from '../../branch/blueprint';
 import { prng } from 'seedrandom';
 import { flatMap } from 'lodash';
 import { vec3 } from 'gl-matrix';
-import { mat4 } from 'gl-matrix';
 import Bezier from 'bezier-js';
 
 import { NormalisedCurve } from '../../util/curves';
-import { generateOppositeStemArrangement } from '../../stem-arrangement/opposite-arrangement';
+import {
+  generateOppositeStemArrangement,
+  PlacementScheme,
+} from '../../stem-arrangement/opposite-arrangement';
 import { quat } from 'gl-matrix';
-import { mat3 } from 'gl-matrix';
-import { clamp, lerp } from '../../util/math';
+import { clamp, lerp, subdivideInterval } from '../../util/math';
+import { KeypointStemAxisBlueprint } from '../../stem-axis/keypoint-stem-axis';
+import { StemAxisBlueprint } from '../../stem-axis';
+import generateStemAxis from '../../stem-axis/keypoint-stem-axis/generators/random-walk';
 
-const STALKS_PER_LENGTH_UNIT = 2;
+const STALKS_PER_LENGTH_UNIT = 3;
 const SEGMENTS_PER_STEM_LENGTH = 2;
-const LEAVES_PER_STALK_LENGTH = 7;
+const LEAVES_PER_STALK_LENGTH = 12;
 const GLOBAL_UP = vec3.fromValues(0, 1, 0);
-
-const getNoSegments = (length, segmentsPerLength = SEGMENTS_PER_STEM_LENGTH) =>
-  Math.ceil(length * segmentsPerLength);
-
-const generateLeafStalks = (
-  stemBps: BranchBlueprint[],
-  rng: prng,
-): BranchBlueprint[] => {
-  return flatMap(
-    stemBps,
-    (stemBp: BranchBlueprint): BranchBlueprint[] => {
-      const noStalks = Math.round(stemBp.length * STALKS_PER_LENGTH_UNIT);
-
-      const stalks: BranchBlueprint[] = [];
-      for (let i = 0; i < noStalks; i++) {
-        // find position from the end part of branch
-        const branchPos = (1 - rng() * 0.7) * stemBp.length;
-
-        const branchPoint = stemBp.getBranchSiteAt(
-          branchPos,
-          [Math.PI * 0.4, Math.PI * 0.5],
-          rng,
-        );
-
-        const stemLength = (stemBp.length - branchPos) * 0.7;
-
-        stalks[i] = new BranchBlueprint({
-          start: branchPoint.position,
-          direction: branchPoint.direction,
-          length: stemLength,
-          width: branchPoint.width * 0.7,
-          segments: getNoSegments(stemLength),
-          rng,
-        });
-      }
-
-      return stalks;
-    },
-  );
-};
 
 export const generateCompoundLeaves = ({
   stemBlueprints,
   rng,
 }: {
-  stemBlueprints: BranchBlueprint[];
+  stemBlueprints: KeypointStemAxisBlueprint[];
   rng: prng;
-}): { stalkBlueprints: BranchBlueprint[]; leafBlueprints: LeafBlueprint[] } => {
-  const stalkBlueprints = generateLeafStalks(stemBlueprints, rng);
+}): {
+  stalkBlueprints: KeypointStemAxisBlueprint[];
+  leafBlueprints: LeafBlueprint[];
+} => {
+  const stalkBlueprints = generateAlternateLeafStalks(stemBlueprints, rng);
   return {
     stalkBlueprints,
     leafBlueprints: flatMap(stalkBlueprints, s =>
       generateLeavesForStem({ stemBlueprint: s, rng }),
     ),
   };
+};
+
+const getNoSegments = (length, segmentsPerLength = SEGMENTS_PER_STEM_LENGTH) =>
+  Math.ceil(length * segmentsPerLength);
+
+const generateAlternateLeafStalks = (
+  stemBps: StemAxisBlueprint[],
+  rng: prng,
+): KeypointStemAxisBlueprint[] => {
+  return flatMap(
+    stemBps,
+    (stemBp: StemAxisBlueprint): KeypointStemAxisBlueprint[] => {
+      const noStalks = Math.round(stemBp.length * STALKS_PER_LENGTH_UNIT);
+
+      const leafStalkPositions = subdivideInterval(0.3, 1, noStalks);
+
+      const stalkDivergenceCurve = new NormalisedCurve(
+        new Bezier({ x: 0, y: 0.8 }, { x: 0.9, y: 0.6 }, { x: 1.1, y: 0.1 }),
+      );
+
+      const stalkArrangement = generateOppositeStemArrangement({
+        axis: stemBp,
+        nodePositions: leafStalkPositions,
+        nodeDivergenceLookup: (t: number) =>
+          stalkDivergenceCurve.valueAt(t) * Math.PI * 0.25,
+        nodePlacementRotation: 0,
+        placementScheme: PlacementScheme.ALTERNATING,
+        rng,
+      });
+
+      const maxStalkSize = stemBp.length * 0.5;
+      const minStalkSize = maxStalkSize * 0.2;
+
+      return stalkArrangement.nodes.map(node => {
+        const stemLength = lerp(
+          maxStalkSize,
+          minStalkSize,
+          node.branchPosition,
+        );
+
+        const stemWidth = Math.max(node.size * 0.7, 0.003);
+
+        return generateStemAxis({
+          start: node.position,
+          direction: node.direction,
+          length: stemLength,
+          width: stemWidth,
+          segments: getNoSegments(stemLength),
+          rng,
+        });
+      });
+    },
+  );
 };
 
 export interface LeafBlueprint {
@@ -85,7 +104,7 @@ const generateLeavesForStem = ({
   stemBlueprint,
   rng,
 }: {
-  stemBlueprint: BranchBlueprint;
+  stemBlueprint: StemAxisBlueprint;
   rng: prng;
 }): LeafBlueprint[] => {
   const stemCoverage = 0.9;
@@ -111,6 +130,7 @@ const generateLeavesForStem = ({
     nodePositions,
     nodeDivergenceLookup: () => Math.PI * 0.3 + rng() * 0.1,
     nodePlacementRotation: 0,
+    placementScheme: PlacementScheme.ALTERNATING,
     rng,
   });
 
@@ -119,6 +139,8 @@ const generateLeavesForStem = ({
   );
 
   const getLeafSize = (t: number) => {
+    // Limit the range of sizes that can be sampled from the curve for smaller stems
+
     const BIG_STEM_SIZE = 2;
     const range = clamp(stemBlueprint.length, 0, BIG_STEM_SIZE) / BIG_STEM_SIZE;
 
@@ -134,9 +156,8 @@ const generateLeavesForStem = ({
   return arrangement.nodes.map((node, i) => {
     const leafSize = getLeafSize(node.branchPosition);
 
-    const forward = stemBlueprint.getAxisInfoAt(
-      node.branchPosition * stemBlueprint.length,
-    ).axisDirection;
+    const forward = stemBlueprint.getAxisInfoAt(node.branchPosition)
+      .axisDirection;
     const normalRotation = rotateBetween(
       GLOBAL_UP,
       forward,
