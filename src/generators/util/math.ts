@@ -15,7 +15,7 @@ export const lerp = (a: number, b: number, t: number): number =>
 
 // Divides a range into a set of points spaced across the interval [a, b].
 // A custom point lookup function can be provided which should be a mapping from [0,1] => [0,1]. Defaults to the identity function
-export const subdivideInterval = (
+export const sampleInterval = (
   a: number,
   b: number,
   steps: number,

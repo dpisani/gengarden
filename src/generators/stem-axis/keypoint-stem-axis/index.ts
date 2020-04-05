@@ -1,7 +1,7 @@
 import { StemAxisBlueprint } from '../index';
 import { vec3 } from 'gl-matrix';
 
-import { lerp } from '../../util/math';
+import { lerp, sampleInterval } from '../../util/math';
 
 interface KeyPoint {
   position: vec3;
@@ -109,4 +109,31 @@ export class KeypointStemAxisBlueprint implements StemAxisBlueprint {
 
     return { position: infoPosition, width, axisDirection: segmentDir };
   };
+
+  /**
+   *Converts a generic stem axis blueprint into a keypointed one
+   *
+   * @static
+   * @param {StemAxisBlueprint} axis
+   * @param {number} keypoints
+   * @returns {KeypointStemAxisBlueprint}
+   * @memberof KeypointStemAxisBlueprint
+   */
+  static fromStemAxisBlueprint(
+    axis: StemAxisBlueprint,
+    keypoints?: number,
+  ): KeypointStemAxisBlueprint {
+    if (axis instanceof KeypointStemAxisBlueprint) {
+      return axis;
+    }
+
+    const noKeypoints = keypoints || 10;
+    const positions = sampleInterval(0, 1, noKeypoints);
+
+    const kps = positions
+      .map(p => axis.getAxisInfoAt(p))
+      .map(({ position, width }) => ({ position, width }));
+
+    return new KeypointStemAxisBlueprint(kps);
+  }
 }

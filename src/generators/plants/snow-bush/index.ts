@@ -11,6 +11,8 @@ import getRandomGenerator from '../../util/get-random-generator';
 import { prng } from 'seedrandom';
 import { flatMap } from 'lodash';
 import { KeypointStemAxisBlueprint } from '../../stem-axis/keypoint-stem-axis';
+import generateSimpleLeaflet from '../../leaves/keypoint-leaflet/generators/simple-leaflet';
+import generateLeafletModel from '../../leaves/keypoint-leaflet/model';
 
 const TYPE_LABEL = 'snow-bush';
 
@@ -71,27 +73,42 @@ const generateLeavesModel = (leafBps: LeafBlueprint[], rng: prng): Node => {
 };
 
 const generateLeaf = (leafBp: LeafBlueprint, rng: prng): Node => {
-  const leafModel = generateLeafModel({
-    length: leafBp.length,
-    width: leafBp.width,
-    randomSeed: rng().toString(),
+  const leafletBp = generateSimpleLeaflet({
+    stemLength: 0.1 * leafBp.length,
+    stemWidth: 0.05 * leafBp.width,
+    leafletLength: leafBp.length,
+    leafletWidth: leafBp.width,
+    leafletMidpointPosition: 0.4,
   });
 
-  // Orient leaf model along x axis before pointing in the right direction
-  const leafRotationMat = mat4.rotateX(
+  const leafModel = generateLeafletModel(leafletBp);
+
+  // Orient leaf model along -z axis before pointing in the right direction
+  // Lay leaf flat on XZ plane
+  const leafRotationMatY = mat4.rotateY(
     mat4.create(),
     mat4.create(),
-    -Math.PI * 0.5,
+    Math.PI * 0.5,
+  );
+  const leafRotationMatZ = mat4.rotateZ(
+    mat4.create(),
+    mat4.create(),
+    Math.PI * 0.5,
+  );
+  const leafRotationMat = mat4.multiply(
+    mat4.create(),
+    leafRotationMatZ,
+    leafRotationMatY,
   );
 
-  const lookAt = mat4.targetTo(
+  const targetToMat = mat4.targetTo(
     mat4.create(),
     vec3.create(),
     leafBp.direction,
     UP_VECTOR,
   );
 
-  mat4.mul(leafRotationMat, lookAt, leafRotationMat);
+  mat4.mul(leafRotationMat, targetToMat, leafRotationMat);
 
   const leafRotation = mat4.getRotation(quat.create(), leafRotationMat);
 

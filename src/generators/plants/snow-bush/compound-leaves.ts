@@ -9,7 +9,7 @@ import {
   PlacementScheme,
 } from '../../stem-arrangement/opposite-arrangement';
 import { quat } from 'gl-matrix';
-import { clamp, lerp, subdivideInterval } from '../../util/math';
+import { clamp, lerp, sampleInterval } from '../../util/math';
 import { KeypointStemAxisBlueprint } from '../../stem-axis/keypoint-stem-axis';
 import { StemAxisBlueprint } from '../../stem-axis';
 import generateStemAxis from '../../stem-axis/keypoint-stem-axis/generators/random-walk';
@@ -50,7 +50,7 @@ const generateAlternateLeafStalks = (
     (stemBp: StemAxisBlueprint): KeypointStemAxisBlueprint[] => {
       const noStalks = Math.round(stemBp.length * STALKS_PER_LENGTH_UNIT);
 
-      const leafStalkPositions = subdivideInterval(0.3, 1, noStalks);
+      const leafStalkPositions = sampleInterval(0.2, 1, noStalks);
 
       const stalkDivergenceCurve = new NormalisedCurve(
         new Bezier({ x: 0, y: 0.8 }, { x: 0.9, y: 0.6 }, { x: 1.1, y: 0.1 }),
@@ -61,7 +61,7 @@ const generateAlternateLeafStalks = (
         nodePositions: leafStalkPositions,
         nodeDivergenceLookup: (t: number) =>
           stalkDivergenceCurve.valueAt(t) * Math.PI * 0.25,
-        nodePlacementRotation: 0,
+        nodePlacementRotation: rng() * Math.PI * 2,
         placementScheme: PlacementScheme.ALTERNATING,
         rng,
       });
@@ -129,7 +129,7 @@ const generateLeavesForStem = ({
     axis: stemBlueprint,
     nodePositions,
     nodeDivergenceLookup: () => Math.PI * 0.3 + rng() * 0.1,
-    nodePlacementRotation: 0,
+    nodePlacementRotation: lerp(0, Math.PI * 0.1, rng()),
     placementScheme: PlacementScheme.ALTERNATING,
     rng,
   });
@@ -167,7 +167,7 @@ const generateLeavesForStem = ({
 
     return {
       length: leafSize * 0.05,
-      width: leafSize * 0.02,
+      width: leafSize * 0.015,
       position: node.position,
       direction: node.direction,
       normal,

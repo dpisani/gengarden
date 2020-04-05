@@ -41,7 +41,11 @@ export class NormalisedCurve {
    * @memberof NormalisedCurve
    */
   public valueAt(x: number): number {
-    const t = this.curve.lineIntersects({ p1: { x, y: 0 }, p2: { x, y: 1 } });
+    const xs = x / this.scalar[0];
+    const t = this.curve.lineIntersects({
+      p1: { x: xs, y: 0 },
+      p2: { x: xs, y: 1 },
+    });
 
     if (t.length !== 1) {
       // if at the end of the curve, get

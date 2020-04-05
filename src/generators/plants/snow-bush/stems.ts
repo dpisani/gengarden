@@ -100,7 +100,7 @@ const generateOffshoots = (
 
   return offshootArrangement.nodes.map(offshootPoint => {
     const offshootLength =
-      stemBp.length * (1 - offshootPoint.branchPosition) * 0.8;
+      stemBp.length * (1 - offshootPoint.branchPosition) * 0.85;
 
     return generateStemAxis({
       deviationRange: [Math.PI * 0.04, Math.PI * 0.1],

@@ -31,6 +31,7 @@ export function generateOppositeStemArrangement({
   upDirection,
   nodeDivergenceLookup,
   placementScheme,
+  nodePlacementRotation,
 }: GeneratorProps): StemArrangementBlueprint {
   const upDir = upDirection || vec3.fromValues(0, 1, 0);
   const nodes: StemNode[] = [];
@@ -52,12 +53,19 @@ export function generateOppositeStemArrangement({
 
     const divergence = nodeDivergenceLookup(nodePosition);
 
+    const rollRotation = quat.setAxisAngle(
+      quat.create(),
+      nodePoint.axisDirection,
+      nodePlacementRotation,
+    );
+
     if (alternatingLeft || placementScheme === PlacementScheme.PAIRS) {
       const nodeLeft: StemNode = createNode({
         axisInfo: nodePoint,
         divergence: -divergence,
         localUpDir,
         branchPosition: nodePosition,
+        rollRotation,
       });
 
       nodes.push(nodeLeft);
@@ -69,6 +77,7 @@ export function generateOppositeStemArrangement({
         divergence: divergence,
         localUpDir,
         branchPosition: nodePosition,
+        rollRotation,
       });
 
       nodes.push(nodeRight);
@@ -85,6 +94,7 @@ const createNode = ({
   localUpDir,
   divergence,
   branchPosition,
+  rollRotation,
 }: {
   axisInfo: {
     position: vec3;
@@ -92,11 +102,13 @@ const createNode = ({
     axisDirection: vec3;
   };
   branchPosition: number;
-
+  rollRotation: quat;
   localUpDir: vec3;
   divergence: number;
 }): StemNode => {
   const rotator = quat.setAxisAngle(quat.create(), localUpDir, divergence);
+
+  quat.multiply(rotator, rollRotation, rotator);
 
   const nodeDir = vec3.transformQuat(
     vec3.create(),

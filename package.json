@@ -26,7 +26,7 @@
     "@types/gl-matrix": "^2.4.4",
     "@types/lodash": "^4.14.119",
     "@types/mocha": "^7.0.1",
-    "@types/node": "^10.12.18",
+    "@types/node": "^13.9.2",
     "@types/seedrandom": "^2.4.27",
     "@types/should": "^13.0.0",
     "express": "^4.16.4",
@@ -39,7 +39,7 @@
     "ts-node-dev": "^1.0.0-pre.44",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.17.0",
-    "typescript": "^3.2.2"
+    "typescript": "^3.8.3"
   },
   "dependencies": {
     "bezier-js": "^2.5.1",
@@ -47,17 +47,27 @@
     "gl-matrix": "^2.8.1",
     "gltf-builder": "^0.4.4",
     "lodash": "^4.17.11",
-    "seedrandom": "^2.4.4"
+    "seedrandom": "^2.4.4",
+    "tess2": "^1.0.0"
   },
   "cyclist": {
     "lifecycles": {
       "dev": {
         "stages": [
           {
-            "name": "dev:viewer",
-            "background": true
-          },
-          "dev:examples"
+            "name": "view-examples",
+            "parallel": true,
+            "tasks": [
+              {
+                "script": "dev:viewer",
+                "outputMode": "ignore"
+              },
+              {
+                "script": "dev:examples",
+                "outputMode": "stream"
+              }
+            ]
+          }
         ]
       }
     }

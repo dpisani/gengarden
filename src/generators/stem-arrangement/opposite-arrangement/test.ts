@@ -109,7 +109,21 @@ describe('opposite stem arrangement generator', () => {
       assertIsClose(node2.direction, vec3.fromValues(0.707, 0, -0.707));
     });
 
-    it.skip('rotates node placements around the stem axis as defined by a given placement rotation', () => {});
+    it('rotates node placements around the stem axis as defined by a given placement rotation', () => {
+      const arrangement = generateOppositeStemArrangement({
+        axis: mockAxis,
+        rng: createMockRng(),
+        nodePlacementRotation: Math.PI / 2,
+        nodeDivergenceLookup: () => Math.PI / 2,
+        nodePositions: [0.5],
+        placementScheme: PlacementScheme.PAIRS,
+      });
+
+      const [node1, node2] = arrangement.nodes;
+
+      assertIsClose(node1.direction, vec3.fromValues(0, -1, 0));
+      assertIsClose(node2.direction, vec3.fromValues(0, 1, 0));
+    });
   });
 
   describe('alternating node placement', () => {
