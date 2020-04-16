@@ -2,9 +2,7 @@ import { Asset, Mesh, Node, Scene } from 'gltf-builder';
 import { cloneDeepWith } from 'lodash';
 
 import { groupGeneratorDefinition } from '../../generators/group';
-import { leafGeneratorDefinition } from '../../generators/leaf';
 import meshGenerator from '../../generators/mesh';
-import { plantGeneratorDefinition } from '../../generators/plant';
 import { snowBushGeneratorDefinition } from '../../generators/plants/snow-bush';
 import { treeGeneratorDefinition } from '../../generators/tree';
 import tubeGenerator from '../../generators/tube';
@@ -16,8 +14,6 @@ type GeneratedTypes = Node | Mesh;
 
 const generators: Array<GeneratorDefinition<any, GeneratedTypes>> = [
   treeGeneratorDefinition,
-  leafGeneratorDefinition,
-  plantGeneratorDefinition,
   // primitive generators
   snowBushGeneratorDefinition,
   tubeGenerator,
