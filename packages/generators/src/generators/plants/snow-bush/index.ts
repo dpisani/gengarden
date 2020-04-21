@@ -2,7 +2,6 @@ import { mat4, quat, vec3 } from 'gl-matrix';
 import { Node } from 'gltf-builder';
 
 import { GeneratorDefinition, TaggedSpec } from '../../../types';
-import generateLeafModel from '../../leaf';
 
 import { generateStemBlueprints, generateStemModel } from './stems';
 import { generateCompoundLeaves, LeafBlueprint } from './compound-leaves';

@@ -1,0 +1,10 @@
+{
+  "name": "@gengarden/viewer",
+  "version": "0.0.0",
+  "description": "Web viewer for generated assets",
+  "repository": "git@github.com:dpisani/gengarden.git",
+  "author": "dpisani <dean.a.pisani@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "bin": "src/server.js"
+}

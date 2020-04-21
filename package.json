@@ -1,73 +1,25 @@
 {
-  "name": "@gengarden/gengarden",
-  "version": "0.0.0",
+  "name": "gengarden",
+  "version": "1.0.0",
   "description": "Procedurally generated gardens",
-  "main": "index.js",
-  "files": [
-    "lib/**/*"
-  ],
-  "author": "Dean Pisani <dean.a.pisani@gmail.com>",
+  "repository": "git@github.com:dpisani/gengarden.git",
+  "author": "dpisani <dean.a.pisani@gmail.com>",
   "license": "MIT",
-  "private": false,
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "examples"
+  ],
   "scripts": {
-    "build": "tsc",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "tslint -p tsconfig.json",
-    "test": "mocha",
-    "generate": "node lib/scripts/generate.js",
-    "generate:examples": "node lib/scripts/generate-all-examples.js",
-    "dev:examples": "ts-node-dev --respawn src/scripts/generate-all-examples.ts",
-    "dev:viewer": "yarn viewer ./examples/models/*",
-    "viewer": "node src/viewer/server.js"
-  },
-  "devDependencies": {
-    "@types/bezier-js": "^0.0.8",
-    "@types/gaussian": "^1.1.1",
-    "@types/gl-matrix": "^2.4.4",
-    "@types/lodash": "^4.14.119",
-    "@types/mocha": "^7.0.1",
-    "@types/node": "^13.9.2",
-    "@types/seedrandom": "^2.4.27",
-    "@types/should": "^13.0.0",
-    "express": "^4.16.4",
-    "meow": "^5.0.0",
-    "mocha": "^7.0.1",
-    "nodemon": "^1.19.1",
-    "prettier": "^1.15.3",
-    "should": "^13.2.3",
-    "ts-node": "^8.6.2",
-    "ts-node-dev": "^1.0.0-pre.44",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.17.0",
-    "typescript": "^3.8.3"
-  },
-  "dependencies": {
-    "bezier-js": "^2.5.1",
-    "gaussian": "^1.1.0",
-    "gl-matrix": "^2.8.1",
-    "gltf-builder": "^0.4.4",
-    "lodash": "^4.17.11",
-    "seedrandom": "^2.4.4",
-    "tess2": "^1.0.0"
+    "build": "tsc --build",
+    "generate-examples": "yarn workspace @gengarden/examples generate"
   },
   "cyclist": {
     "lifecycles": {
-      "dev": {
+      "generate-examples": {
         "stages": [
-          {
-            "name": "view-examples",
-            "parallel": true,
-            "tasks": [
-              {
-                "script": "dev:viewer",
-                "outputMode": "ignore"
-              },
-              {
-                "script": "dev:examples",
-                "outputMode": "stream"
-              }
-            ]
-          }
+          "build",
+          "generate-examples"
         ]
       }
     }

@@ -1,5 +1,5 @@
 node_modules
-/lib
+target
 /generated
 yarn-error.log
 .vscode
