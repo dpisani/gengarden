@@ -4,7 +4,7 @@ const [, , ...specs] = process.argv;
 
 const execAllSpecs = async () => {
   for (const spec of specs) {
-    console.log(spec);
+    console.log('Generating: ', spec);
 
     require(path.resolve(spec));
   }

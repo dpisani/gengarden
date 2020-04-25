@@ -12,7 +12,8 @@
   ],
   "scripts": {
     "build": "tsc --build",
-    "generate-examples": "yarn workspace @gengarden/examples generate"
+    "generate-examples": "yarn workspace @gengarden/examples generate",
+    "viewer": "yarn workspace @gengarden/examples viewer"
   },
   "cyclist": {
     "lifecycles": {
