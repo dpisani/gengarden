@@ -12,6 +12,7 @@ import { flatMap } from 'lodash';
 import { KeypointStemAxisBlueprint } from '../../stem-axis/keypoint-stem-axis';
 import generateSimpleLeaflet from '../../leaves/keypoint-leaflet/generators/simple-leaflet';
 import generateLeafletModel from '../../leaves/keypoint-leaflet/model';
+import { generateSnowBushLeafTexture } from './textures/leaf-texture';
 
 const TYPE_LABEL = 'snow-bush';
 
@@ -24,18 +25,6 @@ const UP_VECTOR = vec3.fromValues(0, 1, 0);
 interface SnowBushSpec {
   randomSeed?: string;
 }
-
-interface TaggedSnowBushSpec extends TaggedSpec<SnowBushSpec> {
-  type: typeof TYPE_LABEL;
-}
-
-const isValidSpec = (
-  taggedSpec: TaggedSpec<any>,
-): taggedSpec is TaggedSnowBushSpec => {
-  const { type } = taggedSpec;
-
-  return type === TYPE_LABEL;
-};
 
 const generate = (spec: SnowBushSpec): Node => {
   const rng = getRandomGenerator(spec.randomSeed);
@@ -131,12 +120,8 @@ const generateLeaf = (leafBp: LeafBlueprint, rng: prng): Node => {
   return leafModel;
 };
 
-export const snowBushGeneratorDefinition: GeneratorDefinition<
-  SnowBushSpec,
-  Node
-> = {
-  generate,
-  isValidSpec,
+export const snowBushGeneratorComponents = {
+  generateSnowBushLeafTexture,
 };
 
 export default generate;

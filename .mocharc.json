@@ -1,5 +1,5 @@
 {
   "extension": ["ts"],
-  "spec": "src/**/*test.ts",
-  "require": "ts-node/register"
+  "spec": "**/target/test/**/*test.js",
+  "require": "'source-map-support/register'"
 }

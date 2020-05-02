@@ -44,11 +44,15 @@ declare module 'gltf-builder' {
     public indices: (indices: Accessor) => this;
 
     public position: (position: Accessor) => this;
+
+    public texcoord: (texcoord: Accessor, index?: number) => this;
   }
 
   export class Accessor extends ComponentBuilder {}
 
-  function buildPosition(positions: Array<Float32Array | number[]>): Accessor;
+  function buildVec2Accessor(data: Array<Float32Array | number[]>): Accessor;
 
-  function buildIndices(positions: number[]): Accessor;
+  function buildVec3Accessor(data: Array<Float32Array | number[]>): Accessor;
+
+  function buildUIntAccessor(data: number[]): Accessor;
 }

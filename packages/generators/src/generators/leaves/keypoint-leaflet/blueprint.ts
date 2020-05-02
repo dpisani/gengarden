@@ -1,5 +1,5 @@
 import { StemAxisBlueprint } from '../../stem-axis';
-import { vec3 } from 'gl-matrix';
+import { MeshVertex } from '../../mesh';
 
 /**
  * A representation of a single leaflet defined by a ring of
@@ -11,5 +11,5 @@ import { vec3 } from 'gl-matrix';
 export interface KeypointLeafletBlueprint {
   stem: StemAxisBlueprint;
   // A collection of simple polygons. Not necessarily convex.
-  bladeBoundaries: vec3[][];
+  bladeBoundaries: MeshVertex[][];
 }

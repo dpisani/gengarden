@@ -5,6 +5,12 @@ import { NormalisedCurve } from '../../../util/curves';
 import { KeypointStemAxisBlueprint } from '../../../stem-axis/keypoint-stem-axis';
 import { vec3 } from 'gl-matrix';
 import { sampleInterval } from '../../../util/math';
+import BoundingBox, {
+  createBoundingBoxFromPoints,
+  createBoxTransformer,
+} from '../../../../bounding-volumes/box';
+import { MeshVertex } from '../../../mesh';
+import { vec2 } from 'gl-matrix';
 
 export interface GeneratorSpec {
   // Length of the stem section preceeding the main leaflet
@@ -101,9 +107,18 @@ export default (spec: GeneratorSpec): KeypointLeafletBlueprint => {
 
   const leafBottomBoundary = [...baseBottomBoundary, ...tipBottomBoundary]
     .reverse()
-    .map(v => vec3.multiply(v, v, vec3.fromValues(1, -1, 1)));
+    .map(v => {
+      const position = vec3.multiply(
+        v.position,
+        v.position,
+        vec3.fromValues(1, -1, 1),
+      );
+
+      return { ...v, position };
+    });
 
   const leafBoundary = [...leafTopBoundary, ...leafBottomBoundary];
+  applyTexcoordsToBoundary(leafBoundary);
 
   return { stem: stemAxis, bladeBoundaries: [leafBoundary] };
 };
@@ -120,11 +135,16 @@ const getPointsForSegment = ({
   length: number;
   xOffset: number;
   noSamples: number;
-}): vec3[] => {
+}): MeshVertex[] => {
   return sampleInterval(0, 1, noSamples)
     .map(t => segmentCurve.get(t))
     .map(v => {
-      return vec3.fromValues(v[0] * length + xOffset, v[1] * width, 0);
+      const position = vec3.fromValues(
+        v[0] * length + xOffset,
+        v[1] * width,
+        0,
+      );
+      return { position };
     });
 };
 
@@ -147,3 +167,21 @@ const roundedTipCurve = new NormalisedCurve(
     { x: 1, y: 0 },
   ),
 );
+
+const applyTexcoordsToBoundary = (boundary: MeshVertex[]) => {
+  const leafBoundaryBox = createBoundingBoxFromPoints(
+    boundary.map(p => p.position),
+  );
+
+  const texCoordBox = new BoundingBox(vec3.create(), vec3.fromValues(1, 1, 0));
+
+  const transformToTexCoord = createBoxTransformer(
+    leafBoundaryBox,
+    texCoordBox,
+  );
+
+  boundary.forEach(v => {
+    const transformed = transformToTexCoord(v.position);
+    v.texcoord = vec2.fromValues(transformed[0], transformed[1]);
+  });
+};

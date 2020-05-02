@@ -2,7 +2,7 @@
   "name": "@gengarden/generators",
   "version": "0.0.0",
   "description": "Procedurally generated gardens",
-  "main": "target/build",
+  "main": "target/build/src/index.js",
   "files": [
     "lib/**/*"
   ],
@@ -37,9 +37,10 @@
   },
   "dependencies": {
     "bezier-js": "^2.5.1",
+    "canvas": "^2.6.1",
     "gaussian": "^1.1.0",
     "gl-matrix": "^2.8.1",
-    "gltf-builder": "^0.4.4",
+    "gltf-builder": "^0.7.1",
     "lodash": "^4.17.11",
     "seedrandom": "^2.4.4",
     "tess2": "^1.0.0"

@@ -3,7 +3,7 @@ import { Node } from 'gltf-builder';
 import { flatten } from 'lodash';
 
 import { GeneratorDefinition, TaggedSpec } from '../../types';
-import meshGenerator from '../mesh';
+import { generateMesh } from '../mesh';
 import createRing from '../util/create-ring';
 
 type RingSpec = vec3[];
@@ -102,24 +102,19 @@ export const generate = (spec: TubeSpec): Node => {
     segments,
   ];
 
-  const quads = Array.from({ length: segments }).map((x, i) => {
-    return [
-      bottomRingIndexes[i],
-      topRingIndexes[i + 1],
-      topRingIndexes[i],
-
-      bottomRingIndexes[i],
-      bottomRingIndexes[i + 1],
-      topRingIndexes[i + 1],
-    ];
-  });
+  const polygons: [number, number, number][] = flatten(
+    Array.from({ length: segments }).map((x, i) => {
+      return [
+        [bottomRingIndexes[i], topRingIndexes[i + 1], topRingIndexes[i]],
+        [bottomRingIndexes[i], bottomRingIndexes[i + 1], topRingIndexes[i + 1]],
+      ];
+    }),
+  );
 
   return new Node().mesh(
-    meshGenerator.generate({
-      geometry: {
-        indices: flatten(quads),
-        vertices: [...topRing, ...bottomRing],
-      },
+    generateMesh({
+      polygons,
+      vertices: [...topRing, ...bottomRing].map(v => ({ position: v })),
     }),
   );
 };

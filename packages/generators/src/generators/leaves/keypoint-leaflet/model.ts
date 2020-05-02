@@ -3,8 +3,8 @@ import { flatten } from 'lodash';
 import { KeypointLeafletBlueprint } from './blueprint';
 import { generateAxisTubePathModel } from '../../stem-axis/keypoint-stem-axis/model';
 import { KeypointStemAxisBlueprint } from '../../stem-axis/keypoint-stem-axis';
-import triangulateBoundary, { MeshBlueprint } from './triangulate-boundary';
-import meshGenerator from '../../mesh';
+import triangulateBoundary from './triangulate-boundary';
+import { generateMesh, MeshBlueprint } from '../../mesh';
 
 export default (leaflet: KeypointLeafletBlueprint): Node => {
   const stemNode = generateAxisTubePathModel(
@@ -21,33 +21,15 @@ export default (leaflet: KeypointLeafletBlueprint): Node => {
   return node;
 };
 
-const generateLeafBladeModel = (mesh: MeshBlueprint): Node => {
+const generateLeafBladeModel = (meshBp: MeshBlueprint): Node => {
   // Create models for the top side and underside
 
-  const underside = {
-    ...mesh,
-    polygons: mesh.polygons.map(p => p.slice().reverse()),
+  const undersideBp: MeshBlueprint = {
+    ...meshBp,
+    polygons: meshBp.polygons.map(([a, b, c]) => [c, b, a]),
   };
 
   return new Node()
-    .addChild(
-      new Node().mesh(
-        meshGenerator.generate({
-          geometry: {
-            vertices: mesh.vertices,
-            indices: flatten(mesh.polygons),
-          },
-        }),
-      ),
-    )
-    .addChild(
-      new Node().mesh(
-        meshGenerator.generate({
-          geometry: {
-            vertices: underside.vertices,
-            indices: flatten(underside.polygons),
-          },
-        }),
-      ),
-    );
+    .addChild(new Node().mesh(generateMesh(meshBp)))
+    .addChild(new Node().mesh(generateMesh(undersideBp)));
 };

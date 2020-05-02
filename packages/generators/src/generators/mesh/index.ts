@@ -1,54 +1,56 @@
-import { vec3 } from 'gl-matrix';
+import { vec2, vec3 } from 'gl-matrix';
 import {
-  buildIndices,
-  buildPosition,
   Material,
   Mesh,
   Primitive,
+  buildVec3Accessor,
+  buildUIntAccessor,
+  buildVec2Accessor,
 } from 'gltf-builder';
 
-import { GeneratorDefinition, TaggedSpec } from '../../types';
+import { flatten } from 'lodash';
+
+export interface MeshVertex {
+  position: vec3;
+  texcoord?: vec2;
+}
+
+export interface MeshBlueprint {
+  vertices: MeshVertex[];
+  // Triangles defined as indices to the main vertex list
+  polygons: [number, number, number][];
+  material?: Material;
+}
 
 export interface MeshSpec {
   geometry: {
     vertices: vec3[];
     indices?: number[];
   };
-  material?: Material;
 }
+export const generateMesh = (meshBp: MeshBlueprint): Mesh => {
+  const positions = meshBp.vertices.map(v => v.position);
+  const indices = flatten(meshBp.polygons);
+  const texcoords: vec2[] = meshBp.vertices
+    .map(v => v.texcoord)
+    .filter((t): t is vec2 => t !== undefined);
 
-export interface TaggedMeshSpec extends TaggedSpec<MeshSpec> {
-  type: 'mesh';
-}
-
-const isValidSpec = (
-  taggedSpec: TaggedSpec<any>,
-): taggedSpec is TaggedMeshSpec => {
-  const { spec, type } = taggedSpec;
-  return type === 'mesh' && spec.geometry !== undefined;
-};
-
-const generate = (spec: MeshSpec): Mesh => {
-  const { vertices, indices } = spec.geometry;
-
-  const positionsAccessor = buildPosition(vertices);
+  const positionsAccessor = buildVec3Accessor(positions);
   const primitive = new Primitive().position(positionsAccessor);
 
-  if (spec.material) {
-    primitive.material(spec.material);
+  if (meshBp.material) {
+    primitive.material(meshBp.material);
   }
 
   if (indices) {
-    const indicesAccessor = buildIndices(indices);
+    const indicesAccessor = buildUIntAccessor(indices);
     primitive.indices(indicesAccessor);
+  }
+
+  if (texcoords.length > 0) {
+    const texcoordAccessor = buildVec2Accessor(texcoords);
+    primitive.texcoord(texcoordAccessor);
   }
 
   return new Mesh().addPrimitive(primitive);
 };
-
-const generatorDefinition: GeneratorDefinition<MeshSpec, Mesh> = {
-  generate,
-  isValidSpec,
-};
-
-export default generatorDefinition;

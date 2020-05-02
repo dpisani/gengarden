@@ -1,15 +1,10 @@
 import { vec3 } from 'gl-matrix';
 import { flatMap } from 'lodash';
 import { tesselate } from 'tess2';
+import { MeshVertex, MeshBlueprint } from '../../../mesh';
 
-export interface MeshBlueprint {
-  vertices: vec3[];
-  // Triangles defined as indices to the main vertex list
-  polygons: [number, number, number][];
-}
-
-export default (boundary: vec3[]): MeshBlueprint => {
-  const contour = flatMap(boundary, ([x, y, z]) => [x, y, z]);
+export default (boundary: MeshVertex[]): MeshBlueprint => {
+  const contour = flatMap(boundary, ({ position: [x, y, z] }) => [x, y, z]);
 
   const tesselation = tesselate({
     contours: [contour],
@@ -22,14 +17,10 @@ export default (boundary: vec3[]): MeshBlueprint => {
   }
 
   // create vertices out of what's returned in the triangulation
-  const vertices: vec3[] = [];
-  for (let i = 0; i < tesselation.vertexCount; i++) {
-    const arrayOffset = i * 3;
-    vertices[i] = vec3.fromValues(
-      tesselation.vertices[arrayOffset],
-      tesselation.vertices[arrayOffset + 1],
-      tesselation.vertices[arrayOffset + 2],
-    );
+  const vertices: MeshVertex[] = [];
+
+  for (let i = 0; i < tesselation.vertexIndices.length; i++) {
+    vertices[i] = boundary[tesselation.vertexIndices[i]];
   }
 
   const polygons: [number, number, number][] = [];

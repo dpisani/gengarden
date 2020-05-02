@@ -5,6 +5,7 @@
     "declaration": true,
     "outDir": "./lib",
     "strictNullChecks": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "sourceMap": true
   }
 }
