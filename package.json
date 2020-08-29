@@ -20,21 +20,20 @@
   },
   "cyclist": {
     "lifecycles": {
-      "generate": {
-        "stages": [
-          "build",
-          "generate-examples"
-        ]
-      },
-      "test": {
-        "stages": [
-          "build:test",
-          "test"
-        ]
-      }
+      "generate": [
+        "build",
+        "generate-examples"
+      ],
+      "test": [
+        "build:test",
+        "test"
+      ]
     }
   },
   "devDependencies": {
     "source-map-support": "^0.5.19"
+  },
+  "dependencies": {
+    "@cyclist/runner": "^0.6.0"
   }
 }

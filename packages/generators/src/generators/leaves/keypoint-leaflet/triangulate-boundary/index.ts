@@ -1,9 +1,9 @@
 import { vec3 } from 'gl-matrix';
 import { flatMap } from 'lodash';
 import { tesselate } from 'tess2';
-import { MeshVertex, MeshBlueprint } from '../../../mesh';
+import { PrimitiveVertex, PrimitiveBlueprint } from '../../../mesh';
 
-export default (boundary: MeshVertex[]): MeshBlueprint => {
+export default (boundary: PrimitiveVertex[]): PrimitiveBlueprint => {
   const contour = flatMap(boundary, ({ position: [x, y, z] }) => [x, y, z]);
 
   const tesselation = tesselate({
@@ -17,7 +17,7 @@ export default (boundary: MeshVertex[]): MeshBlueprint => {
   }
 
   // create vertices out of what's returned in the triangulation
-  const vertices: MeshVertex[] = [];
+  const vertices: PrimitiveVertex[] = [];
 
   for (let i = 0; i < tesselation.vertexIndices.length; i++) {
     vertices[i] = boundary[tesselation.vertexIndices[i]];

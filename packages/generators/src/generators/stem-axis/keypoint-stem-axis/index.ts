@@ -110,6 +110,24 @@ export class KeypointStemAxisBlueprint implements StemAxisBlueprint {
     return { position: infoPosition, width, axisDirection: segmentDir };
   };
 
+  // Returns the position along the axis ([0,1]) at a given segment point
+  public getBranchPositionAtSegment(index: number): number {
+    let length = 0;
+    for (let i = 1; i <= index; i++) {
+      const segmentDistance = vec3.length(
+        vec3.sub(
+          vec3.create(),
+          this.keyPoints[i].position,
+          this.keyPoints[i - 1].position,
+        ),
+      );
+
+      length += segmentDistance;
+    }
+
+    return length / this.length;
+  }
+
   /**
    *Converts a generic stem axis blueprint into a keypointed one
    *

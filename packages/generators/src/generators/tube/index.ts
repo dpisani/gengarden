@@ -3,26 +3,31 @@ import { Node } from 'gltf-builder';
 import { flatten } from 'lodash';
 
 import { GeneratorDefinition, TaggedSpec } from '../../types';
-import { generateMesh } from '../mesh';
+import { generateMesh, PrimitiveBlueprint } from '../mesh';
 import createRing from '../util/create-ring';
+import { vec2 } from 'gl-matrix';
+import { sampleInterval } from '../util/math';
 
 type RingSpec = vec3[];
+
+interface UVSpec {
+  endV: number;
+  beginV: number;
+}
 
 interface TubeSpecPoints {
   begin: { position: vec3; width: number };
   end: { position: vec3; width: number };
+  texInfo?: UVSpec;
 }
 
 interface TubeSpecRings {
   begin: RingSpec;
   end: RingSpec;
+  texInfo?: UVSpec;
 }
 
 export type TubeSpec = TubeSpecPoints | TubeSpecRings;
-
-export interface TaggedTubeSpec extends TaggedSpec<TubeSpec> {
-  type: 'tube';
-}
 
 function isTubeSpecPoints(spec): spec is TubeSpecPoints {
   return (
@@ -35,61 +40,71 @@ function isTubeSpecPoints(spec): spec is TubeSpecPoints {
   );
 }
 
-function isTubeSpecRings(spec): spec is TubeSpecRings {
-  return (
-    spec.begin &&
-    Array.isArray(spec.begin) &&
-    spec.end &&
-    Array.isArray(spec.end) &&
-    spec.end.length === spec.begin.length
-  );
-}
-
-/**
- * validateSpec - Validates whether this spec can be handled by this generator
- *
- * @param {type} spec A spec
- *
- * @returns {boolean} Whether the spec is valid
- */
-export const isValidSpec = (
-  taggedSpec: TaggedSpec<any>,
-): taggedSpec is TaggedTubeSpec => {
-  const { type, spec } = taggedSpec;
-  if (type === 'tube' && (isTubeSpecPoints(spec) || isTubeSpecRings(spec))) {
-    return true;
-  }
-
-  return false;
-};
-
-export const generate = (spec: TubeSpec): Node => {
+export const generateTube = (spec: TubeSpec): PrimitiveBlueprint => {
   let segments: number;
-  let topRing: vec3[];
-  let bottomRing: vec3[];
+  let beginRing: { position: vec3; texcoord?: vec2 }[];
+  let endRing: { position: vec3; texcoord?: vec2 }[];
 
   if (isTubeSpecPoints(spec)) {
     const ring = createRing();
     segments = ring.length;
 
-    topRing = ring.map(p =>
-      vec3.add(
+    const uCoords = sampleInterval(0, 1, segments);
+
+    beginRing = ring.map((p, i) => {
+      const position = vec3.add(
         vec3.create(),
         vec3.scale(vec3.create(), p, spec.begin.width),
         spec.begin.position,
-      ),
-    );
-    bottomRing = ring.map(p =>
-      vec3.add(
+      );
+
+      if (spec.texInfo) {
+        const texcoord = vec2.fromValues(uCoords[i], spec.texInfo.beginV);
+        return { position, texcoord };
+      }
+
+      return { position };
+    });
+
+    endRing = ring.map((p, i) => {
+      const position = vec3.add(
         vec3.create(),
         vec3.scale(vec3.create(), p, spec.end.width),
         spec.end.position,
-      ),
-    );
+      );
+
+      if (spec.texInfo) {
+        const texcoord = vec2.fromValues(uCoords[i], spec.texInfo.endV);
+        return { position, texcoord };
+      }
+
+      return { position };
+    });
   } else {
+    if (spec.begin.length !== spec.end.length) {
+      throw new Error('begin and end must have the same number of points');
+    }
+
     segments = spec.begin.length;
-    topRing = spec.begin;
-    bottomRing = spec.end;
+
+    const uCoords = sampleInterval(0, 1, segments);
+
+    beginRing = spec.begin.map((p, i) => {
+      if (spec.texInfo) {
+        const texcoord = vec2.fromValues(uCoords[i], spec.texInfo.beginV);
+        return { position: p, texcoord };
+      }
+
+      return { position: p };
+    });
+    endRing = spec.end.map((p, i) => {
+      if (spec.texInfo) {
+        const texcoord = vec2.fromValues(uCoords[i], spec.texInfo.endV);
+        return { position: p, texcoord };
+      }
+
+      return { position: p };
+    });
   }
 
   // add an extra element for wrap around
@@ -111,17 +126,8 @@ export const generate = (spec: TubeSpec): Node => {
     }),
   );
 
-  return new Node().mesh(
-    generateMesh({
-      polygons,
-      vertices: [...topRing, ...bottomRing].map(v => ({ position: v })),
-    }),
-  );
+  return {
+    polygons,
+    vertices: [...beginRing, ...endRing],
+  };
 };
-
-const generatorDefinition: GeneratorDefinition<TubeSpec, Node> = {
-  generate,
-  isValidSpec,
-};
-
-export default generatorDefinition;

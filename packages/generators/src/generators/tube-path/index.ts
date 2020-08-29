@@ -1,36 +1,51 @@
 import { mat4, vec3 } from 'gl-matrix';
-import { Node } from 'gltf-builder';
-
-import { GeneratorDefinition, TaggedSpec } from '../../types';
 
 import { zip } from 'lodash';
-import groupGenerator from '../group';
-import tubeGenerator from '../tube';
+import { generateTube as generateTubeDI } from '../tube';
 import createRing from '../util/create-ring';
+import { MeshBlueprint, PrimitiveBlueprint } from '../mesh';
 
 interface PathSegment {
   position: vec3;
   width: number;
+  texV?: number;
 }
 
 interface TubePathSpec {
   segments: PathSegment[];
 }
 
-export interface TaggedTubePathSpec extends TaggedSpec<TubePathSpec> {
-  type: 'tubePath';
+export interface InjectedDependencies {
+  generateTube?: typeof generateTubeDI;
 }
 
-export function isValidSpec(
-  taggedSpec: TaggedSpec<any>,
-): taggedSpec is TaggedTubePathSpec {
-  const { type } = taggedSpec;
+const validateSpec = (
+  spec: TubePathSpec,
+): { messages: string[]; isValid: boolean } => {
+  const messages: string[] = [];
+  const numTexV = spec.segments.reduce(
+    (count, segment) => (segment.texV !== undefined ? count + 1 : count),
+    0,
+  );
 
-  return type === 'tubePath';
-}
+  if (numTexV !== spec.segments.length && numTexV !== 0) {
+    messages.push('texV must be specified on all segments');
+  }
 
-export function generate(spec: TubePathSpec): Node {
-  const items: Node[] = [];
+  return { messages, isValid: messages.length === 0 };
+};
+
+export function generateTubePath(
+  spec: TubePathSpec & InjectedDependencies,
+): MeshBlueprint {
+  const validation = validateSpec(spec);
+  if (!validation.isValid) {
+    throw new Error(validation.messages.join('\n'));
+  }
+
+  const { generateTube = generateTubeDI } = spec;
+
+  const primitives: PrimitiveBlueprint[] = [];
 
   const ringNormals: vec3[] = [];
   for (let i = 1; i < spec.segments.length; i++) {
@@ -81,25 +96,28 @@ export function generate(spec: TubePathSpec): Node {
   for (let i = 0; i < spec.segments.length - 1; i++) {
     const r1 = rings[i];
     const r2 = rings[i + 1];
-    items.push(
-      tubeGenerator.generate({
+
+    let texInfo;
+    if (
+      spec.segments[i].texV !== undefined &&
+      spec.segments[i + 1].texV !== undefined
+    ) {
+      texInfo = {
+        beginV: spec.segments[i].texV,
+        endV: spec.segments[i + 1].texV,
+      };
+    }
+
+    primitives.push(
+      generateTube({
         begin: r1,
         end: r2,
+        texInfo,
       }),
     );
   }
 
-  return groupGenerator({
-    items,
-  });
+  return {
+    primitives: primitives,
+  };
 }
-
-export const tubePathGeneratorDefinition: GeneratorDefinition<
-  TubePathSpec,
-  Node
-> = {
-  generate,
-  isValidSpec,
-};
-
-export default generate;

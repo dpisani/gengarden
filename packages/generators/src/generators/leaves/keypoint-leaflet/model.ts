@@ -1,10 +1,9 @@
-import { Node, Mesh } from 'gltf-builder';
-import { flatten } from 'lodash';
+import { Node, Material, MetallicRoughness, TextureInfo } from 'gltf-builder';
 import { KeypointLeafletBlueprint } from './blueprint';
 import { generateAxisTubePathModel } from '../../stem-axis/keypoint-stem-axis/model';
 import { KeypointStemAxisBlueprint } from '../../stem-axis/keypoint-stem-axis';
 import triangulateBoundary from './triangulate-boundary';
-import { generateMesh, MeshBlueprint } from '../../mesh';
+import { generateMesh, PrimitiveBlueprint } from '../../mesh';
 
 export default (leaflet: KeypointLeafletBlueprint): Node => {
   const stemNode = generateAxisTubePathModel(
@@ -15,16 +14,26 @@ export default (leaflet: KeypointLeafletBlueprint): Node => {
 
   for (let boundary of leaflet.bladeBoundaries) {
     const meshBp = triangulateBoundary(boundary);
+
+    if (leaflet.bladeTexture) {
+      const material = new Material().metallicRoughness(
+        new MetallicRoughness().baseColorTexture(
+          new TextureInfo().texture(leaflet.bladeTexture),
+        ),
+      );
+
+      meshBp.material = material;
+    }
+
     node.addChild(generateLeafBladeModel(meshBp));
   }
 
   return node;
 };
 
-const generateLeafBladeModel = (meshBp: MeshBlueprint): Node => {
+const generateLeafBladeModel = (meshBp: PrimitiveBlueprint): Node => {
   // Create models for the top side and underside
-
-  const undersideBp: MeshBlueprint = {
+  const undersideBp: PrimitiveBlueprint = {
     ...meshBp,
     polygons: meshBp.polygons.map(([a, b, c]) => [c, b, a]),
   };

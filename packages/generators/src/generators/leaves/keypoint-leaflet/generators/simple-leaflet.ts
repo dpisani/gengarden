@@ -9,7 +9,7 @@ import BoundingBox, {
   createBoundingBoxFromPoints,
   createBoxTransformer,
 } from '../../../../bounding-volumes/box';
-import { MeshVertex } from '../../../mesh';
+import { PrimitiveVertex } from '../../../mesh';
 import { vec2 } from 'gl-matrix';
 
 export interface GeneratorSpec {
@@ -135,7 +135,7 @@ const getPointsForSegment = ({
   length: number;
   xOffset: number;
   noSamples: number;
-}): MeshVertex[] => {
+}): PrimitiveVertex[] => {
   return sampleInterval(0, 1, noSamples)
     .map(t => segmentCurve.get(t))
     .map(v => {
@@ -168,7 +168,7 @@ const roundedTipCurve = new NormalisedCurve(
   ),
 );
 
-const applyTexcoordsToBoundary = (boundary: MeshVertex[]) => {
+const applyTexcoordsToBoundary = (boundary: PrimitiveVertex[]) => {
   const leafBoundaryBox = createBoundingBoxFromPoints(
     boundary.map(p => p.position),
   );

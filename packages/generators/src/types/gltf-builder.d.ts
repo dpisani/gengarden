@@ -36,6 +36,28 @@ declare module 'gltf-builder' {
 
   export class Material extends NamedComponentBuilder {
     public doubleSided: (ds: boolean) => this;
+    public metallicRoughness: (mr: MetallicRoughness) => this;
+  }
+
+  export class MetallicRoughness extends ComponentBuilder {
+    public baseColorTexture: (textureInfo: TextureInfo) => this;
+  }
+
+  export class Texture extends NamedComponentBuilder {
+    public sampler: (sampler: Sampler) => this;
+  }
+
+  export class TextureInfo extends ComponentBuilder {
+    public texture: (texture: Texture) => this;
+  }
+
+  type WrapMode = 'CLAMP_TO_EDGE' | 'MIRRORED_REPEAT' | 'REPEAT';
+
+  export class Sampler extends NamedComponentBuilder {
+    public static WrapModes: Record<WrapMode, number>;
+
+    public wrapS: (wrapS: number) => this;
+    public wrapT: (wrapS: number) => this;
   }
 
   export class Primitive extends ComponentBuilder {
@@ -55,4 +77,9 @@ declare module 'gltf-builder' {
   function buildVec3Accessor(data: Array<Float32Array | number[]>): Accessor;
 
   function buildUIntAccessor(data: number[]): Accessor;
+
+  function buildTextureFromArrayBuffer(
+    data: ArrayBuffer,
+    mimeType: 'image/png' | 'image/jpeg',
+  ): { texture: Texture; textureInfo: TextureInfo };
 }

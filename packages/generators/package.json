@@ -24,6 +24,7 @@
     "@types/node": "^13.9.2",
     "@types/seedrandom": "^2.4.27",
     "@types/should": "^13.0.0",
+    "@types/sinon": "^9.0.4",
     "express": "^4.16.4",
     "meow": "^5.0.0",
     "mocha": "^7.0.1",
@@ -43,6 +44,7 @@
     "gltf-builder": "^0.7.1",
     "lodash": "^4.17.11",
     "seedrandom": "^2.4.4",
+    "sinon": "^9.0.2",
     "tess2": "^1.0.0"
   },
   "cyclist": {

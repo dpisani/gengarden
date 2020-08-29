@@ -1,15 +1,16 @@
 import { vec3 } from 'gl-matrix';
 import { prng } from 'seedrandom';
-import { Node } from 'gltf-builder';
+import { Node, buildTextureFromArrayBuffer, Sampler } from 'gltf-builder';
 import gaussian from 'gaussian';
 
-import { generateModel as generateBranchModel } from '../../branch';
 import { clamp, getRandomInt } from '../../util/math';
 import { flatMap } from 'lodash';
 import { KeypointStemAxisBlueprint } from '../../stem-axis/keypoint-stem-axis';
 import generateStemAxis from '../../stem-axis/keypoint-stem-axis/generators/random-walk';
 import { StemAxisBlueprint } from '../../stem-axis';
 import generateScatteredStemArrangement from '../../stem-arrangement/scattered-arrangement';
+import { generateAxisTubePathModel } from '../../stem-axis/keypoint-stem-axis/model';
+import { generateSnowBushStemTexture } from './textures/stem-texture';
 
 const SEGMENTS_PER_BRANCH_LENGTH = 2;
 const MAIN_BRANCH_LENGTH = 4.5;
@@ -47,8 +48,19 @@ export const generateStemModel = ({
 }) => {
   const model = new Node();
 
+  const { texture } = buildTextureFromArrayBuffer(
+    generateSnowBushStemTexture({ size: 32 }),
+    'image/jpeg',
+  );
+
+  const sampler = new Sampler()
+    .wrapS(Sampler.WrapModes.CLAMP_TO_EDGE)
+    .wrapT(Sampler.WrapModes.CLAMP_TO_EDGE);
+
+  texture.sampler(sampler);
+
   for (let bp of blueprints) {
-    model.addChild(generateBranchModel(bp));
+    model.addChild(generateAxisTubePathModel(bp, { texture }));
   }
 
   return model;

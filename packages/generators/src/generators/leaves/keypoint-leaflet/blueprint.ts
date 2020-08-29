@@ -1,5 +1,6 @@
 import { StemAxisBlueprint } from '../../stem-axis';
-import { MeshVertex } from '../../mesh';
+import { PrimitiveVertex } from '../../mesh';
+import { Texture } from 'gltf-builder';
 
 /**
  * A representation of a single leaflet defined by a ring of
@@ -11,5 +12,7 @@ import { MeshVertex } from '../../mesh';
 export interface KeypointLeafletBlueprint {
   stem: StemAxisBlueprint;
   // A collection of simple polygons. Not necessarily convex.
-  bladeBoundaries: MeshVertex[][];
+  bladeBoundaries: PrimitiveVertex[][];
+  // A buffer containing image data
+  bladeTexture?: Texture;
 }

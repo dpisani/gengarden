@@ -1,5 +1,5 @@
 import { mat4, quat, vec3 } from 'gl-matrix';
-import { Node } from 'gltf-builder';
+import { Node, buildTextureFromArrayBuffer } from 'gltf-builder';
 
 import { GeneratorDefinition, TaggedSpec } from '../../../types';
 
@@ -68,6 +68,13 @@ const generateLeaf = (leafBp: LeafBlueprint, rng: prng): Node => {
     leafletWidth: leafBp.width,
     leafletMidpointPosition: 0.4,
   });
+
+  const textureData = generateSnowBushLeafTexture({ size: 16 });
+  const { texture: leafTexture } = buildTextureFromArrayBuffer(
+    textureData,
+    'image/png',
+  );
+  leafletBp.bladeTexture = leafTexture;
 
   const leafModel = generateLeafletModel(leafletBp);
 

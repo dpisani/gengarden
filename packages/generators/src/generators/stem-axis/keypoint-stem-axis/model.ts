@@ -1,14 +1,58 @@
-import { Node } from 'gltf-builder';
+import {
+  Node,
+  Texture,
+  Material,
+  MetallicRoughness,
+  TextureInfo,
+} from 'gltf-builder';
 import { KeypointStemAxisBlueprint } from './index';
 
-import { generate as generateTubePath } from '../../tube-path';
+import { generateTubePath as generateTubePathDI } from '../../tube-path';
+import { identity } from 'lodash';
+import { generateMesh } from '../../mesh';
+
+const defaultTexcoordGenerators = {
+  vCoordMap: identity,
+};
+
+export interface GeneratorProps {
+  texture?: Texture;
+  texcoordGeneration?: {
+    // Maps position [0,1] to texcoord V values [0,1]
+    vCoordMap: (number) => number;
+  };
+  generateTubePath?: typeof generateTubePathDI;
+}
 
 export const generateAxisTubePathModel = (
   axis: KeypointStemAxisBlueprint,
+  options?: GeneratorProps,
 ): Node => {
+  const {
+    texture,
+    texcoordGeneration = defaultTexcoordGenerators,
+    generateTubePath = generateTubePathDI,
+  } = options || {};
+
   const tubePath = generateTubePath({
-    segments: axis.keyPoints,
+    segments: axis.keyPoints.map((k, i) => ({
+      ...k,
+      texV: texcoordGeneration.vCoordMap(axis.getBranchPositionAtSegment(i)),
+    })),
   });
 
-  return tubePath;
+  if (texture) {
+    const material = new Material().metallicRoughness(
+      new MetallicRoughness().baseColorTexture(
+        new TextureInfo().texture(texture),
+      ),
+    );
+
+    tubePath.primitives = tubePath.primitives.map(p => ({
+      ...p,
+      material: material,
+    }));
+  }
+
+  return new Node().mesh(generateMesh(tubePath));
 };
