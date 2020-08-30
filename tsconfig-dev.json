@@ -1,0 +1,8 @@
+{
+  "references": [
+    { "path": "./packages/generators/tsconfig-dev.json" },
+    { "path": "./examples/tsconfig-dev.json" }
+  ],
+  "files": [],
+  "include": ["packages/generators/src/types"]
+}

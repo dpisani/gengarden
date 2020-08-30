@@ -1,5 +1,0 @@
-{
-  "references": [{ "path": "./packages/generators/tsconfig-test.json" }],
-  "files": [],
-  "include": ["packages/generators/src/types"]
-}

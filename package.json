@@ -13,9 +13,11 @@
   "scripts": {
     "clean": "rm -rf **/target/*",
     "build": "tsc --build",
-    "build:test": "tsc --build tsconfig-test.json",
+    "build:dev": "tsc --build tsconfig-dev.json",
+    "build:watch": "yarn build:dev --watch",
     "test": "mocha",
     "generate-examples": "yarn workspace @gengarden/examples generate",
+    "generate-examples:watch": "yarn workspace @gengarden/examples generate:watch",
     "viewer": "yarn workspace @gengarden/examples viewer"
   },
   "cyclist": {
@@ -25,13 +27,23 @@
         "generate-examples"
       ],
       "test": [
-        "build:test",
+        "build:dev",
         "test"
+      ],
+      "start": [
+        "build:dev",
+        {
+          "name": "watch",
+          "tasks": [
+            "build:watch",
+            "generate-examples:watch",
+            "viewer"
+          ],
+          "parallel": true,
+          "outputMode": "stream"
+        }
       ]
     }
-  },
-  "devDependencies": {
-    "source-map-support": "^0.5.19"
   },
   "dependencies": {
     "@cyclist/runner": "^0.6.0"

@@ -1,5 +1,5 @@
 import { Asset, Scene } from 'gltf-builder';
-import generateSnowBush from '@gengarden/generators/target/build/src/generators/plants/snow-bush';
+import generateSnowBush from '@gengarden/generators/build/src/generators/plants/snow-bush';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 

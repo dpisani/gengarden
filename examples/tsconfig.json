@@ -3,7 +3,7 @@
   "references": [{ "path": "../packages/generators" }],
   "compilerOptions": {
     "composite": true,
-    "outDir": "./target/build"
+    "outDir": "./build"
   },
-  "exclude": ["target", "node_modules", "**/*test.ts"]
+  "exclude": ["build", "node_modules", "**/*test.ts"]
 }

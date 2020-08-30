@@ -2,9 +2,9 @@
   "name": "@gengarden/generators",
   "version": "0.0.0",
   "description": "Procedurally generated gardens",
-  "main": "target/build/src/index.js",
+  "main": "build/src/index.js",
   "files": [
-    "lib/**/*"
+    "build/**/*"
   ],
   "author": "Dean Pisani <dean.a.pisani@gmail.com>",
   "license": "MIT",
