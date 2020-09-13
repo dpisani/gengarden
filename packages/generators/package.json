@@ -2,9 +2,9 @@
   "name": "@gengarden/generators",
   "version": "0.0.0",
   "description": "Procedurally generated gardens",
-  "main": "build/src/index.js",
+  "main": "build/lib/index.js",
   "files": [
-    "build/**/*"
+    "build/lib/**/*"
   ],
   "author": "Dean Pisani <dean.a.pisani@gmail.com>",
   "license": "MIT",
@@ -12,10 +12,12 @@
   "scripts": {
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "tslint -p tsconfig.json",
-    "test": "mocha"
+    "test": "mocha",
+    "generate-examples": "STORY_TARGET_DIR=build/stories glob-run node -r source-map-support/register build/lib/**/examples.js",
+    "generate-examples:watch": "nodemon --watch build/lib --exec yarn generate-examples"
   },
   "devDependencies": {
+    "@gengarden/examples": "0.0.0",
     "@types/bezier-js": "^0.0.8",
     "@types/gaussian": "^1.1.1",
     "@types/gl-matrix": "^2.4.4",
@@ -25,15 +27,12 @@
     "@types/seedrandom": "^2.4.27",
     "@types/should": "^13.0.0",
     "@types/sinon": "^9.0.4",
-    "express": "^4.16.4",
-    "meow": "^5.0.0",
+    "glob-run": "^0.1.7",
     "mocha": "^7.0.1",
     "nodemon": "^1.19.1",
     "prettier": "^1.15.3",
     "should": "^13.2.3",
-    "ts-node-dev": "^1.0.0-pre.44",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.17.0",
+    "sinon": "^9.0.2",
     "typescript": "^3.8.3"
   },
   "dependencies": {
@@ -44,29 +43,6 @@
     "gltf-builder": "^0.7.1",
     "lodash": "^4.17.11",
     "seedrandom": "^2.4.4",
-    "sinon": "^9.0.2",
     "tess2": "^1.0.0"
-  },
-  "cyclist": {
-    "lifecycles": {
-      "dev": {
-        "stages": [
-          {
-            "name": "view-examples",
-            "parallel": true,
-            "tasks": [
-              {
-                "script": "dev:viewer",
-                "outputMode": "ignore"
-              },
-              {
-                "script": "dev:examples",
-                "outputMode": "stream"
-              }
-            ]
-          }
-        ]
-      }
-    }
   }
 }

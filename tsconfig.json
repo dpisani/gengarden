@@ -1,5 +1,8 @@
 {
-  "references": [{ "path": "./packages/generators" }, { "path": "./examples" }],
+  "references": [
+    { "path": "./packages/generators" },
+    { "path": "./packages/examples" }
+  ],
   "files": [],
   "include": ["packages/generators/src/types"]
 }

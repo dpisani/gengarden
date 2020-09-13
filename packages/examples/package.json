@@ -1,0 +1,23 @@
+{
+  "name": "@gengarden/examples",
+  "version": "0.0.0",
+  "description": "Example models made using Gengarden",
+  "repository": "git@github.com:dpisani/gengarden.git",
+  "author": "dpisani <dean.a.pisani@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "main": "build/lib/index.js",
+  "files": [
+    "build/lib/**/*"
+  ],
+  "scripts": {},
+  "dependencies": {
+    "@sindresorhus/slugify": "^1.1.0",
+    "filenamify": "^4.1.0",
+    "fs-extra": "^9.0.0",
+    "gltf-builder": "^0.4.4"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^8.1.0"
+  }
+}

@@ -7,8 +7,7 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "examples"
+    "packages/*"
   ],
   "scripts": {
     "clean": "rm -rf **/target/*",
@@ -16,14 +15,16 @@
     "build:dev": "tsc --build tsconfig-dev.json",
     "build:watch": "yarn build:dev --watch",
     "test": "mocha",
-    "generate-examples": "yarn workspace @gengarden/examples generate",
-    "generate-examples:watch": "yarn workspace @gengarden/examples generate:watch",
-    "viewer": "yarn workspace @gengarden/examples viewer"
+    "generate-examples": "yarn workspace @gengarden/generators generate-examples",
+    "generate-examples:watch": "yarn workspace @gengarden/generators generate-examples:watch",
+    "viewer": "yarn workspace @gengarden/examples viewer",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "cyclist": {
     "lifecycles": {
       "generate": [
-        "build",
+        "build:dev",
         "generate-examples"
       ],
       "test": [
@@ -37,7 +38,7 @@
           "tasks": [
             "build:watch",
             "generate-examples:watch",
-            "viewer"
+            "storybook"
           ],
           "parallel": true,
           "outputMode": "stream"
@@ -47,5 +48,14 @@
   },
   "dependencies": {
     "@cyclist/runner": "^0.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@storybook/addon-actions": "^6.0.21",
+    "@storybook/addon-essentials": "^6.0.21",
+    "@storybook/addon-links": "^6.0.21",
+    "@storybook/html": "^6.0.21",
+    "babel-loader": "^8.1.0",
+    "react-is": "^16.13.1"
   }
 }

@@ -1,10 +1,9 @@
 {
   "extends": "../../tsconfig-base.json",
-  "references": [{ "path": "../examples" }],
   "compilerOptions": {
     "composite": true,
     "outDir": "./build/lib",
     "rootDir": "src"
   },
-  "exclude": ["build", "node_modules", "**/*test.ts", "**/*examples.ts"]
+  "exclude": ["build", "node_modules", "**/*test.ts"]
 }

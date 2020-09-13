@@ -1,5 +1,4 @@
 {
   "extends": "./tsconfig.json",
-  "references": [{ "path": "../packages/generators/tsconfig-dev.json" }],
   "exclude": ["build", "node_modules"]
 }
