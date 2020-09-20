@@ -56,6 +56,6 @@
     "@storybook/addon-links": "^6.0.21",
     "@storybook/html": "^6.0.21",
     "babel-loader": "^8.1.0",
-    "react-is": "^16.13.1"
+    "prettier": "^1.15.3"
   }
 }

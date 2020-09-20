@@ -1,5 +1,14 @@
 <template id="scene">
-  <div style="height: 100vh">
+  <style>
+    body {
+      padding: 0 !important;
+    }
+
+    #scene-container {
+      height: 100vh;
+    }
+  </style>
+  <div id="scene-container">
     <a-scene
       id="main"
       renderer="colorManagement: true;"
@@ -8,9 +17,10 @@
     >
       <a-assets> <a-asset-item id="model"></a-asset-item> </a-assets>
       <a-entity
+        id="camera"
         camera
         look-controls
-        orbit-controls="autoRotate: false; autoRotateSpeed: 1; target: 0 0 0; minDistance: 0.5; maxDistance: 180; initialPosition: 0 5 15"
+        orbit-controls="autoRotate: false; autoRotateSpeed: 0.7; target: 0 0 0; minDistance: 0.5; maxDistance: 180; initialPosition: 0 1.6 2"
       ></a-entity>
       <a-entity light="type: ambient; color: #444"></a-entity>
       <a-entity

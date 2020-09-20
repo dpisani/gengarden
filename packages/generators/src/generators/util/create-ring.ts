@@ -1,4 +1,5 @@
 import { vec3 } from 'gl-matrix';
+import { angleToVec } from '../../spatial-utils/angle-to-vec';
 
 /**
  * createRing - creates a ring of points around the unit circle
@@ -12,20 +13,11 @@ export default function(
     plane: 'xz' | 'xy' | 'yz';
   } = { plane: 'xz' },
 ): vec3[] {
-  const segments = 10;
+  const segments = 5;
   const segmentAngle = (Math.PI * 2) / segments;
   return Array.from({ length: segments }).map((x, i) => {
     const a = segmentAngle * i;
 
-    switch (plane) {
-      case 'xy':
-        return vec3.fromValues(Math.cos(a), Math.sin(a), 0);
-      case 'xz':
-        return vec3.fromValues(Math.cos(a), 0, Math.sin(a));
-      case 'yz':
-        return vec3.fromValues(0, Math.cos(a), Math.sin(a));
-      default:
-        throw new Error(`Invalid plane ${plane}`);
-    }
+    return angleToVec(a, { plane });
   });
 }

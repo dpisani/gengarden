@@ -1,12 +1,12 @@
 import { Node, Material, MetallicRoughness, TextureInfo } from 'gltf-builder';
 import { KeypointLeafletBlueprint } from './blueprint';
-import { generateAxisTubePathModel } from '../../stem-axis/keypoint-stem-axis/model';
+import { generateTubePathFromStemAxis } from '../../tube-path/from-stem-axis';
 import { KeypointStemAxisBlueprint } from '../../stem-axis/keypoint-stem-axis';
 import triangulateBoundary from './triangulate-boundary';
 import { generateMesh, PrimitiveBlueprint } from '../../mesh';
 
 export default (leaflet: KeypointLeafletBlueprint): Node => {
-  const stemNode = generateAxisTubePathModel(
+  const stemNode = generateTubePathFromStemAxis(
     KeypointStemAxisBlueprint.fromStemAxisBlueprint(leaflet.stem),
   );
 

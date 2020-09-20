@@ -9,7 +9,7 @@ import { KeypointStemAxisBlueprint } from '../../stem-axis/keypoint-stem-axis';
 import generateStemAxis from '../../stem-axis/keypoint-stem-axis/generators/random-walk';
 import { StemAxisBlueprint } from '../../stem-axis';
 import generateScatteredStemArrangement from '../../stem-arrangement/scattered-arrangement';
-import { generateAxisTubePathModel } from '../../stem-axis/keypoint-stem-axis/model';
+import { generateTubePathFromStemAxis } from '../../tube-path/from-stem-axis';
 import { generateSnowBushStemTexture } from './textures/stem-texture';
 
 const SEGMENTS_PER_BRANCH_LENGTH = 2;
@@ -60,7 +60,7 @@ export const generateStemModel = ({
   texture.sampler(sampler);
 
   for (let bp of blueprints) {
-    model.addChild(generateAxisTubePathModel(bp, { texture }));
+    model.addChild(generateTubePathFromStemAxis(bp, { texture }));
   }
 
   return model;
