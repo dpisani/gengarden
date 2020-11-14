@@ -19,7 +19,6 @@ export const gltfStoryTemplate = ({src}: {src: string}) => ({showGuideBox, guide
 
   const scene = clone?.querySelector('a-scene')
 
-  console.log('guidebox?', showGuideBox)
   if (showGuideBox) {
     const guideBox = document.createElement('a-box')
     const [w,h,d] = guideBoxSize
