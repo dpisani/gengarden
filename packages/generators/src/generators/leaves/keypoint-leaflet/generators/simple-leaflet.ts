@@ -41,8 +41,10 @@ const checkInvariants = (
 };
 
 // Creates a leaflet by combining simple shapes for the base and tip of the blade.
-// Leaflet is oriented along the xz plane pointing forward down the x axis.
-export default (spec: GeneratorSpec): KeypointLeafletBlueprint => {
+// Leaflet is oriented along the XZ plane pointing along the -Z axis,  so it can be redirected with a targetTo.
+export const generateSimpleLeafletBlueprint = (
+  spec: GeneratorSpec,
+): KeypointLeafletBlueprint => {
   const check = checkInvariants(spec);
   if (!check.isValid) {
     throw new Error(check.messages.join('\n'));
@@ -59,14 +61,8 @@ export default (spec: GeneratorSpec): KeypointLeafletBlueprint => {
   const fullLength = leafletLength + stemLength;
   const stemAxis = new KeypointStemAxisBlueprint([
     { position: vec3.fromValues(0, 0, 0), width: stemWidth },
-    { position: vec3.fromValues(fullLength, 0, 0), width: 0 },
+    { position: vec3.fromValues(0, 0, -fullLength), width: 0 },
   ]);
-
-  const topBlade = [
-    vec3.fromValues(stemLength, 0, 0),
-    vec3.fromValues(fullLength, leafletWidth, 0),
-    vec3.fromValues(fullLength, 0, 0),
-  ];
 
   const baseLength = leafletLength * leafletMidpointPosition;
   const tipLength = leafletLength * (1 - leafletMidpointPosition);
@@ -111,7 +107,7 @@ export default (spec: GeneratorSpec): KeypointLeafletBlueprint => {
       const position = vec3.multiply(
         v.position,
         v.position,
-        vec3.fromValues(1, -1, 1),
+        vec3.fromValues(-1, 1, 1),
       );
 
       return { ...v, position };
@@ -140,9 +136,9 @@ const getPointsForSegment = ({
     .map(t => segmentCurve.get(t))
     .map(v => {
       const position = vec3.fromValues(
-        v[0] * length + xOffset,
         v[1] * width,
         0,
+        -(v[0] * length + xOffset),
       );
       return { position };
     });

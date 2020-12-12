@@ -1,7 +1,8 @@
 import { StemAxisBlueprint } from '../../stem-axis';
 import { prng } from 'seedrandom';
-import createDeviation from '../../util/create-devitaion';
+import { createDeviation } from '../../util/create-devitaion';
 import { StemArrangementBlueprint } from '..';
+import { getRandom } from '../../util/math';
 
 /**
  * A branching arrangement where nodes are placed randomly within a permitted deviation range
@@ -30,9 +31,8 @@ const generateScatteredStemArrangement = ({
       position: branchPoint.position,
       direction: createDeviation(
         branchPoint.axisDirection,
-        deviationRange[0],
-        deviationRange[1],
-        rng,
+        getRandom(deviationRange[0], deviationRange[1], rng),
+        getRandom(0, Math.PI * 2, rng),
       ),
       size: branchPoint.width,
       branchPosition,

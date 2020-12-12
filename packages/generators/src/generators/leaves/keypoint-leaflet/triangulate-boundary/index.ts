@@ -1,14 +1,15 @@
-import { vec3 } from 'gl-matrix';
 import { flatMap } from 'lodash';
 import { tesselate } from 'tess2';
 import { PrimitiveVertex, PrimitiveBlueprint } from '../../../mesh';
 
-export default (boundary: PrimitiveVertex[]): PrimitiveBlueprint => {
-  const contour = flatMap(boundary, ({ position: [x, y, z] }) => [x, y, z]);
+export const triangulateBoundary = (
+  boundary: PrimitiveVertex[],
+): PrimitiveBlueprint => {
+  const contour = flatMap(boundary, ({ position: [x, y, z] }) => [-x, y, z]);
 
   const tesselation = tesselate({
     contours: [contour],
-    normal: [0, 0, 1],
+    normal: [0, 1, 0],
     vertexSize: 3,
   });
 

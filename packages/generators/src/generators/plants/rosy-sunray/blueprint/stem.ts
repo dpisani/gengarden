@@ -20,7 +20,7 @@ const createParticle = (position: vec3, rng: prng) => {
     position,
     velocity: vec3.scale(direction, direction, speed),
     force: vec3.create(),
-    mass: 0.7 + rng() * 0.2,
+    mass: 0.8 + rng() * 0.3,
   };
 };
 
@@ -57,12 +57,12 @@ export const generateStemAxes = (rng: prng): KeypointStemAxisBlueprint[] => {
     };
   });
 
-  const trailsL2 = system.simulate(particlesL2, 6);
+  const trailsL2 = system.simulate(particlesL2, 7);
 
   return [...trailsL1, ...trailsL2].map(trail => {
     const keypoints = trail.map(([p]) => ({
       position: p.position,
-      width: 0.002,
+      width: 0.001,
     }));
 
     return new KeypointStemAxisBlueprint(keypoints);

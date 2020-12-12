@@ -2,17 +2,19 @@ import { Node, Material, MetallicRoughness, TextureInfo } from 'gltf-builder';
 import { KeypointLeafletBlueprint } from './blueprint';
 import { generateTubePathFromStemAxis } from '../../tube-path/from-stem-axis';
 import { KeypointStemAxisBlueprint } from '../../stem-axis/keypoint-stem-axis';
-import triangulateBoundary from './triangulate-boundary';
+import { triangulateBoundary } from './triangulate-boundary';
 import { generateMesh, PrimitiveBlueprint } from '../../mesh';
 
-export default (leaflet: KeypointLeafletBlueprint): Node => {
+export const generateLeafletModel = (
+  leaflet: KeypointLeafletBlueprint,
+): Node => {
   const stemNode = generateTubePathFromStemAxis(
     KeypointStemAxisBlueprint.fromStemAxisBlueprint(leaflet.stem),
   );
 
   const node = new Node().addChild(stemNode);
 
-  for (let boundary of leaflet.bladeBoundaries) {
+  for (const boundary of leaflet.bladeBoundaries) {
     const meshBp = triangulateBoundary(boundary);
 
     if (leaflet.bladeTexture) {

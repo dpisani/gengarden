@@ -1,7 +1,7 @@
 {
   "name": "@gengarden/examples",
   "version": "0.0.0",
-  "description": "Example models made using Gengarden",
+  "description": "Generates a storybook of example models",
   "repository": "git@github.com:dpisani/gengarden.git",
   "author": "dpisani <dean.a.pisani@gmail.com>",
   "license": "MIT",

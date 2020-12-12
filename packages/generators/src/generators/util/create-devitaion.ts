@@ -1,31 +1,30 @@
 import { quat, vec3 } from 'gl-matrix';
-import { prng } from 'seedrandom';
 
 /**
- * createDeviation - creates a vector slighly skewed from a given one
+ * createDeviation - creates a vector skewed from a given one
  */
-const createDeviation = (
-  originalDirection: vec3,
-  minAngle: number,
-  maxAngle: number,
-  rng: prng,
+export const createDeviation = (
+  basis: vec3,
+  // Angle away from the basis
+  deviationAngle: number,
+  // Angle around the basis
+  rotationAngle: number,
+  localUpDir?: vec3,
 ): vec3 => {
-  const chosenAngle = (maxAngle - minAngle) * rng() + minAngle;
-
   // create a vector deviating from the Y axis and then rotate it towards the original direction
   const deviated = vec3.fromValues(
-    Math.sin(chosenAngle),
-    Math.cos(chosenAngle),
+    Math.sin(deviationAngle),
+    Math.cos(deviationAngle),
     0,
   );
 
   const qRotateY = quat.create();
-  quat.rotateY(qRotateY, qRotateY, Math.PI * 2 * rng());
+  quat.rotateY(qRotateY, qRotateY, rotationAngle);
 
   const qToOriginal = quat.rotationTo(
     quat.create(),
-    vec3.fromValues(0, 1, 0),
-    originalDirection,
+    localUpDir ?? vec3.fromValues(0, 1, 0),
+    basis,
   );
 
   vec3.transformQuat(deviated, deviated, qRotateY);
@@ -33,5 +32,3 @@ const createDeviation = (
 
   return deviated;
 };
-
-export default createDeviation;

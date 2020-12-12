@@ -1,7 +1,7 @@
 import { Node } from 'gltf-builder';
 import getRandomGenerator from '../../util/get-random-generator';
-import { generateTubePathFromStemAxis } from '../../tube-path/from-stem-axis';
 import { generateStemAxes } from './blueprint/stem';
+import { generateStemModel } from './model/stem';
 
 interface RosySunraySpec {
   randomSeed?: string;
@@ -18,7 +18,7 @@ export const generateRosySunray = ({
   const model = new Node();
 
   for (const axis of stemAxes) {
-    model.addChild(generateTubePathFromStemAxis(axis));
+    model.addChild(generateStemModel({ axis, rng }));
   }
 
   return model;

@@ -1,6 +1,7 @@
 export interface GLTFStoryArgs {
   showGuideBox: boolean;
   guideBoxSize: string[];
+  showBasePlane: boolean;
   cameraPosition: string[];
   autoRotateCamera: boolean;
 }
@@ -10,9 +11,10 @@ export const argTypesDefinition: Record<keyof GLTFStoryArgs, any> = {
   cameraPosition: {control: {type: 'array'}, defaultValue: ['0', '1.6', '2']},
   showGuideBox: { control: { type: 'boolean' }, defaultValue: false },
   guideBoxSize: {control: {type: 'array'}, defaultValue: ['1', '1', '1']},
+  showBasePlane: { control: { type: 'boolean' }, defaultValue: true },
 }
 
-export const gltfStoryTemplate = ({src}: {src: string}) => ({showGuideBox, guideBoxSize, cameraPosition, autoRotateCamera}: GLTFStoryArgs) => {
+export const gltfStoryTemplate = ({src}: {src: string}) => ({showGuideBox, guideBoxSize, showBasePlane, cameraPosition, autoRotateCamera}: GLTFStoryArgs) => {
   const clone = document.querySelector<HTMLTemplateElement>('template#scene')?.content.cloneNode(true) as HTMLElement | undefined
 
   clone?.querySelector('a-asset-item#model')?.setAttribute('src', src)
@@ -33,6 +35,8 @@ export const gltfStoryTemplate = ({src}: {src: string}) => ({showGuideBox, guide
 
     scene?.appendChild(guideBox)
   }
+
+  clone?.querySelector('a-plane#base-plane')?.setAttribute('visible', `${showBasePlane}`)
 
   // Set camera
   const [xS, yS, zS] = cameraPosition

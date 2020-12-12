@@ -4,10 +4,15 @@ export const clamp = (x: number, min: number, max: number): number =>
   Math.min(Math.max(x, min), max);
 
 // Returns a random integer in the range of [min, max)
-export const getRandomInt = (min: number, max: number, rng: prng) => {
+export const getRandomInt = (min: number, max: number, rng: prng): number => {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(rng() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+};
+
+// Returns a random float in the range of [min, max]
+export const getRandom = (min: number, max: number, rng: prng): number => {
+  return min + (max - min) * rng();
 };
 
 export const lerp = (a: number, b: number, t: number): number =>
@@ -37,4 +42,16 @@ export const sampleInterval = (
   }
 
   return points;
+};
+
+export const fibbonaci = (n: number): number => {
+  if (!Number.isInteger(n)) {
+    throw new Error('Must be an integer');
+  }
+
+  if (n <= 1) {
+    return 1;
+  }
+
+  return fibbonaci(n - 1) + fibbonaci(n - 2);
 };

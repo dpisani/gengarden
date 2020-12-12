@@ -38,7 +38,7 @@ export function generateOppositeStemArrangement({
 
   let alternatingLeft = true;
 
-  for (let nodePosition of nodePositions) {
+  for (const nodePosition of nodePositions) {
     const nodePoint = axis.getAxisInfoAt(nodePosition);
 
     const leftDir = vec3.cross(vec3.create(), nodePoint.axisDirection, upDir);

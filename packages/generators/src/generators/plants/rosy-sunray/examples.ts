@@ -1,5 +1,6 @@
 import { generateGLTFStory } from '@gengarden/examples';
 import { generateRosySunray } from './rosy-sunray';
+import { generateLeafModel } from './model/leaf';
 
 const storyArgs = {
   guideBoxSize: ['0.3', '0.3', '0.3'],
@@ -17,3 +18,7 @@ generateGLTFStory(
   generateRosySunray({ randomSeed: 'seed2' }),
   storyArgs,
 );
+
+generateGLTFStory('plants/rosy sunray/leaf', generateLeafModel({ size: 1 }), {
+  showBasePlane: false,
+});

@@ -2,10 +2,11 @@ import { KeypointStemAxisBlueprint } from '..';
 import { vec3 } from 'gl-matrix';
 import { prng } from 'seedrandom';
 import { BoundingVolume } from '../../../../bounding-volumes/types';
-import createDeviation from '../../../util/create-devitaion';
+import { createDeviation } from '../../../util/create-devitaion';
 import { quat } from 'gl-matrix';
 import Bezier = require('bezier-js');
 import { NormalisedCurve } from '../../../util/curves';
+import { getRandom } from '../../../util/math';
 
 export interface StemSpec {
   start: vec3;
@@ -57,9 +58,8 @@ const generateKeypoints = (
     // create some potential branch sites
     const mainDeviation = createDeviation(
       currentDir,
-      deviationRange[0],
-      deviationRange[1],
-      spec.rng,
+      getRandom(deviationRange[0], deviationRange[1], spec.rng),
+      getRandom(0, Math.PI * 2, spec.rng),
     );
 
     const rotateQuat = quat.setAxisAngle(quat.create(), currentDir, Math.PI);
