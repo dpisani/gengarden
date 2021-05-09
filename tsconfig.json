@@ -1,8 +1,14 @@
 {
   "references": [
-    { "path": "./packages/generators" },
-    { "path": "./packages/examples" }
+    {
+      "path": "packages/examples"
+    },
+    {
+      "path": "packages/generators"
+    }
   ],
   "files": [],
-  "include": ["packages/generators/src/types"]
+  "include": [
+    "packages/generators/src/types"
+  ]
 }

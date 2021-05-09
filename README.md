@@ -1,13 +1,15 @@
 # Gen Garden
 
-Generate 3D garden scenery
+Procedurally generate 3D garden scenery
 
-## Dev setup
+## Development
 
-run all these as separate processes
+This project uses [Cyclist](https://github.com/dpisani/cyclist) to coordinate build steps.
+
+To generate all examples in local dev:
 
 ```
-yarn build --watch
-yarn viewer examples/models/*
-yarn dev:examples
+yarn cyclist start
 ```
+
+This will start Storybook containing a web viewer for the generated models.
