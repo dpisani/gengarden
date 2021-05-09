@@ -10,7 +10,6 @@
     "packages/*"
   ],
   "scripts": {
-    "clean": "rm -rf **/target/*",
     "build": "tsc --build",
     "build:dev": "tsc --build tsconfig-dev.json",
     "build:watch": "yarn build:dev --watch",
@@ -25,7 +24,8 @@
     "lifecycles": {
       "generate": [
         "build:dev",
-        "generate-examples"
+        "generate-examples",
+        "build-storybook"
       ],
       "test": [
         "build:dev",
@@ -47,7 +47,7 @@
     }
   },
   "dependencies": {
-    "@cyclist/runner": "^0.6.0"
+    "@cyclist/runner": "^0.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
