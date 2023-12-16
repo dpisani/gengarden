@@ -10,7 +10,9 @@
   "files": [
     "build/lib/**/*"
   ],
-  "scripts": {},
+  "scripts": {
+    "build": "tsc --build"
+  },
   "dependencies": {
     "@sindresorhus/slugify": "^1.1.0",
     "filenamify": "^4.1.0",

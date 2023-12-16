@@ -4,3 +4,6 @@ build
 storybook-static
 yarn-error.log
 .vscode
+
+
+.nx/cache

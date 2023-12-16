@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build:dev": {
+      "cache": true
+    }
+  },
+  "affected": {
+    "defaultBase": "master"
+  }
+}

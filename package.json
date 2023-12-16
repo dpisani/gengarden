@@ -13,53 +13,45 @@
     "build": "tsc --build",
     "build:dev": "tsc --build tsconfig-dev.json",
     "build:watch": "yarn build:dev --watch",
-    "test": "mocha",
-    "generate-examples": "yarn workspace @gengarden/generators generate-examples",
-    "generate-examples:watch": "yarn workspace @gengarden/generators generate-examples:watch",
-    "viewer": "yarn workspace @gengarden/examples viewer",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "generate-examples": "nx run generators:generate-examples",
+    "generate-examples:watch": "nx watch --projects=generators --includeDependentProjects -- nx run generators:generate-examples",
+    "storybook": "storybook dev",
+    "build-storybook": "storybook build",
+    "start": "nx run-many --projects=gengarden --targets=generate-examples:watch,storybook --nxBail"
   },
-  "cyclist": {
-    "lifecycles": {
-      "generate": [
-        "build:dev",
-        "generate-examples",
-        "build-storybook"
-      ],
-      "test": [
-        "build:dev",
-        "test"
-      ],
-      "start": [
-        "build:dev",
-        {
-          "name": "watch",
-          "tasks": [
-            "build:watch",
-            "generate-examples:watch",
-            "storybook"
-          ],
-          "parallel": true,
-          "outputMode": "stream"
-        }
-      ]
+  "nx": {
+    "targets": {
+      "build-storybook": {
+        "dependsOn": [
+          {
+            "projects": [
+              "generators"
+            ],
+            "target": "generate-examples"
+          }
+        ]
+      }
     }
   },
-  "dependencies": {
-    "@cyclist/runner": "^0.7.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.11.6",
-    "@storybook/addon-actions": "^6.1.10",
-    "@storybook/addon-essentials": "^6.1.10",
-    "@storybook/addon-links": "^6.1.10",
-    "@storybook/html": "^6.1.10",
+    "@babel/preset-env": "^7.23.6",
+    "@storybook/addon-actions": "^7.6.5",
+    "@storybook/addon-essentials": "^7.6.5",
+    "@storybook/addon-links": "^7.6.5",
+    "@storybook/html": "^7.6.5",
+    "@storybook/html-webpack5": "^7.6.5",
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",
     "babel-loader": "^8.1.0",
     "eslint": "^7.15.0",
     "eslint-plugin-import": "^2.22.1",
-    "prettier": "^1.15.3"
+    "nx": "17.1.3",
+    "prettier": "^1.15.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.6.5",
+    "typescript": "^5.3.3"
   }
 }

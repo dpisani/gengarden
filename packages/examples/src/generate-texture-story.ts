@@ -17,6 +17,7 @@ export default {
 };
 
 export const Texture = textureStoryTemplate({ imageUrls: images });
+Texture.storyName = '${title.split('/').pop()}';
 `
 
 export const generateTextureStory = async (

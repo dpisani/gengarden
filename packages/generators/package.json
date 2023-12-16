@@ -10,11 +10,11 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --build",
+    "build:dev": "tsc --build tsconfig-dev.json",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "test": "mocha",
-    "generate-examples": "STORY_TARGET_DIR=build/stories glob-run node -r source-map-support/register build/lib/**/examples.js",
-    "generate-examples:watch": "nodemon --delay 2 --watch build/lib --exec yarn generate-examples"
+    "generate-examples": "STORY_TARGET_DIR=build/stories glob-run node -r source-map-support/register build/lib/**/*examples.js"
   },
   "devDependencies": {
     "@gengarden/examples": "0.0.0",
@@ -29,10 +29,8 @@
     "@types/sinon": "^9.0.4",
     "glob-run": "^0.1.7",
     "mocha": "^7.0.1",
-    "nodemon": "^1.19.1",
     "should": "^13.2.3",
-    "sinon": "^9.0.2",
-    "typescript": "^3.8.3"
+    "sinon": "^9.0.2"
   },
   "dependencies": {
     "bezier-js": "^2.5.1",

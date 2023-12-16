@@ -3,6 +3,5 @@
     { "path": "./packages/examples/tsconfig-dev.json" },
     { "path": "./packages/generators/tsconfig-dev.json" }
   ],
-  "files": [],
-  "include": ["packages/generators/src/types"]
+  "files": []
 }

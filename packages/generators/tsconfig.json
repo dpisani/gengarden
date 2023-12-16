@@ -6,5 +6,6 @@
     "outDir": "./build/lib",
     "rootDir": "src"
   },
-  "exclude": ["build", "node_modules", "**/*test.ts", "**/*examples.ts"]
+  "exclude": ["build", "node_modules", "**/*test.ts", "**/*examples.ts"],
+  "include": ["src/types"]
 }

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "targets": {
+    "generate-examples": {
+      "dependsOn": ["build:dev", "^build"],
+      "outputs": ["{projectRoot}/build/stories"],
+      "cache": true
+    },
+    "test": {
+      "dependsOn": ["build:dev"],
+      "inputs": ["{projectRoot}/build/lib/**/*test.js"]
+    }
+  }
+}

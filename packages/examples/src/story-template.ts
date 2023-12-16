@@ -6,12 +6,20 @@ export interface GLTFStoryArgs {
   autoRotateCamera: boolean;
 }
 
-export const argTypesDefinition: Record<keyof GLTFStoryArgs, any> = {
-  autoRotateCamera: { control: { type: 'boolean' }, defaultValue: false },
-  cameraPosition: {control: {type: 'array'}, defaultValue: ['0', '1.6', '2']},
-  showGuideBox: { control: { type: 'boolean' }, defaultValue: false },
-  guideBoxSize: {control: {type: 'array'}, defaultValue: ['1', '1', '1']},
-  showBasePlane: { control: { type: 'boolean' }, defaultValue: true },
+export const argTypesDefinition: Record<keyof GLTFStoryArgs, unknown> = {
+  autoRotateCamera: { control: { type: 'boolean' } },
+  cameraPosition: {control: {type: 'array'}},
+  showGuideBox: { control: { type: 'boolean' } },
+  guideBoxSize: {control: {type: 'array'}},
+  showBasePlane: { control: { type: 'boolean' }},
+}
+
+export const defaultArgs: Record<keyof GLTFStoryArgs, unknown> = {
+  autoRotateCamera: false,
+  cameraPosition:  ['0', '1.6', '2'],
+  showGuideBox: false,
+  guideBoxSize: ['1', '1', '1'],
+  showBasePlane: true,
 }
 
 export const gltfStoryTemplate = ({src}: {src: string}) => ({showGuideBox, guideBoxSize, showBasePlane, cameraPosition, autoRotateCamera}: GLTFStoryArgs) => {
