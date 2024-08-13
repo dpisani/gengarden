@@ -1,4 +1,4 @@
-import { prng } from 'seedrandom';
+import { prng } from "seedrandom";
 
 export const clamp = (x: number, min: number, max: number): number =>
   Math.min(Math.max(x, min), max);
@@ -26,7 +26,7 @@ export const sampleInterval = (
   steps: number,
   lookupFn?: (t: number) => number,
 ): number[] => {
-  const lookup = lookupFn || (x => x);
+  const lookup = lookupFn || ((x) => x);
 
   const range = b - a;
 
@@ -46,7 +46,7 @@ export const sampleInterval = (
 
 export const fibbonaci = (n: number): number => {
   if (!Number.isInteger(n)) {
-    throw new Error('Must be an integer');
+    throw new Error("Must be an integer");
   }
 
   if (n <= 1) {

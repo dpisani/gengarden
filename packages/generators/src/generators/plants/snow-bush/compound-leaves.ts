@@ -1,18 +1,18 @@
-import { prng } from 'seedrandom';
-import { flatMap } from 'lodash';
-import { vec3 } from 'gl-matrix';
-import Bezier from 'bezier-js';
+import { prng } from "seedrandom";
+import { flatMap } from "lodash";
+import { vec3 } from "gl-matrix";
+import Bezier from "bezier-js";
 
-import { NormalisedCurve } from '../../util/curves';
+import { NormalisedCurve } from "../../util/curves";
 import {
   generateOppositeStemArrangement,
   PlacementScheme,
-} from '../../stem-arrangement/opposite-arrangement';
-import { quat } from 'gl-matrix';
-import { clamp, lerp, sampleInterval } from '../../util/math';
-import { KeypointStemAxisBlueprint } from '../../stem-axis/keypoint-stem-axis';
-import { StemAxisBlueprint } from '../../stem-axis';
-import generateStemAxis from '../../stem-axis/keypoint-stem-axis/generators/random-walk';
+} from "../../stem-arrangement/opposite-arrangement";
+import { quat } from "gl-matrix";
+import { clamp, lerp, sampleInterval } from "../../util/math";
+import { KeypointStemAxisBlueprint } from "../../stem-axis/keypoint-stem-axis";
+import { StemAxisBlueprint } from "../../stem-axis";
+import generateStemAxis from "../../stem-axis/keypoint-stem-axis/generators/random-walk";
 
 const STALKS_PER_LENGTH_UNIT = 3;
 const SEGMENTS_PER_STEM_LENGTH = 2;
@@ -32,7 +32,7 @@ export const generateCompoundLeaves = ({
   const stalkBlueprints = generateAlternateLeafStalks(stemBlueprints, rng);
   return {
     stalkBlueprints,
-    leafBlueprints: flatMap(stalkBlueprints, s =>
+    leafBlueprints: flatMap(stalkBlueprints, (s) =>
       generateLeavesForStem({ stemBlueprint: s, rng }),
     ),
   };
@@ -69,7 +69,7 @@ const generateAlternateLeafStalks = (
       const maxStalkSize = stemBp.length * 0.5;
       const minStalkSize = maxStalkSize * 0.2;
 
-      return stalkArrangement.nodes.map(node => {
+      return stalkArrangement.nodes.map((node) => {
         const stemLength = lerp(
           maxStalkSize,
           minStalkSize,
@@ -156,8 +156,9 @@ const generateLeavesForStem = ({
   return arrangement.nodes.map((node, i) => {
     const leafSize = getLeafSize(node.branchPosition);
 
-    const forward = stemBlueprint.getAxisInfoAt(node.branchPosition)
-      .axisDirection;
+    const forward = stemBlueprint.getAxisInfoAt(
+      node.branchPosition,
+    ).axisDirection;
     const normalRotation = rotateBetween(
       GLOBAL_UP,
       forward,

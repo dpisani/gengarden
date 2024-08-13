@@ -1,5 +1,5 @@
 /* tslint:disable:max-classes-per-file */
-declare module 'gltf-builder' {
+declare module "gltf-builder" {
   class ComponentBuilder {
     public build: () => JSON;
   }
@@ -51,7 +51,7 @@ declare module 'gltf-builder' {
     public texture: (texture: Texture) => this;
   }
 
-  type WrapMode = 'CLAMP_TO_EDGE' | 'MIRRORED_REPEAT' | 'REPEAT';
+  type WrapMode = "CLAMP_TO_EDGE" | "MIRRORED_REPEAT" | "REPEAT";
 
   export class Sampler extends NamedComponentBuilder {
     public static WrapModes: Record<WrapMode, number>;
@@ -80,6 +80,6 @@ declare module 'gltf-builder' {
 
   function buildTextureFromArrayBuffer(
     data: ArrayBuffer,
-    mimeType: 'image/png' | 'image/jpeg',
+    mimeType: "image/png" | "image/jpeg",
   ): { texture: Texture; textureInfo: TextureInfo };
 }

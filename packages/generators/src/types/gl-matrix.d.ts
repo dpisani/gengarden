@@ -1,6 +1,6 @@
-import * as glMatrix from 'gl-matrix';
+import * as glMatrix from "gl-matrix";
 
-declare module 'gl-matrix' {
+declare module "gl-matrix" {
   export namespace mat4 {
     /**
      * Generates a matrix that makes something look at something else.

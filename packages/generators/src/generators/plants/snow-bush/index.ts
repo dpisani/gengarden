@@ -1,16 +1,15 @@
-import { mat4, quat, vec3 } from 'gl-matrix';
-import { Node, buildTextureFromArrayBuffer } from 'gltf-builder';
+import { mat4, quat, vec3 } from "gl-matrix";
+import { Node, buildTextureFromArrayBuffer } from "gltf-builder";
 
-import { generateStemBlueprints, generateStemModel } from './stems';
-import { generateCompoundLeaves, LeafBlueprint } from './compound-leaves';
+import { generateStemBlueprints, generateStemModel } from "./stems";
+import { generateCompoundLeaves, LeafBlueprint } from "./compound-leaves";
 
-import getRandomGenerator from '../../util/get-random-generator';
-import { prng } from 'seedrandom';
-import { flatMap } from 'lodash';
-import { KeypointStemAxisBlueprint } from '../../stem-axis/keypoint-stem-axis';
-import { generateSimpleLeafletBlueprint } from '../../leaves/keypoint-leaflet/generators/simple-leaflet';
-import { generateLeafletModel } from '../../leaves/keypoint-leaflet/model';
-import { generateSnowBushLeafTexture } from './textures/leaf-texture';
+import getRandomGenerator from "../../util/get-random-generator";
+import { prng } from "seedrandom";
+import { KeypointStemAxisBlueprint } from "../../stem-axis/keypoint-stem-axis";
+import { generateSimpleLeafletBlueprint } from "../../leaves/keypoint-leaflet/generators/simple-leaflet";
+import { generateLeafletModel } from "../../leaves/keypoint-leaflet/model";
+import { generateSnowBushLeafTexture } from "./textures/leaf-texture";
 
 const UP_VECTOR = vec3.fromValues(0, 1, 0);
 
@@ -18,21 +17,25 @@ interface SnowBushSpec {
   randomSeed?: string;
 }
 
-const generate = (spec: SnowBushSpec): Node => {
+const generate = async (spec: SnowBushSpec): Promise<Node> => {
   const rng = getRandomGenerator(spec.randomSeed);
 
   const stems = generateStemBlueprints({ rng });
 
-  const stemModel = generateStemModel({ blueprints: stems });
+  const stemModel = await generateStemModel({ blueprints: stems });
 
   const leafBps = generateCompoundLeaves({
-    stemBlueprints: stems.map(s => new KeypointStemAxisBlueprint(s.keyPoints)),
+    stemBlueprints: stems.map(
+      (s) => new KeypointStemAxisBlueprint(s.keyPoints),
+    ),
     rng,
   });
   // TODO: Replace this with stalk model generator
-  const stalkModel = generateStemModel({ blueprints: leafBps.stalkBlueprints });
+  const stalkModel = await generateStemModel({
+    blueprints: leafBps.stalkBlueprints,
+  });
 
-  const leafModel = generateLeavesModel(leafBps.leafBlueprints, rng);
+  const leafModel = await generateLeavesModel(leafBps.leafBlueprints, rng);
 
   return new Node()
     .addChild(stemModel)
@@ -40,8 +43,11 @@ const generate = (spec: SnowBushSpec): Node => {
     .addChild(leafModel);
 };
 
-const generateLeavesModel = (leafBps: LeafBlueprint[], rng: prng): Node => {
-  const leaves = flatMap(leafBps, l => generateLeaf(l, rng));
+const generateLeavesModel = async (
+  leafBps: LeafBlueprint[],
+  rng: prng,
+): Promise<Node> => {
+  const leaves = await Promise.all(leafBps.map((l) => generateLeaf(l, rng)));
 
   const node = new Node();
 
@@ -52,7 +58,10 @@ const generateLeavesModel = (leafBps: LeafBlueprint[], rng: prng): Node => {
   return node;
 };
 
-const generateLeaf = (leafBp: LeafBlueprint, rng: prng): Node => {
+const generateLeaf = async (
+  leafBp: LeafBlueprint,
+  rng: prng,
+): Promise<Node> => {
   const leafletBp = generateSimpleLeafletBlueprint({
     stemLength: 0.1 * leafBp.length,
     stemWidth: 0.05 * leafBp.width,
@@ -61,10 +70,10 @@ const generateLeaf = (leafBp: LeafBlueprint, rng: prng): Node => {
     leafletMidpointPosition: 0.4,
   });
 
-  const textureData = generateSnowBushLeafTexture({ size: 16 });
+  const textureData = await generateSnowBushLeafTexture({ size: 16 });
   const { texture: leafTexture } = buildTextureFromArrayBuffer(
     textureData,
-    'image/png',
+    "image/png",
   );
   leafletBp.bladeTexture = leafTexture;
 

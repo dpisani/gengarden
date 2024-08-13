@@ -1,9 +1,9 @@
-import { triangulateBoundary } from './index';
-import { vec3 } from 'gl-matrix';
-import 'should';
+import { triangulateBoundary } from "./index";
+import { vec3 } from "gl-matrix";
+import "should";
 
-describe('Boundary triangulator', () => {
-  it('turns a list of points into a mesh', () => {
+describe("Boundary triangulator", () => {
+  it("turns a list of points into a mesh", () => {
     const boundary = [
       { position: vec3.fromValues(0, 0, 0) },
       { position: vec3.fromValues(1, 0, 0) },
@@ -21,7 +21,7 @@ describe('Boundary triangulator', () => {
     res.polygons[0].should.containDeep([0, 1, 2]);
   });
 
-  it('divides complex polygons into triangles', () => {
+  it("divides complex polygons into triangles", () => {
     const boundary = [
       { position: vec3.fromValues(0, 0, 0) },
       { position: vec3.fromValues(1, 0, 0) },
@@ -40,7 +40,7 @@ describe('Boundary triangulator', () => {
     res.polygons.length.should.eql(2);
   });
 
-  it('handles degenerate points', () => {
+  it("handles degenerate points", () => {
     const boundary = [
       { position: vec3.fromValues(0, 0, 0) },
       { position: vec3.fromValues(1, 0, 0) },

@@ -1,17 +1,17 @@
-import { vec3 } from 'gl-matrix';
-import { angleToVec } from '../../spatial-utils/angle-to-vec';
+import { vec3 } from "gl-matrix";
+import { angleToVec } from "../../spatial-utils/angle-to-vec";
 
 /**
  * createRing - creates a ring of points around the unit circle
  *
  * @returns {vec3[]} an array of points
  */
-export default function(
+export default function (
   {
-    plane = 'xz',
+    plane = "xz",
   }: {
-    plane: 'xz' | 'xy' | 'yz';
-  } = { plane: 'xz' },
+    plane: "xz" | "xy" | "yz";
+  } = { plane: "xz" },
 ): vec3[] {
   const segments = 5;
   const segmentAngle = (Math.PI * 2) / segments;

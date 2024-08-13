@@ -1,14 +1,9 @@
 {
   "references": [
     {
-      "path": "packages/examples"
-    },
-    {
       "path": "packages/generators"
     }
   ],
   "files": [],
-  "include": [
-    "packages/generators/src/types"
-  ]
+  "exclude": ["node_modules"]
 }

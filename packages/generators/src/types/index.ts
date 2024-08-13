@@ -13,5 +13,5 @@ export interface GeneratorDefinition<S, R> {
 }
 
 export type PartialSpec<T> = {
-  [P in keyof T]: PartialSpec<T[P]> | TaggedSpec<any> | T[P]
+  [P in keyof T]: PartialSpec<T[P]> | TaggedSpec<any> | T[P];
 };

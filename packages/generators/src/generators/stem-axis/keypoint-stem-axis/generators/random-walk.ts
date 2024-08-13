@@ -1,12 +1,12 @@
-import { KeypointStemAxisBlueprint } from '..';
-import { vec3 } from 'gl-matrix';
-import { prng } from 'seedrandom';
-import { BoundingVolume } from '../../../../bounding-volumes/types';
-import { createDeviation } from '../../../util/create-devitaion';
-import { quat } from 'gl-matrix';
-import Bezier = require('bezier-js');
-import { NormalisedCurve } from '../../../util/curves';
-import { getRandom } from '../../../util/math';
+import { KeypointStemAxisBlueprint } from "..";
+import { vec3 } from "gl-matrix";
+import { prng } from "seedrandom";
+import { BoundingVolume } from "../../../../bounding-volumes/types";
+import { createDeviation } from "../../../util/create-devitaion";
+import { quat } from "gl-matrix";
+import Bezier from "bezier-js";
+import { NormalisedCurve } from "../../../util/curves";
+import { getRandom } from "../../../util/math";
 
 export interface StemSpec {
   start: vec3;
@@ -44,7 +44,7 @@ const generateKeypoints = (
 
   const noNodes = spec.segments + 1;
 
-  const widthAtIndex = i => spec.width * widthCurve.valueAt(i / noNodes);
+  const widthAtIndex = (i) => spec.width * widthCurve.valueAt(i / noNodes);
 
   for (let i = 1; i < noNodes; i++) {
     const growth = vec3.scale(
@@ -66,14 +66,14 @@ const generateKeypoints = (
     const candidateBranches = [
       mainDeviation,
       vec3.transformQuat(vec3.create(), mainDeviation, rotateQuat),
-    ].map(normal => ({
+    ].map((normal) => ({
       normal,
       position: nextPoint,
       remainingParentLength: spec.length - segmentLength * i,
     }));
 
     // use one of the branch sites for the next iteration
-    const branchSite = candidateBranches.find(candidate => {
+    const branchSite = candidateBranches.find((candidate) => {
       if (!spec.boundingVolume) {
         return true;
       }

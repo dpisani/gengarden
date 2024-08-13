@@ -13,7 +13,7 @@ export class ParticleSystem<P> {
 
   simulate = (initialParticles: P[], steps: number): ParticleStream<P>[] => {
     if (steps < 0) {
-      throw new Error('Cannot have a negative number of steps!');
+      throw new Error("Cannot have a negative number of steps!");
     }
     let particles = initialParticles.slice();
     const streams: ParticleStream<P>[] = [];
@@ -21,9 +21,9 @@ export class ParticleSystem<P> {
     for (let step = 0; step <= steps; step++) {
       // Take snapshot of current state
       particles.forEach((p, i) => {
-        streams[i] = streams[i] ?? []
-        
-        streams[i].push([cloneDeep(p), step])
+        streams[i] = streams[i] ?? [];
+
+        streams[i].push([cloneDeep(p), step]);
       });
 
       if (step === steps) {
@@ -31,9 +31,12 @@ export class ParticleSystem<P> {
       }
 
       // Apply all the manipulation functions
-      particles = particles.map(p => {
-        return this.manipulators.reduce((acc, manipulator) => ({...acc, ...manipulator(p)}), p)
-      })
+      particles = particles.map((p) => {
+        return this.manipulators.reduce(
+          (acc, manipulator) => ({ ...acc, ...manipulator(p) }),
+          p,
+        );
+      });
     }
 
     return streams;

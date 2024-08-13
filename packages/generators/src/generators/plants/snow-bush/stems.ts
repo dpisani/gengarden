@@ -1,16 +1,16 @@
-import { vec3 } from 'gl-matrix';
-import { prng } from 'seedrandom';
-import { Node, buildTextureFromArrayBuffer, Sampler } from 'gltf-builder';
-import gaussian from 'gaussian';
+import { vec3 } from "gl-matrix";
+import { prng } from "seedrandom";
+import { Node, buildTextureFromArrayBuffer, Sampler } from "gltf-builder";
+import gaussian from "gaussian";
 
-import { clamp, getRandomInt } from '../../util/math';
-import { flatMap } from 'lodash';
-import { KeypointStemAxisBlueprint } from '../../stem-axis/keypoint-stem-axis';
-import generateStemAxis from '../../stem-axis/keypoint-stem-axis/generators/random-walk';
-import { StemAxisBlueprint } from '../../stem-axis';
-import generateScatteredStemArrangement from '../../stem-arrangement/scattered-arrangement';
-import { generateTubePathFromStemAxis } from '../../tube-path/from-stem-axis';
-import { generateSnowBushStemTexture } from './textures/stem-texture';
+import { clamp, getRandomInt } from "../../util/math";
+import { flatMap } from "lodash";
+import { KeypointStemAxisBlueprint } from "../../stem-axis/keypoint-stem-axis";
+import generateStemAxis from "../../stem-axis/keypoint-stem-axis/generators/random-walk";
+import { StemAxisBlueprint } from "../../stem-axis";
+import generateScatteredStemArrangement from "../../stem-arrangement/scattered-arrangement";
+import { generateTubePathFromStemAxis } from "../../tube-path/from-stem-axis";
+import { generateSnowBushStemTexture } from "./textures/stem-texture";
 
 const SEGMENTS_PER_BRANCH_LENGTH = 2;
 const MAIN_BRANCH_LENGTH = 4.5;
@@ -41,17 +41,16 @@ export const generateStemBlueprints = ({
   return [mainBranchBP, ...descendantBranches];
 };
 
-export const generateStemModel = ({
+export const generateStemModel = async ({
   blueprints,
 }: {
   blueprints: KeypointStemAxisBlueprint[];
 }) => {
   const model = new Node();
 
-  const { texture } = buildTextureFromArrayBuffer(
-    generateSnowBushStemTexture({ size: 32 }),
-    'image/jpeg',
-  );
+  const textureData = await generateSnowBushStemTexture({ size: 32 });
+
+  const { texture } = buildTextureFromArrayBuffer(textureData, "image/jpeg");
 
   const sampler = new Sampler()
     .wrapS(Sampler.WrapModes.CLAMP_TO_EDGE)
@@ -110,7 +109,7 @@ const generateOffshoots = (
     rng,
   });
 
-  return offshootArrangement.nodes.map(offshootPoint => {
+  return offshootArrangement.nodes.map((offshootPoint) => {
     const offshootLength =
       stemBp.length * (1 - offshootPoint.branchPosition) * 0.85;
 

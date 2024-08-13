@@ -1,4 +1,4 @@
-declare module 'tess2' {
+declare module "tess2" {
   type V3 = [number, number, number | 0];
 
   export enum WINDING {

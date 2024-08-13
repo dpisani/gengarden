@@ -1,11 +1,11 @@
-import 'should';
-import { stub } from 'sinon';
+import "should";
+import { stub } from "sinon";
 
-import { generateTubePath } from './index';
-import { vec3 } from 'gl-matrix';
+import { generateTubePath } from "./index";
+import { vec3 } from "gl-matrix";
 
-describe('tube path generator', () => {
-  it('applies texcoords on each segment', () => {
+describe("tube path generator", () => {
+  it("applies texcoords on each segment", () => {
     const mockGenerateTube = stub().returns({ vertices: [], polygons: [] });
     generateTubePath({
       segments: [

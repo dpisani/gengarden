@@ -1,9 +1,0 @@
-{
-  "extends": "../../tsconfig-base.json",
-  "compilerOptions": {
-    "composite": true,
-    "outDir": "./build/lib",
-    "rootDir": "src"
-  },
-  "exclude": ["build", "node_modules", "**/*test.ts"]
-}

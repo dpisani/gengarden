@@ -1,9 +1,9 @@
-import { mat4, vec3 } from 'gl-matrix';
+import { mat4, vec3 } from "gl-matrix";
 
-import { zip } from 'lodash';
-import { generateTube as generateTubeDI } from '../tube';
-import createRing from '../util/create-ring';
-import { MeshBlueprint, PrimitiveBlueprint } from '../mesh';
+import { zip } from "lodash";
+import { generateTube as generateTubeDI } from "../tube";
+import createRing from "../util/create-ring";
+import { MeshBlueprint, PrimitiveBlueprint } from "../mesh";
 
 interface PathSegment {
   position: vec3;
@@ -29,7 +29,7 @@ const validateSpec = (
   );
 
   if (numTexV !== spec.segments.length && numTexV !== 0) {
-    messages.push('texV must be specified on all segments');
+    messages.push("texV must be specified on all segments");
   }
 
   return { messages, isValid: messages.length === 0 };
@@ -40,7 +40,7 @@ export function generateTubePath(
 ): MeshBlueprint {
   const validation = validateSpec(spec);
   if (!validation.isValid) {
-    throw new Error(validation.messages.join('\n'));
+    throw new Error(validation.messages.join("\n"));
   }
 
   const { generateTube = generateTubeDI } = spec;
@@ -61,12 +61,12 @@ export function generateTubePath(
   // just re use the second normal
   ringNormals[0] = ringNormals[1];
 
-  const ringProto = createRing({ plane: 'xy' });
+  const ringProto = createRing({ plane: "xy" });
 
   const rings: vec3[][] = zip(ringNormals, spec.segments).map(
     ([n, segment]) => {
       if (!n || !segment) {
-        throw new Error('Missing segment data');
+        throw new Error("Missing segment data");
       }
       const transform = mat4.create();
 
@@ -79,7 +79,7 @@ export function generateTubePath(
 
       mat4.targetTo(transform, vec3.create(), n, up);
 
-      return ringProto.map(v =>
+      return ringProto.map((v) =>
         vec3.add(
           vec3.create(),
           vec3.scale(

@@ -1,7 +1,7 @@
-import { Node } from 'gltf-builder';
-import getRandomGenerator from '../../util/get-random-generator';
-import { generateStemAxes } from './blueprint/stem';
-import { generateStemModel } from './model/stem';
+import { Node } from "gltf-builder";
+import getRandomGenerator from "../../util/get-random-generator";
+import { generateStemAxes } from "./blueprint/stem";
+import { generateStemModel } from "./model/stem";
 
 interface RosySunraySpec {
   randomSeed?: string;

@@ -1,16 +1,16 @@
-import { KeypointLeafletBlueprint } from '../blueprint';
-import Bezier from 'bezier-js';
+import { KeypointLeafletBlueprint } from "../blueprint";
+import Bezier from "bezier-js";
 
-import { NormalisedCurve } from '../../../util/curves';
-import { KeypointStemAxisBlueprint } from '../../../stem-axis/keypoint-stem-axis';
-import { vec3 } from 'gl-matrix';
-import { sampleInterval } from '../../../util/math';
+import { NormalisedCurve } from "../../../util/curves";
+import { KeypointStemAxisBlueprint } from "../../../stem-axis/keypoint-stem-axis";
+import { vec3 } from "gl-matrix";
+import { sampleInterval } from "../../../util/math";
 import BoundingBox, {
   createBoundingBoxFromPoints,
   createBoxTransformer,
-} from '../../../../bounding-volumes/box';
-import { PrimitiveVertex } from '../../../mesh';
-import { vec2 } from 'gl-matrix';
+} from "../../../../bounding-volumes/box";
+import { PrimitiveVertex } from "../../../mesh";
+import { vec2 } from "gl-matrix";
 
 export interface GeneratorSpec {
   // Length of the stem section preceeding the main leaflet
@@ -47,7 +47,7 @@ export const generateSimpleLeafletBlueprint = (
 ): KeypointLeafletBlueprint => {
   const check = checkInvariants(spec);
   if (!check.isValid) {
-    throw new Error(check.messages.join('\n'));
+    throw new Error(check.messages.join("\n"));
   }
 
   const {
@@ -103,7 +103,7 @@ export const generateSimpleLeafletBlueprint = (
 
   const leafBottomBoundary = [...baseBottomBoundary, ...tipBottomBoundary]
     .reverse()
-    .map(v => {
+    .map((v) => {
       const position = vec3.multiply(
         v.position,
         v.position,
@@ -133,8 +133,8 @@ const getPointsForSegment = ({
   noSamples: number;
 }): PrimitiveVertex[] => {
   return sampleInterval(0, 1, noSamples)
-    .map(t => segmentCurve.get(t))
-    .map(v => {
+    .map((t) => segmentCurve.get(t))
+    .map((v) => {
       const position = vec3.fromValues(
         v[1] * width,
         0,
@@ -166,7 +166,7 @@ const roundedTipCurve = new NormalisedCurve(
 
 const applyTexcoordsToBoundary = (boundary: PrimitiveVertex[]) => {
   const leafBoundaryBox = createBoundingBoxFromPoints(
-    boundary.map(p => p.position),
+    boundary.map((p) => p.position),
   );
 
   const texCoordBox = new BoundingBox(vec3.create(), vec3.fromValues(1, 1, 0));
@@ -176,7 +176,7 @@ const applyTexcoordsToBoundary = (boundary: PrimitiveVertex[]) => {
     texCoordBox,
   );
 
-  boundary.forEach(v => {
+  boundary.forEach((v) => {
     const transformed = transformToTexCoord(v.position);
     v.texcoord = vec2.fromValues(transformed[0], transformed[1]);
   });

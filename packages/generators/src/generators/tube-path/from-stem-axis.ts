@@ -4,12 +4,12 @@ import {
   Material,
   MetallicRoughness,
   TextureInfo,
-} from 'gltf-builder';
-import { KeypointStemAxisBlueprint } from '../stem-axis/keypoint-stem-axis/index';
+} from "gltf-builder";
+import { KeypointStemAxisBlueprint } from "../stem-axis/keypoint-stem-axis/index";
 
-import { generateTubePath as generateTubePathDI } from '.';
-import { identity } from 'lodash';
-import { generateMesh } from '../mesh';
+import { generateTubePath as generateTubePathDI } from ".";
+import { identity } from "lodash";
+import { generateMesh } from "../mesh";
 
 const defaultTexcoordGenerators = {
   vCoordMap: identity,
@@ -48,7 +48,7 @@ export const generateTubePathFromStemAxis = (
       ),
     );
 
-    tubePath.primitives = tubePath.primitives.map(p => ({
+    tubePath.primitives = tubePath.primitives.map((p) => ({
       ...p,
       material: material,
     }));

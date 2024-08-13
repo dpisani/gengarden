@@ -1,4 +1,4 @@
-import { vec2, vec3 } from 'gl-matrix';
+import { vec2, vec3 } from "gl-matrix";
 import {
   Material,
   Mesh,
@@ -6,9 +6,9 @@ import {
   buildVec3Accessor,
   buildUIntAccessor,
   buildVec2Accessor,
-} from 'gltf-builder';
+} from "gltf-builder";
 
-import { flatten } from 'lodash';
+import { flatten } from "lodash";
 
 export interface PrimitiveVertex {
   position: vec3;
@@ -35,10 +35,10 @@ export interface MeshSpec {
 export const generatePrimitive = (
   primitiveBp: PrimitiveBlueprint,
 ): Primitive => {
-  const positions = primitiveBp.vertices.map(v => v.position);
+  const positions = primitiveBp.vertices.map((v) => v.position);
   const indices = flatten(primitiveBp.polygons);
   const texcoords: vec2[] = primitiveBp.vertices
-    .map(v => v.texcoord)
+    .map((v) => v.texcoord)
     .filter((t): t is vec2 => t !== undefined);
 
   const positionsAccessor = buildVec3Accessor(positions);
@@ -64,7 +64,7 @@ export const generatePrimitive = (
 export const generateMesh = (
   meshBp: MeshBlueprint | PrimitiveBlueprint,
 ): Mesh => {
-  if ('primitives' in meshBp) {
+  if ("primitives" in meshBp) {
     const mesh = new Mesh();
 
     for (const p of meshBp.primitives) {

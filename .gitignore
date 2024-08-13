@@ -4,3 +4,5 @@ build
 storybook-static
 yarn-error.log
 .vscode
+
+*storybook.log

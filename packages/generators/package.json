@@ -10,14 +10,18 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "tsc",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "test": "mocha",
-    "generate-examples": "STORY_TARGET_DIR=build/stories glob-run node -r source-map-support/register build/lib/**/examples.js",
-    "generate-examples:watch": "nodemon --delay 2 --watch build/lib --exec yarn generate-examples"
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "devDependencies": {
-    "@gengarden/examples": "0.0.0",
+    "@chromatic-com/storybook": "^1.6.1",
+    "@storybook/addon-essentials": "^8.2.7",
+    "@storybook/addon-interactions": "^8.2.7",
+    "@storybook/addon-links": "^8.2.7",
+    "@storybook/blocks": "^8.2.7",
+    "@storybook/html": "^8.2.7",
+    "@storybook/html-vite": "^8.2.7",
+    "@storybook/test": "^8.2.7",
     "@types/bezier-js": "^0.0.8",
     "@types/gaussian": "^1.1.1",
     "@types/gl-matrix": "^2.4.4",
@@ -27,16 +31,18 @@
     "@types/seedrandom": "^2.4.27",
     "@types/should": "^13.0.0",
     "@types/sinon": "^9.0.4",
+    "aframe": "^1.6.0",
     "glob-run": "^0.1.7",
     "mocha": "^7.0.1",
     "nodemon": "^1.19.1",
+    "prettier": "^3.3.3",
     "should": "^13.2.3",
     "sinon": "^9.0.2",
-    "typescript": "^3.8.3"
+    "storybook": "^8.2.7"
   },
   "dependencies": {
     "bezier-js": "^2.5.1",
-    "canvas": "^2.6.1",
+    "canvas": "^2.11.2",
     "gaussian": "^1.1.0",
     "gl-matrix": "^2.8.1",
     "gltf-builder": "^0.7.1",

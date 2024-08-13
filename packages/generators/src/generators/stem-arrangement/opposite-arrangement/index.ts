@@ -1,8 +1,8 @@
-import { StemArrangementBlueprint, StemNode } from '..';
-import { vec3 } from 'gl-matrix';
-import { prng } from 'seedrandom';
-import { StemAxisBlueprint } from '../../stem-axis';
-import { quat } from 'gl-matrix';
+import { StemArrangementBlueprint, StemNode } from "..";
+import { vec3 } from "gl-matrix";
+import { prng } from "seedrandom";
+import { StemAxisBlueprint } from "../../stem-axis";
+import { quat } from "gl-matrix";
 
 export interface GeneratorProps {
   axis: StemAxisBlueprint;

@@ -1,4 +1,4 @@
-import { quat, vec3 } from 'gl-matrix';
+import { quat, vec3 } from "gl-matrix";
 
 /**
  * createDeviation - creates a vector skewed from a given one

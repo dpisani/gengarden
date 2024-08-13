@@ -1,22 +1,22 @@
-import { generateOppositeStemArrangement, PlacementScheme } from './index';
-import { StemAxisBlueprint } from '../../stem-axis';
-import { vec3 } from 'gl-matrix';
-import { prng } from 'seedrandom';
-import assert from 'assert';
-import 'should';
+import { generateOppositeStemArrangement, PlacementScheme } from "./index";
+import { StemAxisBlueprint } from "../../stem-axis";
+import { vec3 } from "gl-matrix";
+import { prng } from "seedrandom";
+import assert from "assert";
+import "should";
 
 const createMockRng = (): prng => {
   const rng = () => 0.5;
   rng.quick = () => 0.5;
   rng.double = () => 0.5;
   rng.int32 = () => {
-    throw new Error('not implemented');
+    throw new Error("not implemented");
   };
   rng.state = () => {
-    throw new Error('not implemented');
+    throw new Error("not implemented");
   };
 
-  return (rng as unknown) as prng;
+  return rng as unknown as prng;
 };
 
 const assertIsClose = (a: vec3, b: vec3) => {
@@ -25,10 +25,10 @@ const assertIsClose = (a: vec3, b: vec3) => {
   a[2].should.be.approximately(b[2], 0.01);
 };
 
-describe('opposite stem arrangement generator', () => {
+describe("opposite stem arrangement generator", () => {
   const mockAxis: StemAxisBlueprint = {
     length: 1,
-    getAxisInfoAt: l => {
+    getAxisInfoAt: (l) => {
       return {
         position: vec3.fromValues(l, 0, 0),
         width: 1,
@@ -37,8 +37,8 @@ describe('opposite stem arrangement generator', () => {
     },
   };
 
-  describe('pairs node placement', () => {
-    it('creates pairs of nodes per node position', () => {
+  describe("pairs node placement", () => {
+    it("creates pairs of nodes per node position", () => {
       const arrangement = generateOppositeStemArrangement({
         axis: mockAxis,
         rng: createMockRng(),
@@ -55,7 +55,7 @@ describe('opposite stem arrangement generator', () => {
       assert.equal(arrangement.nodes.length, 4);
     });
 
-    it('places pairs at the specified place along the axis', () => {
+    it("places pairs at the specified place along the axis", () => {
       const arrangement = generateOppositeStemArrangement({
         axis: mockAxis,
         rng: createMockRng(),
@@ -74,7 +74,7 @@ describe('opposite stem arrangement generator', () => {
       assert.deepStrictEqual(node4.position, vec3.fromValues(1, 0, 0));
     });
 
-    it('places pairs facing opposite directions along the axis', () => {
+    it("places pairs facing opposite directions along the axis", () => {
       const arrangement = generateOppositeStemArrangement({
         axis: mockAxis,
         rng: createMockRng(),
@@ -93,7 +93,7 @@ describe('opposite stem arrangement generator', () => {
       assertIsClose(node4.direction, vec3.fromValues(0, 0, -1));
     });
 
-    it('faces nodes at an angle away from the axis defined by a given divergence function', () => {
+    it("faces nodes at an angle away from the axis defined by a given divergence function", () => {
       const arrangement = generateOppositeStemArrangement({
         axis: mockAxis,
         rng: createMockRng(),
@@ -109,7 +109,7 @@ describe('opposite stem arrangement generator', () => {
       assertIsClose(node2.direction, vec3.fromValues(0.707, 0, -0.707));
     });
 
-    it('rotates node placements around the stem axis as defined by a given placement rotation', () => {
+    it("rotates node placements around the stem axis as defined by a given placement rotation", () => {
       const arrangement = generateOppositeStemArrangement({
         axis: mockAxis,
         rng: createMockRng(),
@@ -126,8 +126,8 @@ describe('opposite stem arrangement generator', () => {
     });
   });
 
-  describe('alternating node placement', () => {
-    it('creates nodes facing alternating directions along an axis', () => {
+  describe("alternating node placement", () => {
+    it("creates nodes facing alternating directions along an axis", () => {
       const arrangement = generateOppositeStemArrangement({
         axis: mockAxis,
         rng: createMockRng(),

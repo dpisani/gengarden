@@ -1,14 +1,14 @@
-import { Node } from 'gltf-builder';
-import { KeypointStemAxisBlueprint } from '../../../stem-axis/keypoint-stem-axis';
-import { generateSpiralArrangementBlueprint } from '../../../stem-arrangement/spiral-arrangement/spiral-arrangement';
-import { sampleInterval } from '../../../util/math';
-import { generateTubePathFromStemAxis } from '../../../tube-path/from-stem-axis';
-import { generateLeafModel } from './leaf';
-import { mat4 } from 'gl-matrix';
-import { vec3 } from 'gl-matrix';
-import { UP_VECTOR } from '../../../../spatial-utils/vector-util';
-import { quat } from 'gl-matrix';
-import { prng } from 'seedrandom';
+import { Node } from "gltf-builder";
+import { KeypointStemAxisBlueprint } from "../../../stem-axis/keypoint-stem-axis";
+import { generateSpiralArrangementBlueprint } from "../../../stem-arrangement/spiral-arrangement/spiral-arrangement";
+import { sampleInterval } from "../../../util/math";
+import { generateTubePathFromStemAxis } from "../../../tube-path/from-stem-axis";
+import { generateLeafModel } from "./leaf";
+import { mat4 } from "gl-matrix";
+import { vec3 } from "gl-matrix";
+import { UP_VECTOR } from "../../../../spatial-utils/vector-util";
+import { quat } from "gl-matrix";
+import { prng } from "seedrandom";
 
 const LEAF_DENSITY = 60;
 

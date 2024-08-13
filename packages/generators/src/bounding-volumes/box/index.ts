@@ -1,7 +1,7 @@
 // An axis aligned bounding box
 
-import { vec3 } from 'gl-matrix';
-import { BoundingVolume } from '../types';
+import { vec3 } from "gl-matrix";
+import { BoundingVolume } from "../types";
 
 export default class BoundingBox implements BoundingVolume {
   private _min: vec3;

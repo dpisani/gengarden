@@ -1,12 +1,12 @@
-import { vec3 } from 'gl-matrix';
-import { Node } from 'gltf-builder';
-import { flatten } from 'lodash';
+import { vec3 } from "gl-matrix";
+import { Node } from "gltf-builder";
+import { flatten } from "lodash";
 
-import { GeneratorDefinition, TaggedSpec } from '../../types';
-import { generateMesh, PrimitiveBlueprint } from '../mesh';
-import createRing from '../util/create-ring';
-import { vec2 } from 'gl-matrix';
-import { sampleInterval } from '../util/math';
+import { GeneratorDefinition, TaggedSpec } from "../../types";
+import { generateMesh, PrimitiveBlueprint } from "../mesh";
+import createRing from "../util/create-ring";
+import { vec2 } from "gl-matrix";
+import { sampleInterval } from "../util/math";
 
 type RingSpec = vec3[];
 
@@ -82,7 +82,7 @@ export const generateTube = (spec: TubeSpec): PrimitiveBlueprint => {
     });
   } else {
     if (spec.begin.length !== spec.end.length) {
-      throw new Error('begin and end must have the same number of points');
+      throw new Error("begin and end must have the same number of points");
     }
 
     segments = spec.begin.length;

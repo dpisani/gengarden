@@ -1,6 +1,6 @@
-import { flatMap } from 'lodash';
-import { tesselate } from 'tess2';
-import { PrimitiveVertex, PrimitiveBlueprint } from '../../../mesh';
+import { flatMap } from "lodash";
+import { tesselate } from "tess2";
+import { PrimitiveVertex, PrimitiveBlueprint } from "../../../mesh";
 
 export const triangulateBoundary = (
   boundary: PrimitiveVertex[],
@@ -14,7 +14,7 @@ export const triangulateBoundary = (
   });
 
   if (!tesselation) {
-    throw new Error('Could not create a triangulation');
+    throw new Error("Could not create a triangulation");
   }
 
   // create vertices out of what's returned in the triangulation

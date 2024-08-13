@@ -1,5 +1,5 @@
-import Bezier from 'bezier-js';
-import { vec2 } from 'gl-matrix';
+import Bezier from "bezier-js";
+import { vec2 } from "gl-matrix";
 
 /**
  * A bezier curve scaled to fit in a 1x1 length box at the origin
@@ -9,7 +9,7 @@ import { vec2 } from 'gl-matrix';
  */
 export class NormalisedCurve {
   private curve: Bezier;
-  private bbox: ReturnType<Bezier['bbox']>;
+  private bbox: ReturnType<Bezier["bbox"]>;
   private scalar: vec2;
 
   constructor(curve: Bezier) {
@@ -18,7 +18,7 @@ export class NormalisedCurve {
     this.bbox = curve.bbox();
 
     if (this.bbox.z) {
-      throw new Error('Only 2D curves are supported');
+      throw new Error("Only 2D curves are supported");
     }
 
     const xScalar = 1 / (this.bbox.x.size || 1);

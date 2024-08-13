@@ -1,8 +1,8 @@
-import { StemArrangementBlueprint, StemNode } from '..';
-import { fibbonaci } from '../../util/math';
-import { StemAxisBlueprint } from '../../stem-axis';
-import { vec3 } from 'gl-matrix';
-import { createDeviation } from '../../util/create-devitaion';
+import { StemArrangementBlueprint, StemNode } from "..";
+import { fibbonaci } from "../../util/math";
+import { StemAxisBlueprint } from "../../stem-axis";
+import { vec3 } from "gl-matrix";
+import { createDeviation } from "../../util/create-devitaion";
 
 export interface SpiralArrangementSpec {
   axis: StemAxisBlueprint;
@@ -22,12 +22,12 @@ export const generateSpiralArrangementBlueprint = ({
   nodePositions,
   spiralLevel,
   forwardDivergenceLookup,
-  spiralOffset
+  spiralOffset,
 }: SpiralArrangementSpec): StemArrangementBlueprint => {
   const upDir = vec3.fromValues(0, 1, 0);
   const spiralDivergence =
     (fibbonaci(spiralLevel) / fibbonaci(spiralLevel + 2)) * Math.PI * 2;
-  const spiralStart = spiralOffset ?? 0
+  const spiralStart = spiralOffset ?? 0;
 
   const nodes: StemNode[] = nodePositions.sort().map((pos, i) => {
     const nodePoint = axis.getAxisInfoAt(pos);

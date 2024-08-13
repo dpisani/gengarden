@@ -1,6 +1,6 @@
-import { StemAxisBlueprint } from '../../stem-axis';
-import { PrimitiveVertex } from '../../mesh';
-import { Texture } from 'gltf-builder';
+import { StemAxisBlueprint } from "../../stem-axis";
+import { PrimitiveVertex } from "../../mesh";
+import { Texture } from "gltf-builder";
 
 /**
  * A representation of a single leaflet defined by a ring of
