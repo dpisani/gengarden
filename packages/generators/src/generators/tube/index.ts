@@ -1,12 +1,9 @@
 import { vec3 } from "gl-matrix";
-import { Node } from "gltf-builder";
-import { flatten } from "lodash";
 
-import { GeneratorDefinition, TaggedSpec } from "../../types";
-import { generateMesh, PrimitiveBlueprint } from "../mesh";
-import createRing from "../util/create-ring";
 import { vec2 } from "gl-matrix";
-import { sampleInterval } from "../util/math";
+import { PrimitiveBlueprint } from "../mesh/index.ts";
+import createRing from "../util/create-ring.ts";
+import { sampleInterval } from "../util/math.ts";
 
 type RingSpec = vec3[];
 
@@ -18,6 +15,7 @@ interface UVSpec {
 interface TubeSpecPoints {
   begin: { position: vec3; width: number };
   end: { position: vec3; width: number };
+  numSides?: number;
   texInfo?: UVSpec;
 }
 
@@ -27,85 +25,55 @@ interface TubeSpecRings {
   texInfo?: UVSpec;
 }
 
-export type TubeSpec = TubeSpecPoints | TubeSpecRings;
+export const generateTubeSpecFromPoints = (
+  spec: TubeSpecPoints,
+): TubeSpecRings => {
+  const ring = createRing({ numPoints: spec.numSides });
 
-function isTubeSpecPoints(spec): spec is TubeSpecPoints {
-  return (
-    spec.begin &&
-    spec.begin.position &&
-    spec.begin.width &&
-    spec.end &&
-    spec.end.position &&
-    spec.end.width
-  );
-}
+  const beginRing = ring.map((p, i) => {
+    return vec3.add(
+      vec3.create(),
+      vec3.scale(vec3.create(), p, spec.begin.width),
+      spec.begin.position,
+    );
+  });
 
-export const generateTube = (spec: TubeSpec): PrimitiveBlueprint => {
-  let segments: number;
-  let beginRing: { position: vec3; texcoord?: vec2 }[];
-  let endRing: { position: vec3; texcoord?: vec2 }[];
+  const endRing = ring.map((p, i) => {
+    return vec3.add(
+      vec3.create(),
+      vec3.scale(vec3.create(), p, spec.end.width),
+      spec.end.position,
+    );
+  });
 
-  if (isTubeSpecPoints(spec)) {
-    const ring = createRing();
-    segments = ring.length;
+  return { begin: beginRing, end: endRing, texInfo: spec.texInfo };
+};
 
-    const uCoords = sampleInterval(0, 1, segments);
+export const generateTube = (spec: TubeSpecRings): PrimitiveBlueprint => {
+  if (spec.begin.length !== spec.end.length) {
+    throw new Error("begin and end must have the same number of points");
+  }
 
-    beginRing = ring.map((p, i) => {
-      const position = vec3.add(
-        vec3.create(),
-        vec3.scale(vec3.create(), p, spec.begin.width),
-        spec.begin.position,
-      );
+  const segments = spec.begin.length;
 
-      if (spec.texInfo) {
-        const texcoord = vec2.fromValues(uCoords[i], spec.texInfo.beginV);
-        return { position, texcoord };
-      }
+  const uCoords = sampleInterval(0, 1, segments);
 
-      return { position };
-    });
-
-    endRing = ring.map((p, i) => {
-      const position = vec3.add(
-        vec3.create(),
-        vec3.scale(vec3.create(), p, spec.end.width),
-        spec.end.position,
-      );
-
-      if (spec.texInfo) {
-        const texcoord = vec2.fromValues(uCoords[i], spec.texInfo.endV);
-        return { position, texcoord };
-      }
-
-      return { position };
-    });
-  } else {
-    if (spec.begin.length !== spec.end.length) {
-      throw new Error("begin and end must have the same number of points");
+  const beginRing = spec.begin.map((p, i) => {
+    if (spec.texInfo) {
+      const texcoord = vec2.fromValues(uCoords[i], spec.texInfo.beginV);
+      return { position: p, texcoord };
     }
 
-    segments = spec.begin.length;
+    return { position: p };
+  });
+  const endRing = spec.end.map((p, i) => {
+    if (spec.texInfo) {
+      const texcoord = vec2.fromValues(uCoords[i], spec.texInfo.endV);
+      return { position: p, texcoord };
+    }
 
-    const uCoords = sampleInterval(0, 1, segments);
-
-    beginRing = spec.begin.map((p, i) => {
-      if (spec.texInfo) {
-        const texcoord = vec2.fromValues(uCoords[i], spec.texInfo.beginV);
-        return { position: p, texcoord };
-      }
-
-      return { position: p };
-    });
-    endRing = spec.end.map((p, i) => {
-      if (spec.texInfo) {
-        const texcoord = vec2.fromValues(uCoords[i], spec.texInfo.endV);
-        return { position: p, texcoord };
-      }
-
-      return { position: p };
-    });
-  }
+    return { position: p };
+  });
 
   // add an extra element for wrap around
   const topRingIndexes: number[] = [
@@ -117,14 +85,14 @@ export const generateTube = (spec: TubeSpec): PrimitiveBlueprint => {
     segments,
   ];
 
-  const polygons: [number, number, number][] = flatten(
-    Array.from({ length: segments }).map((x, i) => {
+  const polygons: [number, number, number][] = Array.from({ length: segments })
+    .map((x, i): [number, number, number][] => {
       return [
         [bottomRingIndexes[i], topRingIndexes[i + 1], topRingIndexes[i]],
         [bottomRingIndexes[i], bottomRingIndexes[i + 1], topRingIndexes[i + 1]],
       ];
-    }),
-  );
+    })
+    .flat();
 
   return {
     polygons,

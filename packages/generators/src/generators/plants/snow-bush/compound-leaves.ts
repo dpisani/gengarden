@@ -1,18 +1,18 @@
-import { prng } from "seedrandom";
-import { flatMap } from "lodash";
-import { vec3 } from "gl-matrix";
 import Bezier from "bezier-js";
+import { vec3 } from "gl-matrix";
+import { flatMap } from "lodash-es";
+import { prng } from "seedrandom";
 
-import { NormalisedCurve } from "../../util/curves";
+import { quat } from "gl-matrix";
 import {
   generateOppositeStemArrangement,
   PlacementScheme,
-} from "../../stem-arrangement/opposite-arrangement";
-import { quat } from "gl-matrix";
-import { clamp, lerp, sampleInterval } from "../../util/math";
-import { KeypointStemAxisBlueprint } from "../../stem-axis/keypoint-stem-axis";
-import { StemAxisBlueprint } from "../../stem-axis";
-import generateStemAxis from "../../stem-axis/keypoint-stem-axis/generators/random-walk";
+} from "../../stem-arrangement/opposite-arrangement/index.ts";
+import { StemAxisBlueprint } from "../../stem-axis/index.ts";
+import generateStemAxis from "../../stem-axis/keypoint-stem-axis/generators/random-walk.ts";
+import { KeypointStemAxisBlueprint } from "../../stem-axis/keypoint-stem-axis/index.ts";
+import { NormalisedCurve } from "../../util/curves.ts";
+import { clamp, lerp, sampleInterval } from "../../util/math.ts";
 
 const STALKS_PER_LENGTH_UNIT = 3;
 const SEGMENTS_PER_STEM_LENGTH = 2;

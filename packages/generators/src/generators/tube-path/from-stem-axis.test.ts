@@ -1,7 +1,7 @@
-import { KeypointStemAxisBlueprint } from "../stem-axis/keypoint-stem-axis";
 import { vec3 } from "gl-matrix";
 import { stub } from "sinon";
-import { generateTubePathFromStemAxis } from "./from-stem-axis";
+import { KeypointStemAxisBlueprint } from "../stem-axis/keypoint-stem-axis/index.ts";
+import { generateTubePathFromStemAxis } from "./from-stem-axis.ts";
 
 describe("stem axis model generator", () => {
   it("generates texture coordinates", () => {

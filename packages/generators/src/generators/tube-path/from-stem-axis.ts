@@ -1,33 +1,35 @@
 import {
-  Node,
-  Texture,
   Material,
   MetallicRoughness,
+  Texture,
   TextureInfo,
 } from "gltf-builder";
-import { KeypointStemAxisBlueprint } from "../stem-axis/keypoint-stem-axis/index";
+import { KeypointStemAxisBlueprint } from "../stem-axis/keypoint-stem-axis/index.ts";
 
-import { generateTubePath as generateTubePathDI } from ".";
-import { identity } from "lodash";
-import { generateMesh } from "../mesh";
+import { identity } from "lodash-es";
+import { MeshBlueprint } from "../mesh/index.ts";
+import {
+  TubePathSpec,
+  generateTubePath as generateTubePathDI,
+} from "./index.ts";
 
 const defaultTexcoordGenerators = {
   vCoordMap: identity,
 };
 
-export interface GeneratorProps {
+export type GeneratorProps = {
   texture?: Texture;
   texcoordGeneration?: {
     // Maps position [0,1] to texcoord V values [0,1]
     vCoordMap: (number) => number;
   };
   generateTubePath?: typeof generateTubePathDI;
-}
+} & Pick<TubePathSpec, "generateEndCap" | "generateStartCap" | "numSides">;
 
 export const generateTubePathFromStemAxis = (
   axis: KeypointStemAxisBlueprint,
   options?: GeneratorProps,
-): Node => {
+): MeshBlueprint => {
   const {
     texture,
     texcoordGeneration = defaultTexcoordGenerators,
@@ -39,6 +41,9 @@ export const generateTubePathFromStemAxis = (
       ...k,
       texV: texcoordGeneration.vCoordMap(axis.getBranchPositionAtSegment(i)),
     })),
+    generateEndCap: options?.generateEndCap,
+    generateStartCap: options?.generateStartCap,
+    numSides: options?.numSides,
   });
 
   if (texture) {
@@ -54,5 +59,5 @@ export const generateTubePathFromStemAxis = (
     }));
   }
 
-  return new Node().mesh(generateMesh(tubePath));
+  return tubePath;
 };

@@ -1,6 +1,6 @@
 import { Node } from "gltf-builder";
 
-import { GeneratorDefinition, TaggedSpec } from "../../types";
+import { GeneratorDefinition, TaggedSpec } from "../../types/index.ts";
 
 interface GroupSpec {
   name?: string;

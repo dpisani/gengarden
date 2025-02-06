@@ -1,4 +1,4 @@
-import { ParticleManipulator } from "../particle-system";
+import { ParticleManipulator } from "../particle-system.ts";
 import { vec3 } from "gl-matrix";
 
 interface ConstantForceParticle {

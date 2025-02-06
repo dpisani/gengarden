@@ -1,12 +1,11 @@
-import { KeypointStemAxisBlueprint } from "..";
-import { vec3 } from "gl-matrix";
-import { prng } from "seedrandom";
-import { BoundingVolume } from "../../../../bounding-volumes/types";
-import { createDeviation } from "../../../util/create-devitaion";
-import { quat } from "gl-matrix";
 import Bezier from "bezier-js";
-import { NormalisedCurve } from "../../../util/curves";
-import { getRandom } from "../../../util/math";
+import { quat, vec3 } from "gl-matrix";
+import { prng } from "seedrandom";
+import { BoundingVolume } from "../../../../bounding-volumes/types.ts";
+import { createDeviation } from "../../../util/create-devitaion.ts";
+import { NormalisedCurve } from "../../../util/curves.ts";
+import { getRandom } from "../../../util/math.ts";
+import { KeypointStemAxisBlueprint } from "../index.ts";
 
 export interface StemSpec {
   start: vec3;

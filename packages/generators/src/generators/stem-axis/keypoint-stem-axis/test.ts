@@ -1,4 +1,4 @@
-import { KeypointStemAxisBlueprint } from "./index";
+import { KeypointStemAxisBlueprint } from "./index.ts";
 import { vec3 } from "gl-matrix";
 
 import "should";

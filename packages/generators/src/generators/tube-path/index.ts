@@ -1,9 +1,10 @@
 import { mat4, vec3 } from "gl-matrix";
 
-import { zip } from "lodash";
-import { generateTube as generateTubeDI } from "../tube";
-import createRing from "../util/create-ring";
-import { MeshBlueprint, PrimitiveBlueprint } from "../mesh";
+import { zip } from "lodash-es";
+import { triangulateBoundary } from "../leaves/keypoint-leaflet/triangulate-boundary/index.ts";
+import { MeshBlueprint, PrimitiveBlueprint } from "../mesh/index.ts";
+import { generateTube as generateTubeDI } from "../tube/index.ts";
+import createRing from "../util/create-ring.ts";
 
 interface PathSegment {
   position: vec3;
@@ -11,8 +12,14 @@ interface PathSegment {
   texV?: number;
 }
 
-interface TubePathSpec {
+export interface TubePathSpec {
   segments: PathSegment[];
+  /** Whether to generate polygons to close the beginning of the tube */
+  generateStartCap?: boolean;
+  /** Whether to generate polygons to close the end of the tube */
+  generateEndCap?: boolean;
+  /** How many sides the tube will have */
+  numSides?: number;
 }
 
 export interface InjectedDependencies {
@@ -61,7 +68,7 @@ export function generateTubePath(
   // just re use the second normal
   ringNormals[0] = ringNormals[1];
 
-  const ringProto = createRing({ plane: "xy" });
+  const ringProto = createRing({ plane: "xy", numPoints: spec.numSides });
 
   const rings: vec3[][] = zip(ringNormals, spec.segments).map(
     ([n, segment]) => {
@@ -115,6 +122,29 @@ export function generateTubePath(
         texInfo,
       }),
     );
+  }
+
+  // Generate end caps
+  if (spec.generateStartCap) {
+    const discCapPrimitiveBP = triangulateBoundary(
+      rings[0].map((position) => ({
+        position,
+      })),
+      vec3.negate(vec3.create(), ringNormals[0]),
+    );
+
+    primitives.push(discCapPrimitiveBP);
+  }
+
+  if (spec.generateEndCap) {
+    const discCapPrimitiveBP = triangulateBoundary(
+      rings[rings.length - 1].map((position) => ({
+        position,
+      })),
+      ringNormals[rings.length - 1],
+    );
+
+    primitives.push(discCapPrimitiveBP);
   }
 
   return {

@@ -1,1 +1,1 @@
-export * from "./snow-bush";
+export * from "./snow-bush/index.ts";

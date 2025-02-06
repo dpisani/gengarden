@@ -1,13 +1,22 @@
-import { StoryObj } from '@storybook/html';
-import generateSnowBush from './index';
+import { Meta, StoryObj } from "@storybook/html";
 import {
   GLTFStoryArgs,
   defaultGLTFStoryMeta,
   renderGltfStory,
-} from '../../util/storybook/render-gltf-story';
+} from "../../../storybook/render-gltf-story.ts";
+import generateSnowBush from "./index.ts";
 
-export default { ...defaultGLTFStoryMeta };
+const meta: Meta<GLTFStoryArgs & { randomSeed: string }> = {
+  ...defaultGLTFStoryMeta,
+  render: ({ randomSeed, ...args }) =>
+    renderGltfStory(generateSnowBush({ randomSeed }))(args),
+};
 
-export const SnowBush: StoryObj<GLTFStoryArgs> = {
-  render: renderGltfStory(generateSnowBush({ randomSeed: 'seed1' })),
+export default meta;
+
+export const SnowBush: StoryObj<GLTFStoryArgs & { randomSeed: string }> = {
+  args: {
+    cameraPosition: [0, 1.2, 3],
+    randomSeed: "seed1",
+  },
 };

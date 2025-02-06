@@ -1,6 +1,6 @@
 import { Node } from "gltf-builder";
-import { generateSimpleLeafletBlueprint } from "../../../leaves/keypoint-leaflet/generators/simple-leaflet";
-import { generateLeafletModel } from "../../../leaves/keypoint-leaflet/model";
+import { generateSimpleLeafletBlueprint } from "../../../leaves/keypoint-leaflet/generators/simple-leaflet.ts";
+import { generateLeafletModel } from "../../../leaves/keypoint-leaflet/model.ts";
 
 export const generateLeafModel = ({ size }: { size: number }): Node => {
   // Expressed as a ratio of the total size

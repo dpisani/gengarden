@@ -1,5 +1,5 @@
 import { createCanvas } from "canvas";
-import { getCanvasBuffer } from "../../../util/get-canvas-buffer";
+import { getCanvasBuffer } from "../../../util/get-canvas-buffer.ts";
 
 export interface SnowBushLeafTextureGeneratorSpec {
   size: number;
@@ -7,7 +7,7 @@ export interface SnowBushLeafTextureGeneratorSpec {
 
 export const generateSnowBushLeafTexture = ({
   size,
-}: SnowBushLeafTextureGeneratorSpec): Promise<Buffer | ArrayBuffer> => {
+}: SnowBushLeafTextureGeneratorSpec): Promise<ArrayBuffer> => {
   const canvas = createCanvas(size, size);
   const ctx = canvas.getContext("2d");
 

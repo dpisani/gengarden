@@ -1,46 +1,55 @@
-import { Node, Material, MetallicRoughness, TextureInfo } from "gltf-builder";
-import { KeypointLeafletBlueprint } from "./blueprint";
-import { generateTubePathFromStemAxis } from "../../tube-path/from-stem-axis";
-import { KeypointStemAxisBlueprint } from "../../stem-axis/keypoint-stem-axis";
-import { triangulateBoundary } from "./triangulate-boundary";
-import { generateMesh, PrimitiveBlueprint } from "../../mesh";
+import { Material, MetallicRoughness, Node, TextureInfo } from "gltf-builder";
+import { reversePrimitiveWinding } from "../../../spatial-utils/reverse-primitive-winding.ts";
+import { generateMesh, PrimitiveBlueprint } from "../../mesh/index.ts";
+import { KeypointStemAxisBlueprint } from "../../stem-axis/keypoint-stem-axis/index.ts";
+import { generateTubePathFromStemAxis } from "../../tube-path/from-stem-axis.ts";
+import {
+  KeypointBladeBlueprint,
+  KeypointLeafletBlueprint,
+} from "./blueprint.ts";
+import { triangulateBoundary } from "./triangulate-boundary/index.ts";
 
 export const generateLeafletModel = (
   leaflet: KeypointLeafletBlueprint,
 ): Node => {
-  const stemNode = generateTubePathFromStemAxis(
-    KeypointStemAxisBlueprint.fromStemAxisBlueprint(leaflet.stem),
+  const stemMesh = generateMesh(
+    generateTubePathFromStemAxis(
+      KeypointStemAxisBlueprint.fromStemAxisBlueprint(leaflet.stem),
+    ),
   );
 
-  const node = new Node().addChild(stemNode);
+  const node = new Node().mesh(stemMesh);
 
-  for (const boundary of leaflet.bladeBoundaries) {
+  node.addChild(generateLeafBladeModel(leaflet));
+
+  return node;
+};
+
+export const generateLeafBladeModel = (
+  bladeBp: KeypointBladeBlueprint,
+): Node => {
+  const node = new Node();
+
+  for (const boundary of bladeBp.bladeBoundaries) {
     const meshBp = triangulateBoundary(boundary);
 
-    if (leaflet.bladeTexture) {
+    if (bladeBp.bladeTexture) {
       const material = new Material().metallicRoughness(
         new MetallicRoughness().baseColorTexture(
-          new TextureInfo().texture(leaflet.bladeTexture),
+          new TextureInfo().texture(bladeBp.bladeTexture),
         ),
       );
 
       meshBp.material = material;
     }
 
-    node.addChild(generateLeafBladeModel(meshBp));
+    // Create models for the top side and underside
+    const undersideBp: PrimitiveBlueprint = reversePrimitiveWinding(meshBp);
+
+    return node
+      .addChild(new Node().mesh(generateMesh(meshBp)))
+      .addChild(new Node().mesh(generateMesh(undersideBp)));
   }
 
   return node;
-};
-
-const generateLeafBladeModel = (meshBp: PrimitiveBlueprint): Node => {
-  // Create models for the top side and underside
-  const undersideBp: PrimitiveBlueprint = {
-    ...meshBp,
-    polygons: meshBp.polygons.map(([a, b, c]) => [c, b, a]),
-  };
-
-  return new Node()
-    .addChild(new Node().mesh(generateMesh(meshBp)))
-    .addChild(new Node().mesh(generateMesh(undersideBp)));
 };

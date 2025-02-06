@@ -1,14 +1,14 @@
+import { mat4, quat, vec3 } from "gl-matrix";
 import { Node } from "gltf-builder";
-import { KeypointStemAxisBlueprint } from "../../../stem-axis/keypoint-stem-axis";
-import { generateSpiralArrangementBlueprint } from "../../../stem-arrangement/spiral-arrangement/spiral-arrangement";
-import { sampleInterval } from "../../../util/math";
-import { generateTubePathFromStemAxis } from "../../../tube-path/from-stem-axis";
-import { generateLeafModel } from "./leaf";
-import { mat4 } from "gl-matrix";
-import { vec3 } from "gl-matrix";
-import { UP_VECTOR } from "../../../../spatial-utils/vector-util";
-import { quat } from "gl-matrix";
 import { prng } from "seedrandom";
+import { UP_VECTOR } from "../../../../spatial-utils/vector-util.ts";
+import { generateMesh } from "../../../mesh/index.ts";
+import { generateSpiralArrangementBlueprint } from "../../../stem-arrangement/spiral-arrangement/spiral-arrangement.ts";
+import { KeypointStemAxisBlueprint } from "../../../stem-axis/keypoint-stem-axis/index.ts";
+import { generateTubePathFromStemAxis } from "../../../tube-path/from-stem-axis.ts";
+import { sampleInterval } from "../../../util/math.ts";
+import { generateFlowerModel } from "./flower.ts";
+import { generateLeafModel } from "./leaf.ts";
 
 const LEAF_DENSITY = 60;
 
@@ -61,7 +61,36 @@ export const generateStemModel = ({
     model.addChild(leafModel);
   }
 
-  model.addChild(generateTubePathFromStemAxis(axis));
+  // add flower at the end
+  const terminalNode = axis.getAxisInfoAt(1);
+
+  const flowerRotation = mat4.targetTo(
+    mat4.create(),
+    vec3.create(),
+    terminalNode.axisDirection,
+    UP_VECTOR,
+  );
+
+  const flowerTranslation = mat4.fromTranslation(
+    mat4.create(),
+    terminalNode.position,
+  );
+  const flowerMatrix = mat4.mul(
+    mat4.create(),
+    flowerTranslation,
+    flowerRotation,
+  );
+
+  const flowerModel = generateFlowerModel({
+    size: terminalNode.width * 20,
+    petals: 35,
+    spiralLevel: 8,
+    rng,
+  }).matrix(flowerMatrix);
+
+  model
+    .mesh(generateMesh(generateTubePathFromStemAxis(axis)))
+    .addChild(flowerModel);
 
   return model;
 };

@@ -1,20 +1,18 @@
 import { ArgTypes, Meta } from "@storybook/html";
 import { Asset, Node, Scene } from "gltf-builder";
 
-export type GLTFStoryArgs = {
+export type GLTFStoryArgs<ExtraArgs extends Record<string, any> = {}> = {
   showGuideBox: boolean;
-  guideBoxSize: string[];
+  guideBoxSize: [number, number, number];
   showBasePlane: boolean;
-  cameraPosition: string[];
-  rotate: boolean;
-};
+  cameraPosition: [number, number, number];
+} & ExtraArgs;
 
 export const defaultGLTFStoryArgs: GLTFStoryArgs = {
-  cameraPosition: ["0", "1.6", "2"],
+  cameraPosition: [0, 1.6, 2],
   showBasePlane: true,
   showGuideBox: false,
-  guideBoxSize: ["1", "1", "1"],
-  rotate: true,
+  guideBoxSize: [1, 1, 1],
 };
 
 export const gltfStoryArgTypes: ArgTypes<GLTFStoryArgs> = {
@@ -24,7 +22,6 @@ export const gltfStoryArgTypes: ArgTypes<GLTFStoryArgs> = {
   showGuideBox: { control: { type: "boolean" } },
   guideBoxSize: { control: { type: "object" } },
   showBasePlane: { control: { type: "boolean" } },
-  rotate: { control: { type: "boolean" } },
 };
 
 export const defaultGLTFStoryMeta: Meta<GLTFStoryArgs> = {
@@ -41,7 +38,6 @@ export const renderGltfStory =
     guideBoxSize,
     showBasePlane,
     cameraPosition,
-    rotate,
   }: GLTFStoryArgs) => {
     const element = document.createElement("div");
 
@@ -70,13 +66,13 @@ export const renderGltfStory =
       const scene = clone.querySelector("a-scene");
 
       // Set camera
-      const [xS, yS, zS] = cameraPosition;
-      const x = Number.parseFloat(xS);
-      const y = Number.parseFloat(yS);
-      const z = Number.parseFloat(zS);
+      const [x, y, z] = cameraPosition;
 
-      const camera = scene?.querySelector("#rig");
-      camera?.setAttribute("position", `${x} ${y} ${z}`);
+      const camera = scene?.querySelector("#camera");
+      camera?.setAttribute(
+        "orbit-controls",
+        `autoRotate: false; autoRotateSpeed: 0.7; target: 0 0 0; minDistance: 0.5; maxDistance: 180; initialPosition: ${x} ${y} ${z}`,
+      );
 
       clone
         ?.querySelector("a-plane#base-plane")
@@ -84,10 +80,7 @@ export const renderGltfStory =
 
       if (showGuideBox) {
         const guideBox = document.createElement("a-box");
-        const [w, h, d] = guideBoxSize;
-        const width = Number.parseFloat(w);
-        const height = Number.parseFloat(h);
-        const depth = Number.parseFloat(d);
+        const [width, height, depth] = guideBoxSize;
         guideBox.setAttribute("width", `${width}`);
         guideBox.setAttribute("depth", `${depth}`);
         guideBox.setAttribute("height", `${height}`);
@@ -100,14 +93,12 @@ export const renderGltfStory =
         scene?.appendChild(guideBox);
       }
 
-      if (rotate) {
-        scene
-          ?.querySelector("a-entity#model")
-          ?.setAttribute(
-            "animation",
-            "property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear",
-          );
-      }
+      scene
+        ?.querySelector("a-entity#model")
+        ?.setAttribute(
+          "animation",
+          "property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear; resumeEvents: mouseleave; pauseEvents: mouseenter",
+        );
 
       element.appendChild(clone);
     });

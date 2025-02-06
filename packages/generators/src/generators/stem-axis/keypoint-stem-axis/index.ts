@@ -1,7 +1,7 @@
-import { StemAxisBlueprint } from "../index";
+import { StemAxisBlueprint } from "../index.ts";
 import { vec3 } from "gl-matrix";
 
-import { lerp, sampleInterval } from "../../util/math";
+import { lerp, sampleInterval } from "../../util/math.ts";
 
 interface KeyPoint {
   position: vec3;
@@ -32,6 +32,10 @@ export class KeypointStemAxisBlueprint implements StemAxisBlueprint {
     this.length = length;
   }
 
+  /**
+   * Returns info about the stem at a given point along the axis
+   * @param position A number in the range [0,1] determining how far along the stem to sample
+   */
   public getAxisInfoAt = (
     position: number,
   ): {

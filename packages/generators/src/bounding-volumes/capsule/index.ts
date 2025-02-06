@@ -1,7 +1,7 @@
 // Represents a sphere swept along a line segment
 
 import { vec3 } from "gl-matrix";
-import { BoundingVolume } from "../types";
+import { BoundingVolume } from "../types.ts";
 
 export default class BoundingBox implements BoundingVolume {
   private start: vec3;

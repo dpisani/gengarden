@@ -1,5 +1,5 @@
-import { generateSnowBushLeafTexture } from "./leaf-texture";
-import { renderTextureStory } from "../../../util/storybook/render-texture-story";
+import { renderTextureStory } from "../../../../storybook/render-texture-story.ts";
+import { generateSnowBushLeafTexture } from "./leaf-texture.ts";
 
 export default {};
 

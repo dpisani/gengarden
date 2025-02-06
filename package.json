@@ -4,14 +4,14 @@
   "description": "Procedurally generated gardens",
   "repository": "git@github.com:dpisani/gengarden.git",
   "author": "dpisani <dean.a.pisani@gmail.com>",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
     "build": "tsc --build",
-    "test": "mocha",
+    "test": "mocha --node-option=enable-source-maps",
     "storybook": "npm run storybook --workspace=@gengarden/generators",
     "build-storybook": "npm run build-storybook --workspace=@gengarden/generators",
     "format": "prettier --write \"packages/*/src/**/*.ts\"",
@@ -29,6 +29,6 @@
     "eslint": "^7.15.0",
     "eslint-plugin-import": "^2.22.1",
     "prettier": "^1.15.3",
-    "typescript": "^5.5.4"
+    "typescript": "^5.7.3"
   }
 }

@@ -1,1 +1,1 @@
-export * from "./plants";
+export * from "./plants/index.ts";

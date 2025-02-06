@@ -1,8 +1,8 @@
-import { StemAxisBlueprint } from "../../stem-axis";
 import { prng } from "seedrandom";
-import { createDeviation } from "../../util/create-devitaion";
-import { StemArrangementBlueprint } from "..";
-import { getRandom } from "../../util/math";
+import { StemAxisBlueprint } from "../../stem-axis/index.ts";
+import { createDeviation } from "../../util/create-devitaion.ts";
+import { getRandom } from "../../util/math.ts";
+import { StemArrangementBlueprint } from "../index.ts";
 
 /**
  * A branching arrangement where nodes are placed randomly within a permitted deviation range

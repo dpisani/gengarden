@@ -16,9 +16,12 @@
       style="height: 100%"
     >
       <a-assets> <a-asset-item id="model"></a-asset-item> </a-assets>
-      <a-entity id="rig" position="0 1.6 2">
-        <a-camera id="camera" look-controls wasd-controls></a-camera>
-      </a-entity>
+      <a-entity
+      id="camera"
+      camera
+      look-controls
+    ></a-entity>
+      <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
       <a-entity light="type: ambient; color: #444"></a-entity>
       <a-entity
         light="type: directional; color: #FFF; intensity: 1.7"

@@ -7,14 +7,14 @@
     "build/lib/**/*"
   ],
   "author": "Dean Pisani <dean.a.pisani@gmail.com>",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^1.6.1",
     "@storybook/addon-essentials": "^8.2.7",
     "@storybook/addon-interactions": "^8.2.7",
     "@storybook/addon-links": "^8.2.7",
@@ -24,29 +24,28 @@
     "@storybook/test": "^8.2.7",
     "@types/bezier-js": "^0.0.8",
     "@types/gaussian": "^1.1.1",
-    "@types/gl-matrix": "^2.4.4",
-    "@types/lodash": "^4.14.119",
     "@types/mocha": "^7.0.1",
     "@types/node": "^13.9.2",
     "@types/seedrandom": "^2.4.27",
     "@types/should": "^13.0.0",
     "@types/sinon": "^9.0.4",
     "aframe": "^1.6.0",
+    "aframe-orbit-controls": "^1.3.2",
     "glob-run": "^0.1.7",
     "mocha": "^7.0.1",
     "nodemon": "^1.19.1",
     "prettier": "^3.3.3",
     "should": "^13.2.3",
-    "sinon": "^9.0.2",
+    "sinon": "^19.0.2",
     "storybook": "^8.2.7"
   },
   "dependencies": {
     "bezier-js": "^2.5.1",
     "canvas": "^2.11.2",
     "gaussian": "^1.1.0",
-    "gl-matrix": "^2.8.1",
-    "gltf-builder": "^0.7.1",
-    "lodash": "^4.17.11",
+    "gl-matrix": "^3.4.3",
+    "gltf-builder": "^0.9.0",
+    "lodash-es": "^4.17.21",
     "seedrandom": "^2.4.4",
     "tess2": "^1.0.0"
   }

@@ -3,12 +3,12 @@ import {
   Material,
   Mesh,
   Primitive,
-  buildVec3Accessor,
   buildUIntAccessor,
   buildVec2Accessor,
+  buildVec3Accessor,
 } from "gltf-builder";
 
-import { flatten } from "lodash";
+import { flatten } from "lodash-es";
 
 export interface PrimitiveVertex {
   position: vec3;

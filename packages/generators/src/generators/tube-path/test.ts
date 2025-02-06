@@ -1,7 +1,7 @@
 import "should";
 import { stub } from "sinon";
 
-import { generateTubePath } from "./index";
+import { generateTubePath } from "./index.ts";
 import { vec3 } from "gl-matrix";
 
 describe("tube path generator", () => {

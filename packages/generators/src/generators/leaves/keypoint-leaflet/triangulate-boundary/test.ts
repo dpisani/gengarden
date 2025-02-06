@@ -1,4 +1,4 @@
-import { triangulateBoundary } from "./index";
+import { triangulateBoundary } from "./index.ts";
 import { vec3 } from "gl-matrix";
 import "should";
 

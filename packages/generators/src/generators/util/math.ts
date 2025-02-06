@@ -18,12 +18,12 @@ export const getRandom = (min: number, max: number, rng: prng): number => {
 export const lerp = (a: number, b: number, t: number): number =>
   a + t * (b - a);
 
-// Divides a range into a set of points spaced across the interval [a, b].
-// A custom point lookup function can be provided which should be a mapping from [0,1] => [0,1]. Defaults to the identity function
+/** Divides a range into a set of points spaced across the interval [a, b]. */
 export const sampleInterval = (
   a: number,
   b: number,
   steps: number,
+  /** A custom point lookup function can be provided which should be a mapping from [0,1] => [0,1]. Defaults to the identity function */
   lookupFn?: (t: number) => number,
 ): number[] => {
   const lookup = lookupFn || ((x) => x);

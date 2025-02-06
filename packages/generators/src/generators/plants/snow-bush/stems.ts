@@ -1,16 +1,17 @@
-import { vec3 } from "gl-matrix";
-import { prng } from "seedrandom";
-import { Node, buildTextureFromArrayBuffer, Sampler } from "gltf-builder";
 import gaussian from "gaussian";
+import { vec3 } from "gl-matrix";
+import { buildTextureFromArrayBuffer, Node, Sampler } from "gltf-builder";
+import { prng } from "seedrandom";
 
-import { clamp, getRandomInt } from "../../util/math";
-import { flatMap } from "lodash";
-import { KeypointStemAxisBlueprint } from "../../stem-axis/keypoint-stem-axis";
-import generateStemAxis from "../../stem-axis/keypoint-stem-axis/generators/random-walk";
-import { StemAxisBlueprint } from "../../stem-axis";
-import generateScatteredStemArrangement from "../../stem-arrangement/scattered-arrangement";
-import { generateTubePathFromStemAxis } from "../../tube-path/from-stem-axis";
-import { generateSnowBushStemTexture } from "./textures/stem-texture";
+import { flatMap } from "lodash-es";
+import { generateMesh } from "../../mesh/index.ts";
+import generateScatteredStemArrangement from "../../stem-arrangement/scattered-arrangement/index.ts";
+import { StemAxisBlueprint } from "../../stem-axis/index.ts";
+import generateStemAxis from "../../stem-axis/keypoint-stem-axis/generators/random-walk.ts";
+import { KeypointStemAxisBlueprint } from "../../stem-axis/keypoint-stem-axis/index.ts";
+import { generateTubePathFromStemAxis } from "../../tube-path/from-stem-axis.ts";
+import { clamp, getRandomInt } from "../../util/math.ts";
+import { generateSnowBushStemTexture } from "./textures/stem-texture.ts";
 
 const SEGMENTS_PER_BRANCH_LENGTH = 2;
 const MAIN_BRANCH_LENGTH = 4.5;
@@ -45,7 +46,7 @@ export const generateStemModel = async ({
   blueprints,
 }: {
   blueprints: KeypointStemAxisBlueprint[];
-}) => {
+}): Promise<Node> => {
   const model = new Node();
 
   const textureData = await generateSnowBushStemTexture({ size: 32 });
@@ -59,7 +60,11 @@ export const generateStemModel = async ({
   texture.sampler(sampler);
 
   for (let bp of blueprints) {
-    model.addChild(generateTubePathFromStemAxis(bp, { texture }));
+    model.addChild(
+      new Node().mesh(
+        generateMesh(generateTubePathFromStemAxis(bp, { texture })),
+      ),
+    );
   }
 
   return model;

@@ -1,9 +1,9 @@
-import { generateOppositeStemArrangement, PlacementScheme } from "./index";
-import { StemAxisBlueprint } from "../../stem-axis";
+import assert from "assert";
 import { vec3 } from "gl-matrix";
 import { prng } from "seedrandom";
-import assert from "assert";
 import "should";
+import { StemAxisBlueprint } from "../../stem-axis/index.ts";
+import { generateOppositeStemArrangement, PlacementScheme } from "./index.ts";
 
 const createMockRng = (): prng => {
   const rng = () => 0.5;

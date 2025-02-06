@@ -1,5 +1,5 @@
 import { vec3 } from "gl-matrix";
-import { StemAxisBlueprint } from "../stem-axis";
+import { StemAxisBlueprint } from "../stem-axis/index.ts";
 
 export interface StemNode {
   position: vec3;

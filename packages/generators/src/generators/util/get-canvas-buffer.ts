@@ -2,7 +2,7 @@ import { Canvas } from "canvas";
 
 export const getCanvasBuffer = (
   canvas: Canvas | HTMLCanvasElement,
-): Promise<Buffer | ArrayBuffer> => {
+): Promise<ArrayBuffer> => {
   if (canvas instanceof HTMLCanvasElement) {
     return new Promise((resolve, reject) => {
       canvas.toBlob((value) => {
@@ -15,5 +15,5 @@ export const getCanvasBuffer = (
     });
   }
 
-  return Promise.resolve(canvas.toBuffer());
+  return Promise.resolve(canvas.toBuffer().buffer);
 };

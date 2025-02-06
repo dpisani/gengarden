@@ -1,19 +1,27 @@
 import { Node } from "gltf-builder";
-import getRandomGenerator from "../../util/get-random-generator";
-import { generateStemAxes } from "./blueprint/stem";
-import { generateStemModel } from "./model/stem";
+import getRandomGenerator from "../../util/get-random-generator.ts";
+import { generateStemAxes } from "./blueprint/stem.ts";
+import { generateStemModel } from "./model/stem.ts";
 
-interface RosySunraySpec {
+export interface RosySunraySpec {
   randomSeed?: string;
+  mainStems?: number;
+  growthFactor?: number;
 }
 
 export const generateRosySunray = ({
   randomSeed: seed,
+  mainStems,
+  growthFactor,
 }: RosySunraySpec): Node => {
   const rng = getRandomGenerator(seed);
 
   // create stems
-  const stemAxes = generateStemAxes(rng);
+  const stemAxes = generateStemAxes({
+    rng,
+    mainStems,
+    growthFactor,
+  });
 
   const model = new Node();
 

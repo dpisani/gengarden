@@ -1,14 +1,14 @@
-import { KeypointStemAxisBlueprint } from "../../../stem-axis/keypoint-stem-axis";
+import { vec3 } from "gl-matrix";
+import { prng } from "seedrandom";
+import { angleToVec } from "../../../../spatial-utils/angle-to-vec.ts";
 import {
   BasicMotionParticle,
   basicMotionManipulator,
-} from "../../../../spatial-utils/particle-system/manipulators/basic-motion-manipulator";
-import { angleToVec } from "../../../../spatial-utils/angle-to-vec";
-import { vec3 } from "gl-matrix";
-import { ParticleSystem } from "../../../../spatial-utils/particle-system/particle-system";
-import { makeConstantForceManipulator } from "../../../../spatial-utils/particle-system/manipulators/constant-force-manipulator";
-import { prng } from "seedrandom";
-import { getRandomInt } from "../../../util/math";
+} from "../../../../spatial-utils/particle-system/manipulators/basic-motion-manipulator.ts";
+import { makeConstantForceManipulator } from "../../../../spatial-utils/particle-system/manipulators/constant-force-manipulator.ts";
+import { ParticleSystem } from "../../../../spatial-utils/particle-system/particle-system.ts";
+import { KeypointStemAxisBlueprint } from "../../../stem-axis/keypoint-stem-axis/index.ts";
+import { getRandomInt } from "../../../util/math.ts";
 
 const createParticle = (position: vec3, rng: prng) => {
   const a = rng() * Math.PI * 2;
@@ -24,8 +24,16 @@ const createParticle = (position: vec3, rng: prng) => {
   };
 };
 
-export const generateStemAxes = (rng: prng): KeypointStemAxisBlueprint[] => {
-  const numL1Particles = 6;
+export const generateStemAxes = ({
+  rng,
+  mainStems,
+  growthFactor,
+}: {
+  rng: prng;
+  mainStems?: number;
+  growthFactor?: number;
+}): KeypointStemAxisBlueprint[] => {
+  const numL1Particles = mainStems ?? 6;
   const numL2Particles = getRandomInt(2, numL1Particles, rng);
 
   // Use a particle system to simulate stem growth
@@ -37,7 +45,9 @@ export const generateStemAxes = (rng: prng): KeypointStemAxisBlueprint[] => {
 
   const system = new ParticleSystem<BasicMotionParticle>({
     manipulators: [
-      makeConstantForceManipulator(vec3.fromValues(0, 0.003, 0)),
+      makeConstantForceManipulator(
+        vec3.fromValues(0, growthFactor ?? 0.003, 0),
+      ),
       basicMotionManipulator,
     ],
   });

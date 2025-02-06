@@ -1,5 +1,6 @@
-import type { Preview } from '@storybook/html';
+import type { Preview } from "@storybook/html";
 import "aframe";
+import "aframe-orbit-controls";
 
 const preview: Preview = {
   parameters: {
@@ -10,7 +11,6 @@ const preview: Preview = {
       },
     },
   },
-  // decorators: [(arg) => {}]
 };
 
 export default preview;

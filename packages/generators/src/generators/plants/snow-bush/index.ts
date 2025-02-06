@@ -1,15 +1,15 @@
 import { mat4, quat, vec3 } from "gl-matrix";
-import { Node, buildTextureFromArrayBuffer } from "gltf-builder";
+import { buildTextureFromArrayBuffer, Node } from "gltf-builder";
 
-import { generateStemBlueprints, generateStemModel } from "./stems";
-import { generateCompoundLeaves, LeafBlueprint } from "./compound-leaves";
+import { generateCompoundLeaves, LeafBlueprint } from "./compound-leaves.ts";
+import { generateStemBlueprints, generateStemModel } from "./stems.ts";
 
-import getRandomGenerator from "../../util/get-random-generator";
 import { prng } from "seedrandom";
-import { KeypointStemAxisBlueprint } from "../../stem-axis/keypoint-stem-axis";
-import { generateSimpleLeafletBlueprint } from "../../leaves/keypoint-leaflet/generators/simple-leaflet";
-import { generateLeafletModel } from "../../leaves/keypoint-leaflet/model";
-import { generateSnowBushLeafTexture } from "./textures/leaf-texture";
+import { generateSimpleLeafletBlueprint } from "../../leaves/keypoint-leaflet/generators/simple-leaflet.ts";
+import { generateLeafletModel } from "../../leaves/keypoint-leaflet/model.ts";
+import { KeypointStemAxisBlueprint } from "../../stem-axis/keypoint-stem-axis/index.ts";
+import getRandomGenerator from "../../util/get-random-generator.ts";
+import { generateSnowBushLeafTexture } from "./textures/leaf-texture.ts";
 
 const UP_VECTOR = vec3.fromValues(0, 1, 0);
 
